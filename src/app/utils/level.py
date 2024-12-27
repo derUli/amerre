@@ -388,7 +388,7 @@ class Level:
 
     def update_fade(self):
         """ Update fade """
-        if not LAYER_FADEOUT in self._scene:
+        if LAYER_FADEOUT not in self._scene:
             return
 
         if not any(self._scene[LAYER_FADEOUT]):

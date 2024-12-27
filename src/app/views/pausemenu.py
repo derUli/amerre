@@ -1,4 +1,5 @@
 """ Pause Menu """
+
 import logging
 
 import arcade
@@ -18,6 +19,7 @@ class PauseMenu(arcade.View):
 
     def __init__(self, previous_view: arcade.View):
         """ Constructor """
+
         super().__init__()
 
         self.previous_view = previous_view
@@ -36,6 +38,8 @@ class PauseMenu(arcade.View):
 
         @btn_continue.event("on_click")
         def on_click_btn_continue(event):
+            """ Continue button clicked """
+
             logging.debug(event)
             self.on_continue()
 
@@ -46,6 +50,8 @@ class PauseMenu(arcade.View):
 
         @btn_exit.event("on_click")
         def on_click_btn_exit(event):
+            """ Exit button clicked """
+
             logging.debug(event)
             self.on_exit()
 

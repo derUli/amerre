@@ -56,6 +56,8 @@ class Game(View):
             self._jump = False
 
     def on_fixed_update(self, delta_time: float):
+        """ On fixed update """
+
         self._level.update_fixed()
 
     def on_draw(self):
@@ -140,9 +142,10 @@ class Game(View):
         menu.setup(root_dir=self._root_dir)
         self.window.show_view(menu)
         self._level.on_pause()
-        return
 
     def on_continue(self) -> None:
+        """ On continue """
+
         self._level.on_continue()
 
     def unsetup(self) -> None:
