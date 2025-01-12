@@ -1,6 +1,5 @@
 """ The main menu """
 
-import logging
 import os
 import random
 import webbrowser
@@ -275,7 +274,6 @@ class MainMenu(View):
 
         for sprite in sprites:
             if sprite.collides_with_point((x, y)):
-
                 self._sound_hover.play(volume=self.window.audio_volumes.volume_sound)
 
                 self._last_hover = sprite

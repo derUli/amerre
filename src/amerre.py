@@ -5,6 +5,7 @@
 import logging
 import os
 import sys
+
 import pyglet
 from stopwatch import Stopwatch
 
@@ -17,7 +18,7 @@ else:
 
 from app.startup import Startup
 
-stopwatch = Stopwatch() # Start a stopwatch
+stopwatch = Stopwatch()  # Start a stopwatch
 stopwatch.start()
 
 try:

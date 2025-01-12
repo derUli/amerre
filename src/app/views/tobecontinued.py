@@ -1,7 +1,6 @@
 """ To be continued screen """
 
 import arcade
-from arcade import TileMap
 
 from app.constants.fonts import FONT_MARKER_FELT
 from app.constants.input.controllers import KEY_START
@@ -58,7 +57,6 @@ class ToBeContinued(View):
 
         for effect in self._effects:
             effect.setup(self._scene, None, root_dir)
-
 
         return self
 

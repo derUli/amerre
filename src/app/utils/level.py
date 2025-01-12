@@ -20,7 +20,6 @@ from app.effects.particles import Particles
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
-
 from app.views.tobecontinued import ToBeContinued
 
 VIEWPORT_BASE_H = 1440
@@ -47,6 +46,7 @@ VOLUME_ATMO_MODIFIER = 0.1
 
 WHITE = arcade.csscolor.WHITE
 
+
 class Level:
     """ Level """
 
@@ -66,7 +66,6 @@ class Level:
 
         self._root_dir = None
 
-
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
 
@@ -84,7 +83,6 @@ class Level:
         music_file = os.path.join(root_dir, 'resources', 'music', 'BeforeDawn.mp3')
         music = arcade.load_sound(music_file, streaming=audio_volumes.streaming)
         self._music = music.play(volume=audio_volumes.volume_music * VOLUME_MUSIC_MODIFIER)
-
 
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
         if os.path.exists(atmo_file):
@@ -413,4 +411,3 @@ class Level:
                 arcade.get_window().show_view(
                     ToBeContinued().setup(self._root_dir)
                 )
-
