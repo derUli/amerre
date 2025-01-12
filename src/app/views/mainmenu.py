@@ -212,7 +212,7 @@ class MainMenu(View):
 
                     view = Game()
                     view.setup(self._root_dir)
-                    view.setup_level(MAPS[1])
+                    view.setup_level(MAPS[0])
 
                     self.window.show_view(view)
 
