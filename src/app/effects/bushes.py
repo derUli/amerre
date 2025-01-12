@@ -21,7 +21,10 @@ class Bushes(Effect):
         @param delta_time: Float
         """
 
-        sprites = self._scene[LAYER_BUSH]
+        try:
+            sprites = self._scene[LAYER_BUSH]
+        except arcade.scene.SceneKeyError:
+            return
 
         collides = False
         player = self._scene[LAYER_PLAYER][0]

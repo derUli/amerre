@@ -85,9 +85,11 @@ class Level:
         music = arcade.load_sound(music_file, streaming=audio_volumes.streaming)
         self._music = music.play(volume=audio_volumes.volume_music * VOLUME_MUSIC_MODIFIER)
 
+
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
-        atmo = arcade.load_sound(atmo_file, streaming=audio_volumes.streaming)
-        self._atmo = atmo.play(volume=audio_volumes.volume_sound * VOLUME_ATMO_MODIFIER, loop=True)
+        if os.path.exists(atmo_file):
+            atmo = arcade.load_sound(atmo_file, streaming=audio_volumes.streaming)
+            self._atmo = atmo.play(volume=audio_volumes.volume_sound * VOLUME_ATMO_MODIFIER, loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
         self._voiceover_triggers = VoiceOverTiggers().setup(callbacks=callbacks)
