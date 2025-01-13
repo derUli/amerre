@@ -8,3 +8,4 @@
 * Tutorial
 
 * Gesetze -> Gerüchte Untertitel-Fehler korrigieren
+* "Miles" statt "Kilometers" in Englisch

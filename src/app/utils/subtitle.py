@@ -7,7 +7,7 @@ from arcade import SpriteList
 from app.constants.fonts import FONT_CONSOLA_MONO
 
 MARGIN = 10
-FONT_SIZE = 18
+FONT_SIZE = 20
 
 TEXT_COLOR = arcade.csscolor.WHITE
 
