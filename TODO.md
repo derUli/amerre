@@ -7,5 +7,4 @@
 * Teil des ersten Kapitels als Demo umsetzen
 * Tutorial
 
-* Gesetze -> Gerüchte Untertitel-Fehler korrigieren
 * "Miles" statt "Kilometers" in Englisch
