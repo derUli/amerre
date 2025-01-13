@@ -9,8 +9,7 @@ class AudioVolumes:
             volume_music: int,
             volume_sound: int,
             volume_master: int,
-            volume_speech: int,
-            streaming: bool = True
+            volume_speech: int
     ):
         """ Constructor """
 
@@ -18,8 +17,6 @@ class AudioVolumes:
         self._volume_sound = volume_sound
         self._volume_speech = volume_speech
         self._volume_master = volume_master
-
-        self.streaming = streaming
 
     @property
     def volume_master(self) -> float:

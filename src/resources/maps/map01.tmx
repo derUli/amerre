@@ -509,7 +509,7 @@
   <object id="17" gid="73" x="4175.15" y="1746.79" width="128" height="128"/>
   <object id="25" gid="73" x="2115.88" y="2420.73" width="128" height="128"/>
   <object id="26" gid="73" x="27454" y="2272" width="128" height="128"/>
-  <object id="28" gid="73" x="27402" y="862" width="128" height="128"/>
+  <object id="28" gid="73" x="27374" y="736.667" width="128" height="128"/>
   <object id="31" gid="73" x="32960" y="2356" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="6" name="Player">

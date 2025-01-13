@@ -236,13 +236,6 @@ class Startup:
         volume_speech = args.volume_speech
         volume_master = args.volume_master
 
-        streaming = True
-
-        if args.streaming:
-            streaming = True
-
-        if args.no_streaming:
-            streaming = False
 
         window.setup(
             self._root_dir,
@@ -252,8 +245,7 @@ class Startup:
                 volume_music=volume_music,
                 volume_sound=volume_sound,
                 volume_master=volume_master,
-                volume_speech=volume_speech,
-                streaming=streaming,
+                volume_speech=volume_speech
             )
         )
         arcade.run()
@@ -407,20 +399,6 @@ class Startup:
             type=int,
             help='The master volume',
             default=SETTINGS_DEFAULT_VOLUME_MASTER
-        )
-
-        parser.add_argument(
-            '--streaming',
-            action='store_true',
-            default=False,
-            help='Enable audio streaming'
-        )
-
-        parser.add_argument(
-            '--no-streaming',
-            action='store_true',
-            default=False,
-            help='Disable audio streaming'
         )
 
         parser.add_argument(

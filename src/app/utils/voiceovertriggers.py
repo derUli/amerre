@@ -4,6 +4,7 @@ import os
 import random
 
 import arcade
+import pyglet
 
 from app.constants.gameinfo import DEFAULT_LOCALE
 from app.utils.audiovolumes import AudioVolumes
@@ -11,7 +12,7 @@ from app.utils.callbacks import Callbacks
 from app.utils.string import label_value
 
 VOICEOVER_DEFAULT = 'text00.mp3'
-
+MULTIPLIER_MUSIC = 0.66
 
 class VoiceOverTiggers:
     """ Voice over trigger handling """
@@ -22,6 +23,8 @@ class VoiceOverTiggers:
         self.randomized_voiceovers = []
         self._media = None
         self._callbacks = None
+        self._music = None
+        self._initial_volume = 0
 
     def setup(self, callbacks: Callbacks):
         """ Setup """
@@ -52,6 +55,10 @@ class VoiceOverTiggers:
 
         self.playing = False
 
+        if self._music:
+            self._music.volume = self._initial_volume
+            self._music = None
+
     @staticmethod
     def voiceover_path(root_dir: str, languages: list, voiceover: str) -> str:
         """ Get path to voiceover """
@@ -68,7 +75,8 @@ class VoiceOverTiggers:
             delta_time: float,
             root_dir: str,
             voiceover: str,
-            audio_volumes: AudioVolumes
+            audio_volumes: AudioVolumes,
+            music: pyglet.media.player.Player
     ):
         """ Play voiceover """
 
@@ -78,14 +86,21 @@ class VoiceOverTiggers:
 
         sound = arcade.load_sound(
             self.voiceover_path(root_dir, languages, voiceover),
-            streaming=audio_volumes.streaming
+            streaming=True
         )
 
         playback = sound.play(volume=audio_volumes.volume_speech)
         playback.on_player_eos = self.on_speech_completed
 
         self._media = playback
-        return playback
+
+        self._music = music
+
+        if self._music and self._music.playing:
+            self._initial_volume = self._music.volume
+            self._music.volume = self._initial_volume * MULTIPLIER_MUSIC
+
+            return playback
 
     def pop(self, first=False) -> str | None:
         """ Pop voiceover """

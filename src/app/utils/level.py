@@ -81,12 +81,12 @@ class Level:
 
         # TODO: play music by map triggers
         music_file = os.path.join(root_dir, 'resources', 'music', 'BeforeDawn.mp3')
-        music = arcade.load_sound(music_file, streaming=audio_volumes.streaming)
+        music = arcade.load_sound(music_file, streaming=True)
         self._music = music.play(volume=audio_volumes.volume_music * VOLUME_MUSIC_MODIFIER)
 
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
         if os.path.exists(atmo_file):
-            atmo = arcade.load_sound(atmo_file, streaming=audio_volumes.streaming)
+            atmo = arcade.load_sound(atmo_file, streaming=True)
             self._atmo = atmo.play(volume=audio_volumes.volume_sound * VOLUME_ATMO_MODIFIER, loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
@@ -121,7 +121,6 @@ class Level:
         self.tilemap = arcade.load_tilemap(path, scaling=zoom)
         self._scene = arcade.Scene.from_tilemap(self.tilemap)
         self.player.alpha = 0
-        self._music = None
 
     def update(
             self,
@@ -287,7 +286,7 @@ class Level:
 
         arcade.load_sound(
             os.path.join(root_dir, 'resources', 'sounds', 'lights', 'missle-launch-001.mp3'),
-            streaming=volumes.streaming
+            streaming=True
         ).play(volume=volumes.volume_sound)
 
         self._voiceover_triggers.playing = True
@@ -305,7 +304,8 @@ class Level:
             2,
             root_dir,
             voiceover,
-            volumes
+            volumes,
+            self._music
         )
 
     def update_collision_light(self):

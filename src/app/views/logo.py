@@ -72,7 +72,7 @@ class Logo(View):
                     'grunt',
                     f'{sound_number:03d}.mp3'
                 )
-                sound = arcade.load_sound(file, streaming=self.window.audio_volumes.streaming)
+                sound = arcade.load_sound(file, streaming=True)
                 sound.play(volume=self.window.audio_volumes.volume_sound)
 
                 self._phase = PHASE_WAIT
