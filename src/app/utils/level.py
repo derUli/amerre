@@ -56,6 +56,7 @@ class Level:
         self._scene = None
         self.tilemap = None
         self._camera = None
+        self._camera_gui = None
         self._physics_engine = None
         self._can_walk = False
         self._launching_sprite = None
@@ -75,6 +76,7 @@ class Level:
         self.load_tilemap(path)
 
         self._camera = arcade.camera.Camera2D()
+        self._camera_gui = arcade.camera.Camera2D()
 
         self.setup_physics_engine()
         self.wait_for_begin()
@@ -154,6 +156,8 @@ class Level:
         for animation in self._animations:
             animation.update(delta_time)
 
+        self._voiceover_triggers.update()
+
         if self._music and not self._music.playing:
             self._music.delete()
 
@@ -181,6 +185,9 @@ class Level:
 
         for animation in self._animations:
             animation.draw()
+
+        self._camera_gui.use()
+        self._voiceover_triggers.draw_subtitle()
 
     def move_left(self, sprint: bool = False):
         """ Move left """

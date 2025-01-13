@@ -5,11 +5,13 @@ import random
 
 import arcade
 import pyglet
+from pyvidplayer2 import Subtitles
 
 from app.constants.gameinfo import DEFAULT_LOCALE
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
 from app.utils.string import label_value
+from .subtitle import Subtitle
 
 VOICEOVER_DEFAULT = 'text00.mp3'
 MULTIPLIER_MUSIC = 0.66
@@ -25,6 +27,8 @@ class VoiceOverTiggers:
         self._callbacks = None
         self._music = None
         self._initial_volume = 0
+        self._subtitle = Subtitle()
+
 
     def setup(self, callbacks: Callbacks):
         """ Setup """
@@ -42,11 +46,12 @@ class VoiceOverTiggers:
 
         return self
 
+
     def on_speech_completed(self) -> None:
         """ Executed after voice playback is completed """
 
         logging.info('Speech completed')
-
+        self._subtitle.clear()
         self._media = None
 
         if not any(self.randomized_voiceovers):
@@ -83,14 +88,12 @@ class VoiceOverTiggers:
         logging.info(label_value('Play speech', voiceover))
 
         languages = list(map(lambda x: x.split('_'), os.environ['LANG'].split(':')))
-
-        sound = arcade.load_sound(
-            self.voiceover_path(root_dir, languages, voiceover),
-            streaming=True
-        )
+        filename = self.voiceover_path(root_dir, languages, voiceover)
+        sound = arcade.load_sound(filename, streaming=True)
 
         playback = sound.play(volume=audio_volumes.volume_speech)
         playback.on_player_eos = self.on_speech_completed
+        self._subtitle.load(sound.source, filename)
 
         self._media = playback
 
@@ -113,6 +116,16 @@ class VoiceOverTiggers:
 
         return self.randomized_voiceovers.pop(0)
 
+    def draw_subtitle(self):
+        self._subtitle.draw()
+
     @property
     def media(self):
         return self._media
+
+
+    def update(self):
+        if not self._media:
+            return
+
+        self._subtitle.update(self._media)
