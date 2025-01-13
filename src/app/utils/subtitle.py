@@ -1,3 +1,4 @@
+import logging
 import os
 
 import arcade
@@ -32,14 +33,14 @@ class Subtitle:
             while line := file.readline():
                 self._texts.append(line.rstrip())
 
-        time_per_second = source.duration / len(self._texts)
-
         self._rendered_texts = []
-        time = 0
+
         for text in self._texts:
 
+            parts = text.split(' ', maxsplit=1)
+
             sprite = arcade.create_text_sprite(
-                text=text,
+                text=parts[1],
                 font_name=FONT_CONSOLA_MONO,
                 font_size=FONT_SIZE,
                 bold=True,
@@ -52,14 +53,17 @@ class Subtitle:
             sprite_list = SpriteList(lazy=True)
             sprite_list.append(sprite)
 
+            try:
+                time = float(parts[0])
+                logging.error(f"Can not parse subtitle timestamp {time}")
+            except ValueError:
+                continue
 
             self._rendered_texts.append({
                 'time': time,
                 'text': text,
                 'sprite_list': sprite_list
             })
-
-            time += time_per_second
 
         self._current_text = self._rendered_texts[0]
 

@@ -1,6 +1,6 @@
-Sie bretterte mit 180 Stundenkilometern über die Autobahn.
-Es war wohl nur der Klimaanlage ihres Kleinwagens zu verdanken,
-dass sie unter der sengenden Hitze noch keinen Hitzeschlag erlitten hatte.
-Oberhalb der Straße prangte ein großes grünes Schild
-auf dem in beweglichen weißen Lettern zu lesen war:
-Willkommen in Amerre.
+0.0 Sie bretterte mit 180 Stundenkilometern über die Autobahn.
+4.4 Es war wohl nur der Klimaanlage ihres Kleinwagens zu verdanken,
+8.5 dass sie unter der sengenden Hitze noch keinen Hitzeschlag erlitten hatte.
+12.0 Oberhalb der Straße prangte ein großes grünes Schild
+16.0 auf dem in beweglichen weißen Lettern zu lesen war:
+18.0 Willkommen in Amerre.
