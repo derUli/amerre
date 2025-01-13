@@ -1,5 +1,5 @@
-Es war ein kalter, aber sonniger Wintermorgen.
-Der Himmel war klar und blau.
-Mia trug einen roten Schal, eine schwarze Mütze und einen dicken Wintermantel, der sie wärmte.
-Sie saß fest im Sattel des Zentaur.
-Die Hufe des majestätischen Fabelwesens hinterließen deutliche Spuren im Schnee.
+00.00 Es war ein kalter, aber sonniger Wintermorgen.
+03.00 Der Himmel war klar und blau.
+06.00 Mia trug einen roten Schal, eine schwarze Mütze und einen dicken Wintermantel, der sie wärmte.
+12.00 Sie saß fest im Sattel des Zentaur.
+15.00 Die Hufe des majestätischen Fabelwesens hinterließen deutliche Spuren im Schnee.
