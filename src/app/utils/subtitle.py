@@ -7,7 +7,9 @@ from arcade import SpriteList
 from app.constants.fonts import FONT_CONSOLA_MONO
 
 MARGIN = 10
-FONT_SIZE = 20
+
+FONT_SIZE_1280 = 16
+FONT_SIZE_1920 = 20
 
 TEXT_COLOR = arcade.csscolor.WHITE
 
@@ -35,19 +37,28 @@ class Subtitle:
 
         self._rendered_texts = []
 
+        w, h =  arcade.get_window().get_size()
+
         for text in self._texts:
 
             parts = text.split(' ', maxsplit=1)
 
+            font_size = FONT_SIZE_1280
+
+            if w >= 1920:
+                font_size = FONT_SIZE_1920
+
             sprite = arcade.create_text_sprite(
                 text=parts[1],
                 font_name=FONT_CONSOLA_MONO,
-                font_size=FONT_SIZE,
-                bold=True,
+                font_size=font_size,
                 color=TEXT_COLOR
             )
 
-            sprite.center_x = arcade.get_window().width / 2
+            if sprite.width > w:
+                logging.warning(f"Subtitle sprite width {sprite.width} is too large; {text}")
+
+            sprite.center_x = w/ 2
             sprite.bottom = MARGIN
 
             sprite_list = SpriteList(lazy=True)
@@ -55,8 +66,8 @@ class Subtitle:
 
             try:
                 time = float(parts[0])
-                logging.error(f"Can not parse subtitle timestamp {time}")
             except ValueError:
+                logging.error(f"Can not parse subtitle timestamp {parts[0]}")
                 continue
 
             self._rendered_texts.append({
