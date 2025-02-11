@@ -2,7 +2,7 @@
 
 import logging
 import os
-
+import json
 import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
@@ -71,9 +71,9 @@ class Level:
         """ Setup level """
 
         self._root_dir = root_dir
-        path = os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx")
 
-        self.load_tilemap(path)
+        self.load_tilemap(os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
+        config = self.load_config()
 
         self._camera = arcade.camera.Camera2D()
         self._camera_gui = arcade.camera.Camera2D()
@@ -82,7 +82,8 @@ class Level:
         self.wait_for_begin()
 
         # TODO: play music by map triggers
-        music_file = os.path.join(root_dir, 'resources', 'music', 'BeforeDawn.mp3')
+
+        music_file = os.path.join(root_dir, 'resources', 'music', config[map_name]['music'])
         music = arcade.load_sound(music_file, streaming=True)
         self._music = music.play(volume=audio_volumes.volume_music * VOLUME_MUSIC_MODIFIER)
 
@@ -103,6 +104,14 @@ class Level:
 
         for animation in self._animations:
             animation.setup(self._scene, self.tilemap, root_dir)
+
+    def read_config(self):
+
+
+        with open('smartphone.json') as file:
+            smartphone_dict = json.load(file)
+
+        print(type(smartphone_dict))  # <class 'dict'>
 
     def setup_physics_engine(self):
         """ Setup physics engine """
@@ -418,3 +427,8 @@ class Level:
                 arcade.get_window().show_view(
                     ToBeContinued().setup(self._root_dir)
                 )
+
+    def load_config(self):
+        path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
+        with open(path) as file:
+            return json.load(file)
