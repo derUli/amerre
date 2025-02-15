@@ -12,6 +12,7 @@ base = None
 
 if sys.platform == 'win32':
     target_name = 'Amerre.exe'
+    base = 'Win32GUI'
 
 target = cx_Freeze.Executable(
     script="amerre.py",
@@ -26,15 +27,10 @@ target = cx_Freeze.Executable(
     target_name=target_name
 )
 
-OPTIMIZE = 2
-
-if sys.platform == 'win32':
-    OPTIMIZE = 2
-
 options = {
     'build_exe': {
         "include_msvcr": True,
-        'optimize': OPTIMIZE,
+        'optimize': 2,
         'silent_level': 3,
         'includes': [
             'pyogg'

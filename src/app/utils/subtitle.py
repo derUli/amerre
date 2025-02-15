@@ -13,6 +13,7 @@ FONT_SIZE_1920 = 20
 
 TEXT_COLOR = arcade.csscolor.WHITE
 
+
 class Subtitle:
     def __init__(self):
         self._texts = []
@@ -37,7 +38,7 @@ class Subtitle:
 
         self._rendered_texts = []
 
-        w, h =  arcade.get_window().get_size()
+        w, h = arcade.get_window().get_size()
 
         for text in self._texts:
 
@@ -58,7 +59,7 @@ class Subtitle:
             if sprite.width > w:
                 logging.warning(f"Subtitle sprite width {sprite.width} is too large; {text}")
 
-            sprite.center_x = w/ 2
+            sprite.center_x = w / 2
             sprite.bottom = MARGIN
 
             sprite_list = SpriteList(lazy=True)

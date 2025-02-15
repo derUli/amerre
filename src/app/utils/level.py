@@ -1,8 +1,9 @@
 """ Level """
 
+import json
 import logging
 import os
-import json
+
 import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
@@ -106,7 +107,6 @@ class Level:
             animation.setup(self._scene, self.tilemap, root_dir)
 
     def read_config(self):
-
 
         with open('smartphone.json') as file:
             smartphone_dict = json.load(file)

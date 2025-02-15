@@ -5,7 +5,6 @@ import random
 
 import arcade
 import pyglet
-from pyvidplayer2 import Subtitles
 
 from app.constants.gameinfo import DEFAULT_LOCALE
 from app.utils.audiovolumes import AudioVolumes
@@ -15,6 +14,7 @@ from .subtitle import Subtitle
 
 VOICEOVER_DEFAULT = 'text00.mp3'
 MULTIPLIER_MUSIC = 0.66
+
 
 class VoiceOverTiggers:
     """ Voice over trigger handling """
@@ -28,7 +28,6 @@ class VoiceOverTiggers:
         self._music = None
         self._initial_volume = 0
         self._subtitle = Subtitle()
-
 
     def setup(self, callbacks: Callbacks):
         """ Setup """
@@ -45,7 +44,6 @@ class VoiceOverTiggers:
         self.randomized_voiceovers = voiceovers
 
         return self
-
 
     def on_speech_completed(self) -> None:
         """ Executed after voice playback is completed """
@@ -122,7 +120,6 @@ class VoiceOverTiggers:
     @property
     def media(self):
         return self._media
-
 
     def update(self):
         if not self._media:

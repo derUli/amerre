@@ -5,11 +5,9 @@ import gettext
 import locale
 import logging
 import os
-import platform
 import sys
 
 import arcade
-import psutil
 import pyglet
 
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
@@ -24,6 +22,7 @@ from app.constants.settings import (
 )
 from app.gamewindow import GameWindow
 from app.utils.audiovolumes import AudioVolumes
+from app.utils.log import configure_logger, log_hardware_info
 from app.utils.string import label_value
 
 try:
@@ -50,21 +49,9 @@ class Startup:
         """ Setup game startup """
 
         self._root_dir = root_dir
-        self.setup_logging()
+        configure_logger()
 
         return self
-
-    @staticmethod
-    def setup_logging():
-        """ Configure logger """
-
-        handlers = [logging.StreamHandler(stream=sys.stdout)]
-        log_level = logging.INFO
-        logging.basicConfig(
-            level=log_level,
-            format="%(asctime)s [%(levelname)s] %(message)s",
-            handlers=handlers
-        )
 
     def setup_locale(self, lang) -> None:
         """ setup locale """
@@ -80,7 +67,7 @@ class Startup:
 
         logging.info(label_value('Amerre version', VERSION_STRING))
         logging.info(label_value('Python version', sys.version))
-        logging.info(label_value('Arcade version', arcade.version))
+        logging.info(label_value('Arcade version', arcade.version.VERSION))
         logging.info(label_value('Pyglet version', pyglet.version))
         try:
             gil = sys._is_gil_enabled()
@@ -88,46 +75,6 @@ class Startup:
             gil = None
 
         logging.info(label_value('GIL', gil))
-
-    @staticmethod
-    def log_system_info(window: arcade.Window) -> None:
-        """
-        Log hardware info
-        """
-
-        # Log OS info
-        uname = platform.uname()
-        logging.info(label_value('OS', f"{uname.system} {uname.version}"))
-
-        # Log CPU model
-        logging.info(label_value('CPU', uname.processor))
-
-        # Log the ram size
-        ram_size = round(psutil.virtual_memory().total / 1024 / 1024 / 1024)
-        logging.info(label_value('RAM', f"{ram_size} GB"))
-
-        # Renderer is the GPU
-        logging.info(label_value('GPU VENDOR', window.ctx.info.VENDOR))
-        logging.info(label_value('GPU RENDERER', window.ctx.info.RENDERER))
-        logging.info(label_value('GPU MAX_TEXTURE_SIZE', window.ctx.info.MAX_TEXTURE_SIZE))
-
-        logging.info(label_value('OpenGL version', pyglet.gl.gl_info.get_version_string()))
-        logging.info(
-            label_value(
-                'Screen resolution',
-                pyglet.display.get_display().get_default_screen().get_mode()
-            )
-        )
-
-        if not sounddevice:
-            logging.info(label_value('Audio', 'Unknown'))
-            return
-
-        # Log the audio devices
-        for audio in sounddevice.query_devices():
-            logging.info(label_value('Audio', audio['name']))
-
-        logging.info(label_value('Locale', locale.getlocale()))
 
     def start(self) -> None:
         """ Start game """
@@ -229,13 +176,12 @@ class Startup:
         window.set_visible(True)
 
         self.log_version_info()
-        self.log_system_info(window)
+        log_hardware_info(window)
 
         volume_music = args.volume_music
         volume_sound = args.volume_sound
         volume_speech = args.volume_speech
         volume_master = args.volume_master
-
 
         window.setup(
             self._root_dir,

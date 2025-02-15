@@ -8,6 +8,7 @@ import time
 
 import arcade
 import pyglet
+
 from app.constants.input.keyboard import KEY_SCREENSHOT, KEY_TOGGLE_FPS
 from app.constants.settings import SETTINGS_SIZE_MINIUM
 from app.utils.audiovolumes import AudioVolumes

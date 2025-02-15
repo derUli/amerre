@@ -13,8 +13,14 @@ def data_path() -> str:
     else:
         return str(os.path.join(userpaths.get_profile(), DIRECTORY_GAME_NAME_WIN))
 
+
 def screenshot_path() -> str:
     """ Screenshot path """
 
     return os.path.join(data_path(), 'screenshots')
 
+
+def log_path() -> str:
+    """ Log path """
+
+    return os.path.join(data_path(), 'logs')
