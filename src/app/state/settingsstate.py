@@ -5,21 +5,34 @@ import jsonpickle
 import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
-    SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN
+    SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
+    SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH
+from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 4
+VERSION = 5
 
 class SettingsState:
     """ Game settings """
 
     def __init__(self):
         """ Constructor """
+
         self._version = VERSION
+
+        # Video
         self._vsync = SETTINGS_DEFAULT_VSYNC
         self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
         self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
+
+        # Audio
+        self._audio_volumes = AudioVolumes(
+                volume_music=SETTINGS_DEFAULT_VOLUME_MUSIC,
+                volume_sound=SETTINGS_DEFAULT_VOLUME_SOUND,
+                volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
+                volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
+            )
 
     @staticmethod
     def exists() -> bool:
@@ -122,3 +135,11 @@ class SettingsState:
             return 1.0 / pyglet.display.get_display().get_default_screen().get_mode().rate
 
         return 1 / SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
+
+    @property
+    def audio_volumes(self) -> AudioVolumes:
+        return self._audio_volumes
+
+    @audio_volumes.setter
+    def audio_volumes(self, value: AudioVolumes) -> None:
+        self.audio_volumes = value

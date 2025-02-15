@@ -146,20 +146,10 @@ class Startup:
 
         log_hardware_info(window)
 
-        volume_music = args.volume_music
-        volume_sound = args.volume_sound
-        volume_speech = args.volume_speech
-        volume_master = args.volume_master
-
         window.setup(
             self._root_dir,
             show_intro=show_intro,
-            audio_volumes=AudioVolumes(
-                volume_music=volume_music,
-                volume_sound=volume_sound,
-                volume_master=volume_master,
-                volume_speech=volume_speech
-            )
+            audio_volumes=state.audio_volumes
         )
         arcade.run()
 
@@ -247,14 +237,6 @@ class Startup:
             type=int,
             help='The sound volume',
             default=SETTINGS_DEFAULT_VOLUME_SOUND
-        )
-
-        parser.add_argument(
-            '--volume-master',
-            action='store',
-            type=int,
-            help='The master volume',
-            default=SETTINGS_DEFAULT_VOLUME_MASTER
         )
 
         parser.add_argument(
