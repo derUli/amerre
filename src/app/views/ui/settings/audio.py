@@ -45,10 +45,21 @@ class Audio(arcade.gui.UIManager):
         )
         slider_master.on_change = self.on_change_volume_master
 
+        label_sound = arcade.gui.UILabel(text=_('Sound volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        slider_sound = arcade.gui.UISlider(
+            value=self._state.audio_volumes.volume_sound,
+            min_value=0,
+            max_value=100,
+            width=BUTTON_WIDTH
+        )
+        slider_sound.on_change = self.on_change_volume_sound
+
         widgets = [
             btn_back,
             label_master,
-            slider_master
+            slider_master,
+            label_sound,
+            slider_sound
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -118,4 +129,8 @@ class Audio(arcade.gui.UIManager):
 
     def on_change_volume_master(self, event):
         self._state.audio_volumes.volume_master = int(event.new_value)
+        self._on_change(self._state)
+
+    def on_change_volume_sound(self, event):
+        self._state.audio_volumes.volume_sound = int(event.new_value)
         self._on_change(self._state)

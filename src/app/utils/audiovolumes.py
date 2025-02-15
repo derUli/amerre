@@ -27,6 +27,14 @@ class AudioVolumes:
         self._volume_master = value
 
     @property
+    def volume_sound(self) -> int:
+        return self._volume_sound
+
+    @volume_sound.setter
+    def volume_sound(self, value: int):
+        self._volume_sound = value
+
+    @property
     def volume_master_normalized(self) -> float:
         """ Master volume converted to float """
 
