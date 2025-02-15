@@ -14,7 +14,7 @@ from app.constants.input.mouse import BUTTON_LEFT_CLICK
 from app.effects.filmgrain import Filmgrain
 from app.views.game import Game
 from app.views.view import View
-
+import arcade.gui
 BACKGROUND_COLOR = (58, 158, 236, 255)
 FONT_SIZE = 20
 FONT_SIZE_TITLE = 80
@@ -56,7 +56,9 @@ class MainMenu(View):
         self._text_version = None
 
         self._scene = None
+        self._manager = arcade.gui.UIManager()
         self._icon_itch_io = None
+        self._icon_settings = None
         self._icon_exit = None
         self._last_hover = None
 
@@ -142,6 +144,13 @@ class MainMenu(View):
         )
         self._scene.add_sprite(SCENE_LAYER_ICON, self._icon_exit)
 
+        self._icon_settings = arcade.sprite.Sprite(
+            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui', 'settings.png'),
+            x=0,
+            y=0
+        )
+        self._scene.add_sprite(SCENE_LAYER_ICON, self._icon_settings)
+
     def setup_music(self, root_dir: str):
         """ Play music """
 
@@ -195,6 +204,11 @@ class MainMenu(View):
         self._icon_exit.right = self.window.width - MARGIN
         self._icon_exit.top = self.window.height - MARGIN
 
+        self._icon_settings.left = MARGIN
+        self._icon_settings.top = self.window.height - MARGIN
+
+        self._manager.on_update(time_delta=delta_time)
+
         for effect in self._effects:
             effect.update(delta_time)
 
@@ -241,6 +255,7 @@ class MainMenu(View):
         for effect in self._effects:
             effect.draw()
 
+        self._manager.draw()
         self.window.draw_after()
 
     def on_key_press(self, symbol: int, modifiers: int):
@@ -269,7 +284,8 @@ class MainMenu(View):
         sprites = [
             self._icon_itch_io,
             self._text_title,
-            self._icon_exit
+            self._icon_exit,
+            self._icon_settings
         ]
 
         for sprite in sprites:
@@ -277,10 +293,10 @@ class MainMenu(View):
                 self._sound_hover.play(volume=self.window.audio_volumes.volume_sound)
 
                 self._last_hover = sprite
-                self._last_hover.scale = 1.02
+                self._last_hover.scale = 1.03
                 break
 
-    def on_mouse_press(self, x, y, button, modifiers) -> bool | None:
+    def on_mouse_press(self, x, y, button, modifiers) -> None:
         """ Handle mouse press """
 
         if button not in BUTTON_LEFT_CLICK:
@@ -291,6 +307,9 @@ class MainMenu(View):
 
         if self._last_hover == self._icon_itch_io:
             self.on_itch_io()
+
+        if self._last_hover == self._icon_settings:
+            self.on_settings()
 
         if self._last_hover == self._icon_exit:
             self.on_exit()
@@ -324,6 +343,21 @@ class MainMenu(View):
         """ On open itch.io """
 
         webbrowser.open_new_tab(URL_ITCH_IO)
+
+    def on_settings(self):
+        """ On settings """
+
+        message_box = arcade.gui.UIMessageBox(
+            width=300,
+            height=200,
+            message_text='Not implemented yet'
+        )
+        self._manager.enable()
+        self._manager.add(message_box)
+        self._manager.on_action = self.on_close_settings
+
+    def on_close_settings(self) -> None:
+        self._manager.disable()
 
     @staticmethod
     def on_exit() -> None:
