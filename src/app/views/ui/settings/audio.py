@@ -7,6 +7,7 @@ from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.ui import BUTTON_WIDTH
 from app.state.settingsstate import SettingsState
 
+MARGIN = 20
 
 class Audio(arcade.gui.UIManager):
     """ Settings settings """
@@ -30,7 +31,7 @@ class Audio(arcade.gui.UIManager):
 
         self._state = SettingsState.load()
 
-        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1, vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1)
 
         btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
         btn_back.on_click = self.on_back
@@ -54,16 +55,27 @@ class Audio(arcade.gui.UIManager):
         )
         slider_sound.on_change = self.on_change_volume_sound
 
+        label_speech = arcade.gui.UILabel(text=_('Speech volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        slider_speech = arcade.gui.UISlider(
+            value=self._state.audio_volumes.volume_speech,
+            min_value=0,
+            max_value=100,
+            width=BUTTON_WIDTH
+        )
+        slider_speech.on_change = self.on_change_volume_speech
+
         widgets = [
             btn_back,
             label_master,
             slider_master,
             label_sound,
-            slider_sound
+            slider_sound,
+            label_speech,
+            slider_speech,
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = arcade.gui.UIBoxLayout(space_between=20, align='center')
+        widget_layout = arcade.gui.UIBoxLayout(align='center', space_between=MARGIN)
 
         for widget in widgets:
             widget_layout.add(widget)
@@ -133,4 +145,8 @@ class Audio(arcade.gui.UIManager):
 
     def on_change_volume_sound(self, event):
         self._state.audio_volumes.volume_sound = int(event.new_value)
+        self._on_change(self._state)
+
+    def on_change_volume_speech(self, event):
+        self._state.audio_volumes.volume_speech = int(event.new_value)
         self._on_change(self._state)
