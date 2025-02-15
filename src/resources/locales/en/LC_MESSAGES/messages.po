@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-15 09:53+0100\n"
+"POT-Creation-Date: 2025-02-15 11:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -19,43 +19,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: app/gamewindow.py:60
+#: app/gamewindow.py:59
 msgid "Welcome to Amerre"
 msgstr ""
 
-#: app/views/mainmenu.py:100
+#: app/views/mainmenu.py:102
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:103
+#: app/views/mainmenu.py:105
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:122
+#: app/views/mainmenu.py:124
 msgid "Version"
 msgstr ""
 
-#: app/views/pausemenu.py:32
+#: app/views/pausemenu.py:36
 msgid "Continue"
 msgstr ""
 
-#: app/views/pausemenu.py:42
+#: app/views/pausemenu.py:48
+msgid "Settings"
+msgstr ""
+
+#: app/views/pausemenu.py:62
 msgid "Back to Menu"
 msgstr ""
 
-#: app/views/pausemenu.py:98
+#: app/views/pausemenu.py:127
 msgid "Exit to main menu?"
 msgstr ""
 
-#: app/views/pausemenu.py:99 app/views/pausemenu.py:107
+#: app/views/pausemenu.py:128 app/views/pausemenu.py:136
 msgid "Yes"
 msgstr ""
 
-#: app/views/pausemenu.py:99
+#: app/views/pausemenu.py:128
 msgid "No"
 msgstr ""
 
-#: app/views/tobecontinued.py:30
+#: app/views/tobecontinued.py:44
 msgid "To be continued"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:22
+msgid "Back"
 msgstr ""
 

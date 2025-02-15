@@ -9,6 +9,7 @@ from arcade.gui import UIOnActionEvent
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_ESCAPE
 from app.constants.ui import BUTTON_WIDTH
+from app.views.ui.settings.settings import Settings
 
 MODAL_WIDTH = 300
 MODAL_HEIGHT = 200
@@ -23,13 +24,13 @@ class PauseMenu(arcade.View):
         super().__init__()
 
         self.previous_view = previous_view
-        self.manager = arcade.gui.UIManager()
+        self._manager = arcade.gui.UIManager()
+        self._manager2 = None
         self._root_dir = None
 
     def setup(self, root_dir):
         self._root_dir = root_dir
         self.window.set_mouse_visible(True)
-        self.manager = arcade.gui.UIManager()
 
         btn_continue = arcade.gui.UIFlatButton(
             text=_('Continue'),
@@ -43,6 +44,20 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_continue()
 
+        btn_settings = arcade.gui.UIFlatButton(
+            text=_('Settings'),
+            width=BUTTON_WIDTH,
+        )
+
+        @btn_settings.event("on_click")
+        def on_click_settings(event):
+            """ settings button clicked """
+
+            logging.debug(event)
+
+            self._manager2 = Settings()
+            self._manager2.setup(self.on_close_settings)
+
         btn_exit = arcade.gui.UIFlatButton(
             text=_('Back to Menu'),
             width=BUTTON_WIDTH
@@ -55,12 +70,13 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_exit()
 
-        grid = arcade.gui.UIGridLayout(column_count=2, row_count=2, vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(column_count=1, row_count=3, vertical_spacing=20)
         grid.add(btn_continue, row=0)
-        grid.add(btn_exit, row=1)
+        grid.add(btn_settings, row=1)
+        grid.add(btn_exit, row=2)
 
         # Passing the main view into menu view as an argument.
-        anchor = self.manager.add(arcade.gui.UIAnchorLayout())
+        anchor = self._manager.add(arcade.gui.UIAnchorLayout())
 
         anchor.add(
             anchor_x="center_x",
@@ -68,27 +84,36 @@ class PauseMenu(arcade.View):
             child=grid,
         )
 
-        self.manager.add(anchor)
-        self.manager.enable()
+        self._manager.add(anchor)
+        self._manager.enable()
 
     def on_hide_view(self) -> None:
         """ On hide view """
-
-        self.manager.disable()
-        self.manager.clear()
+        self._manager.disable()
+        self._manager.clear()
         self.window.set_mouse_visible(False)
-        self.manager = None
+        self._manager.disable()
 
     def on_draw(self) -> None:
         """ On draw menu """
 
         self.clear()
-        self.manager.draw()
+        if self._manager2:
+            self._manager2.draw()
+            self.window.draw_after()
+            return
+
+        self._manager.draw()
+
+        self.window.draw_after()
 
     def on_update(self, delta_time: float) -> None:
         """ On update menu """
 
-        self.manager.on_update(delta_time)
+        self._manager.on_update(delta_time)
+
+        if self._manager2:
+            self._manager2.on_update(delta_time)
 
     def on_continue(self) -> None:
         """ On continue game """
@@ -108,7 +133,7 @@ class PauseMenu(arcade.View):
                 height=MODAL_HEIGHT
             ).with_background(color=self.window.background_color)
             dialog.on_action = self.on_exit
-            self.manager.add(dialog)
+            self._manager.add(dialog)
             return
 
         if event.action != _('Yes'):
@@ -124,6 +149,10 @@ class PauseMenu(arcade.View):
         """ On key press """
 
         if symbol in KEY_ESCAPE:
+            if self._manager2:
+                self.on_close_settings()
+                return
+
             self.on_continue()
 
     def on_button_press(self, joystick, key) -> None:
@@ -131,3 +160,8 @@ class PauseMenu(arcade.View):
 
         if key == KEY_START:
             self.on_continue()
+
+    def on_close_settings(self):
+        self._manager2.disable()
+        self._manager2 = None
+        self._manager.enable()

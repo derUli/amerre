@@ -13,6 +13,7 @@ from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
 from app.effects.filmgrain import Filmgrain
 from app.views.game import Game
+from app.views.ui.settings.settings import Settings
 from app.views.view import View
 import arcade.gui
 BACKGROUND_COLOR = (58, 158, 236, 255)
@@ -56,7 +57,7 @@ class MainMenu(View):
         self._text_version = None
 
         self._scene = None
-        self._manager = arcade.gui.UIManager()
+        self._manager = None
         self._icon_itch_io = None
         self._icon_settings = None
         self._icon_exit = None
@@ -207,7 +208,8 @@ class MainMenu(View):
         self._icon_settings.left = MARGIN
         self._icon_settings.top = self.window.height - MARGIN
 
-        self._manager.on_update(time_delta=delta_time)
+        if self._manager:
+            self._manager.on_update(time_delta=delta_time)
 
         for effect in self._effects:
             effect.update(delta_time)
@@ -255,23 +257,31 @@ class MainMenu(View):
         for effect in self._effects:
             effect.draw()
 
-        self._manager.draw()
+        if self._manager:
+            self._manager.draw()
+
         self.window.draw_after()
 
     def on_key_press(self, symbol: int, modifiers: int):
         """ Handle keyboard input """
 
         if symbol in KEY_ESCAPE:
+            if self._manager:
+                self.on_close_settings()
+                return
+
             self.on_exit()
 
         if symbol in KEY_CONFIRM and self._fade_sprite is None:
             self.on_start_game()
 
-    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int) -> bool | None:
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int) -> None:
         """ Handle mouse movement """
 
-        if self._fade_sprite:
+        if self._fade_sprite or self._manager:
+            self._last_hover = None
             return
+
 
         self.window.set_mouse_visible(True)
 
@@ -347,17 +357,16 @@ class MainMenu(View):
     def on_settings(self):
         """ On settings """
 
-        message_box = arcade.gui.UIMessageBox(
-            width=300,
-            height=200,
-            message_text='Not implemented yet'
-        )
+        self._scene[SCENE_LAYER_TEXT].visible = False
+        self._manager = Settings()
+        self._manager.setup(callback=self.on_close_settings)
         self._manager.enable()
-        self._manager.add(message_box)
-        self._manager.on_action = self.on_close_settings
 
     def on_close_settings(self) -> None:
+        """ On close settings"""
         self._manager.disable()
+        self._manager = None
+        self._scene[SCENE_LAYER_TEXT].visible = True
 
     @staticmethod
     def on_exit() -> None:
