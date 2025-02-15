@@ -10,7 +10,6 @@ import arcade
 import pyglet
 
 from app.constants.input.keyboard import KEY_SCREENSHOT
-from app.constants.settings import SETTINGS_SIZE_MINIUM
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
@@ -18,9 +17,6 @@ from app.utils.paths import screenshot_path
 from app.utils.string import label_value
 from app.views.logo import Logo
 from app.views.mainmenu import MainMenu
-
-MARGIN = 10
-
 
 class GameWindow(arcade.Window):
     """
