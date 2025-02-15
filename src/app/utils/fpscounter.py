@@ -1,5 +1,6 @@
 """ FPSCounter """
 import logging
+import time
 
 import arcade
 
@@ -9,6 +10,7 @@ FONT_SIZE_FPS = 14
 FONT_COLOR_FPS = arcade.csscolor.WHITE
 MAX_FPS_COUNT = 5000
 MARGIN = 10
+UPDATE_INTERVAL = 1
 
 
 class FPSCounter:
@@ -20,6 +22,7 @@ class FPSCounter:
         self._window = None
         self._current_fps = None
         self._fps_camera = None
+        self._last_update = 0
 
     def setup(self, window: arcade.Window):
         """ Setup FPSCounter """
@@ -34,6 +37,9 @@ class FPSCounter:
 
         if not arcade.timings_enabled():
             self._current_fps = None
+            return
+
+        if time.time() < self._last_update + 1:
             return
 
         fps = round(arcade.get_fps())
@@ -69,6 +75,9 @@ class FPSCounter:
 
             self._fps_text = new_dict
             logging.info('More than MAX_FPS_COUNT')
+
+
+        self._last_update = time.time()
 
     def draw(self):
         """ Draw fps counter text """
