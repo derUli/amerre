@@ -12,6 +12,7 @@ from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
 from app.effects.filmgrain import Filmgrain
+from app.state.settingsstate import SettingsState
 from app.views.game import Game
 from app.views.ui.settings.settings import Settings
 from app.views.view import View
@@ -190,6 +191,7 @@ class MainMenu(View):
 
     def on_update(self, delta_time: float):
         """ On update """
+
         self.on_update_particles()
         self._text_start.center_x = self.window.width / 2
         self._text_start.bottom = MARGIN
@@ -361,8 +363,14 @@ class MainMenu(View):
         self._scene[SCENE_LAYER_TEXT].visible = False
         self._scene[SCENE_LAYER_ICON].visible = False
         self._manager = Settings()
-        self._manager.setup(callback=self.on_close_settings)
+        self._manager.setup(on_close=self.on_close_settings, on_change=self.on_change_settings)
         self._manager.enable()
+
+    def on_change_settings(self, state: SettingsState) -> None:
+        self._music.volume = state.audio_volumes.volume_master_normalized
+
+        if self._sound_hover:
+            self._sound_hover.volume = state.audio_volumes.volume_master_normalized state.audio_volumes.volume_master_normalized
 
     def on_close_settings(self, new_manager = None) -> None:
         """ On close settings"""

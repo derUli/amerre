@@ -4,6 +4,7 @@ import logging
 import arcade.gui
 
 from app.constants.ui import BUTTON_WIDTH
+from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.video import Video
 
 
@@ -14,12 +15,14 @@ class Settings(arcade.gui.UIManager):
         """ Constructor """
         super().__init__()
 
-        self._callback = None
+        self._on_close = None
+        self._on_change = None
 
-    def setup(self, callback) -> None:
+    def setup(self, on_close, on_change) -> None:
         """ Setup settings """
         self.clear()
-        self._callback = callback
+        self._on_close = on_close
+        self._on_change = on_change
 
         btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
         btn_back.on_click = self.on_back
@@ -27,9 +30,14 @@ class Settings(arcade.gui.UIManager):
         btn_video = arcade.gui.UIFlatButton(text=_('Video'), width=BUTTON_WIDTH)
         btn_video.on_click = self.on_video
 
+
+        btn_audio = arcade.gui.UIFlatButton(text=_('Audio'), width=BUTTON_WIDTH)
+        btn_audio.on_click = self.on_audio
+
         widgets = [
             btn_back,
-            btn_video
+            btn_video,
+            btn_audio
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -48,11 +56,18 @@ class Settings(arcade.gui.UIManager):
         self.disable()
         menu = Video()
         menu.setup(self.on_enable)
-        self._callback(menu)
+        self._on_close(menu)
+
+
+    def on_audio(self, event):
+        self.disable()
+        menu = Audio()
+        menu.setup(self.on_enable, self._on_change)
+        self._on_close(menu)
 
     def on_enable(self):
         self.enable()
-        self._callback(self)
+        self._on_close(self)
 
     def on_back(self, event):
         """ On go back """
@@ -60,5 +75,5 @@ class Settings(arcade.gui.UIManager):
         logging.debug(event)
 
         self.disable()
-        self._callback()
+        self._on_close()
 

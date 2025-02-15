@@ -19,7 +19,15 @@ class AudioVolumes:
         self._volume_master = volume_master
 
     @property
-    def volume_master(self) -> float:
+    def volume_master(self) -> int:
+        return self._volume_master
+
+    @volume_master.setter
+    def volume_master(self, value: int):
+        self._volume_master = value
+
+    @property
+    def volume_master_normalized(self) -> float:
         """ Master volume converted to float """
 
         if self._volume_master <= 0:
@@ -34,7 +42,7 @@ class AudioVolumes:
         if self._volume_music <= 0:
             return 0.0
 
-        return self._volume_music / 100 * self.volume_master
+        return self._volume_music / 100 * self.volume_master_normalized
 
     @property
     def volume_sound(self) -> float:
@@ -43,7 +51,7 @@ class AudioVolumes:
         if self._volume_sound <= 0:
             return 0.0
 
-        return self._volume_sound / 100 * self.volume_master
+        return self._volume_sound / 100 * self.volume_master_normalized
 
     @property
     def volume_speech(self) -> float:
@@ -52,4 +60,4 @@ class AudioVolumes:
         if self._volume_speech <= 0:
             return 0.0
 
-        return self._volume_speech / 100 * self.volume_master
+        return self._volume_speech / 100 * self.volume_master_normalized
