@@ -9,7 +9,7 @@ import time
 import arcade
 import pyglet
 
-from app.constants.input.keyboard import KEY_SCREENSHOT, KEY_TOGGLE_FPS
+from app.constants.input.keyboard import KEY_SCREENSHOT
 from app.constants.settings import SETTINGS_SIZE_MINIUM
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
@@ -224,8 +224,6 @@ class GameWindow(arcade.Window):
 
         if symbol in KEY_SCREENSHOT:
             self.on_screenshot()
-        if symbol in KEY_TOGGLE_FPS:
-            self.on_toggle_fps()
 
     def on_screenshot(self):
         """ Save a screenshot """
