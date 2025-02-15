@@ -103,6 +103,6 @@ class SettingsState:
         # Draw rate
 
         if self.vsync:
-            return 1 / pyglet.display.get_display().get_default_screen().get_mode().rate
+            return 1.0 / pyglet.display.get_display().get_default_screen().get_mode().rate
 
         return 1 / SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
