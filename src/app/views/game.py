@@ -11,6 +11,7 @@ from app.constants.input.controllers import (
     KEY_START
 )
 from app.constants.input.keyboard import KEY_LEFT, KEY_RIGHT, KEY_JUMP, KEY_SPRINT, KEY_ESCAPE
+from app.state.settingsstate import SettingsState
 from app.utils.level import Level
 from app.views.view import View
 
@@ -146,6 +147,8 @@ class Game(View):
     def on_continue(self) -> None:
         """ On continue """
 
+        state = SettingsState.load()
+        self.window.audio_volumes = state.audio_volumes
         self._level.on_continue()
 
     def unsetup(self) -> None:

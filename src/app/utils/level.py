@@ -382,14 +382,6 @@ class Level:
             self._voiceover_triggers.media,
         ]
 
-        if self._music:
-            self._music.play()
-
-        # Start sound playback
-        for sound in sounds:
-            if sound:
-                sound.play()
-
 
         state = SettingsState.load()
 
@@ -402,6 +394,10 @@ class Level:
         if self._voiceover_triggers.media:
             self._voiceover_triggers.media.volume = state.audio_volumes.volume_speech_normalized
 
+        # Start sound playback
+        for sound in sounds:
+            if sound:
+                sound.play()
 
     def on_level_completed(self):
         """ Called when a level is completed """
