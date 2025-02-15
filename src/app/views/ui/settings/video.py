@@ -1,4 +1,4 @@
-""" Settings menu """
+""" Video settings """
 import logging
 
 import arcade.gui
@@ -7,16 +7,18 @@ from app.constants.ui import BUTTON_WIDTH
 
 
 class Video(arcade.gui.UIManager):
-    """ Settings menu """
+    """ Settings settings """
 
     def __init__(self):
         """ Constructor """
+
         super().__init__()
 
         self._callback = None
 
     def setup(self, callback) -> None:
         """ Setup settings """
+
         self.clear()
         self._callback = callback
 
@@ -33,7 +35,6 @@ class Video(arcade.gui.UIManager):
 
         self.enable()
 
-
     def on_back(self, event):
         """ On go back """
 
@@ -41,4 +42,3 @@ class Video(arcade.gui.UIManager):
 
         self.disable()
         self._callback()
-
