@@ -186,7 +186,6 @@ class Startup:
         window.setup(
             self._root_dir,
             show_intro=show_intro,
-            show_fps=args.show_fps,
             audio_volumes=AudioVolumes(
                 volume_music=volume_music,
                 volume_sound=volume_sound,
@@ -306,13 +305,6 @@ class Startup:
             help='The antialiasing level',
             choices=SETTINGS_ANTIALIASING_CHOICES,
             default=SETTINGS_DEFAULT_ANTIALIASING
-        )
-
-        parser.add_argument(
-            '--show-fps',
-            action='store_true',
-            default=False,
-            help='Show FPS'
         )
 
         parser.add_argument(

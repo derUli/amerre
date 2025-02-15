@@ -11,6 +11,7 @@ import pyglet
 
 from app.constants.input.keyboard import KEY_SCREENSHOT
 from app.constants.settings import SETTINGS_SIZE_MINIUM
+from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
 from app.utils.paths import screenshot_path
@@ -75,8 +76,7 @@ class GameWindow(arcade.Window):
             self,
             root_dir: str,
             audio_volumes: AudioVolumes,
-            show_intro: bool = True,
-            show_fps: bool = False,
+            show_intro: bool = True
     ):
         """ Set up the main window here"""
 
@@ -98,9 +98,13 @@ class GameWindow(arcade.Window):
         else:
             view = MainMenu
 
-        if show_fps:
+        self._fps_counter = FPSCounter().setup(self)
+
+
+        state = SettingsState.load()
+
+        if state.show_fps:
             arcade.enable_timings()
-            self._fps_counter = FPSCounter().setup(self)
 
         self.show_view(view().setup(root_dir))
 
@@ -246,16 +250,6 @@ class GameWindow(arcade.Window):
         sound.play(volume=self._audio_volumes.volume_sound)
 
         return filename
-
-    def on_toggle_fps(self):
-        """ Toggle fps counter """
-
-        if self._fps_counter:
-            arcade.disable_timings()
-            self._fps_counter = None
-        else:
-            arcade.enable_timings()
-            self._fps_counter = FPSCounter().setup(self)
 
     def on_update(self, delta_time: float):
         """ On update """

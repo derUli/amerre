@@ -1,8 +1,10 @@
 import logging
 import os
 
+import arcade
 import jsonpickle
 
+from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS
 from app.utils.paths import settings_path
 
 VERSION = 1
@@ -13,6 +15,7 @@ class SettingsState:
     def __init__(self):
         """ Constructor """
         self._version = VERSION
+        self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
 
     @staticmethod
     def exists() -> bool:
@@ -64,9 +67,22 @@ class SettingsState:
 
     def save(self) -> None:
         """ Save settings as json file """
+
+        directory = os.path.dirname(settings_path())
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         with open(settings_path(), 'w') as f:
             f.write(jsonpickle.encode(self, unpicklable=True))
 
     @property
     def version(self) -> int:
         return self._version
+
+    @property
+    def show_fps(self) -> bool:
+        return self._show_fps
+
+    @show_fps.setter
+    def show_fps(self, value: bool) -> None:
+        self._show_fps = value
