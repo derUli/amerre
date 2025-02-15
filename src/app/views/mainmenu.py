@@ -267,7 +267,6 @@ class MainMenu(View):
 
         if symbol in KEY_ESCAPE:
             if self._manager:
-                self.on_close_settings()
                 return
 
             self.on_exit()

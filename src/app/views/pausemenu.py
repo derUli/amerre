@@ -54,7 +54,7 @@ class PauseMenu(arcade.View):
             """ settings button clicked """
 
             logging.debug(event)
-
+            self._manager.disable()
             self._manager2 = Settings()
             self._manager2.setup(self.on_close_settings)
 
@@ -150,7 +150,6 @@ class PauseMenu(arcade.View):
 
         if symbol in KEY_ESCAPE:
             if self._manager2:
-                self.on_close_settings()
                 return
 
             self.on_continue()
