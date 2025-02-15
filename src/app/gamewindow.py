@@ -237,7 +237,7 @@ class GameWindow(arcade.Window):
         sound = arcade.load_sound(
             os.path.join(self._root_dir, 'resources', 'sounds', 'common', 'screenshot.mp3')
         )
-        sound.play(volume=self._audio_volumes.volume_sound)
+        sound.play(volume=self._audio_volumes.volume_sound_normalized)
 
         return filename
 
@@ -254,10 +254,14 @@ class GameWindow(arcade.Window):
             self._fps_counter.draw()
 
     @property
-    def audio_volumes(self):
+    def audio_volumes(self) -> AudioVolumes:
         """ Get audio volumes """
 
         return self._audio_volumes
+
+    @audio_volumes.setter
+    def audio_volumes(self, val: AudioVolumes) -> None:
+        self._audio_volumes = val
 
     @property
     def root_dir(self):

@@ -162,7 +162,7 @@ class MainMenu(View):
             os.path.join(root_dir, 'resources', 'music', 'DeepSpace.mp3'),
             streaming=True
         )
-        self._music = music.play(loop=True, volume=self.window.audio_volumes.volume_music)
+        self._music = music.play(loop=True, volume=self.window.audio_volumes.volume_music_normalized)
 
     def setup_sounds(self, root_dir: str):
         """ Setup sounds """
@@ -300,10 +300,9 @@ class MainMenu(View):
             self._icon_exit,
             self._icon_settings
         ]
-
         for sprite in sprites:
             if sprite.collides_with_point((x, y)):
-                self._sound_hover.play(volume=self.window.audio_volumes.volume_sound)
+                self._sound_hover.play(volume=self.window.audio_volumes.volume_sound_normalized)
 
                 self._last_hover = sprite
                 self._last_hover.scale = 1.03
@@ -367,10 +366,8 @@ class MainMenu(View):
         self._manager.enable()
 
     def on_change_settings(self, state: SettingsState) -> None:
-        self._music.volume = state.audio_volumes.volume_master_normalized
-
-        if self._sound_hover:
-            self._sound_hover.volume = state.audio_volumes.volume_master_normalized state.audio_volumes.volume_master_normalized
+        self._music.volume = state.audio_volumes.volume_music_normalized
+        self.window.audio_volumes = state.audio_volumes
 
     def on_close_settings(self, new_manager = None) -> None:
         """ On close settings"""

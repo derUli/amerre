@@ -36,7 +36,7 @@ class AudioVolumes:
         return self._volume_master / 100
 
     @property
-    def volume_music(self) -> float:
+    def volume_music_normalized(self) -> float:
         """ Music volume converted to float """
 
         if self._volume_music <= 0:
@@ -45,7 +45,7 @@ class AudioVolumes:
         return self._volume_music / 100 * self.volume_master_normalized
 
     @property
-    def volume_sound(self) -> float:
+    def volume_sound_normalized(self) -> float:
         """ Sound volume converted to float """
 
         if self._volume_sound <= 0:
