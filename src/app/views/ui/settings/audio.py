@@ -3,6 +3,7 @@ import logging
 
 import arcade.gui
 
+from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.ui import BUTTON_WIDTH
 from app.state.settingsstate import SettingsState
 
@@ -35,6 +36,7 @@ class Audio(arcade.gui.UIManager):
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
+        label_master = arcade.gui.UILabel(text=_('Master volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
         slider_master = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_master,
             min_value=0,
@@ -45,6 +47,7 @@ class Audio(arcade.gui.UIManager):
 
         widgets = [
             btn_back,
+            label_master,
             slider_master
         ]
 

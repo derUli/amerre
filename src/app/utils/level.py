@@ -18,6 +18,7 @@ from app.effects.bushes import Bushes
 from app.effects.cloudanimation import CloudAnimation
 from app.effects.filmgrain import Filmgrain
 from app.effects.particles import Particles
+from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
@@ -381,10 +382,26 @@ class Level:
             self._voiceover_triggers.media,
         ]
 
+        if self._music:
+            self._music.play()
+
         # Start sound playback
         for sound in sounds:
             if sound:
                 sound.play()
+
+
+        state = SettingsState.load()
+
+        if self._music:
+            self._music.volume = state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
+
+        if self._atmo:
+            self._atmo.volume = state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
+
+        if self._voiceover_triggers.media:
+            self._voiceover_triggers.media.volume = state.audio_volumes.volume_speech_normalized
+
 
     def on_level_completed(self):
         """ Called when a level is completed """

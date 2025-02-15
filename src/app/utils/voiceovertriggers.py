@@ -89,7 +89,7 @@ class VoiceOverTiggers:
         filename = self.voiceover_path(root_dir, languages, voiceover)
         sound = arcade.load_sound(filename, streaming=True)
 
-        playback = sound.play(volume=audio_volumes.volume_speech)
+        playback = sound.play(volume=audio_volumes.volume_speech_normalized)
         playback.on_player_eos = self.on_speech_completed
         self._subtitle.load(sound.source, filename)
 

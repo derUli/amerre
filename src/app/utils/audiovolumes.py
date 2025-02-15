@@ -54,7 +54,7 @@ class AudioVolumes:
         return self._volume_sound / 100 * self.volume_master_normalized
 
     @property
-    def volume_speech(self) -> float:
+    def volume_speech_normalized(self) -> float:
         """ Speech volume converted to float """
 
         if self._volume_speech <= 0:
