@@ -44,8 +44,6 @@ class GameWindow(arcade.Window):
 
     ):
         """ Constructor """
-
-        self._mode = None
         self._root_dir = None
         self._screen = None
         self._controller_manager = None
@@ -89,9 +87,6 @@ class GameWindow(arcade.Window):
         self.set_icon(icon)
         self.setup_fonts()
         self.setup_controllers()
-
-        w, h = SETTINGS_SIZE_MINIUM
-        self.set_minimum_size(w, h)
 
         if show_intro:
             view = Logo

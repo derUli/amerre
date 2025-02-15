@@ -31,6 +31,17 @@ class Video(arcade.gui.UIManager):
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
+        fullscreen_text = _('Off')
+        if arcade.get_window().fullscreen:
+            fullscreen_text = _('On')
+
+        btn_toggle_fullscreen = arcade.gui.UIFlatButton(
+            text=': '.join([_('Fullscreen'), fullscreen_text]),
+            width=BUTTON_WIDTH
+        )
+        btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
+        grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
+
         vsync_text = _('Off')
         if arcade.get_window().vsync:
             vsync_text = _('On')
@@ -40,8 +51,7 @@ class Video(arcade.gui.UIManager):
             width=BUTTON_WIDTH
         )
         btn_toggle_vsync.on_click = self.on_toggle_vsync
-
-        grid.add(btn_toggle_vsync, col_num=1, row_num=0)
+        grid.add(btn_toggle_vsync, col_num=2, row_num=0)
 
         fps_text = _('Off')
         if arcade.timings_enabled():
@@ -52,10 +62,11 @@ class Video(arcade.gui.UIManager):
             width=BUTTON_WIDTH
         )
         btn_toggle_fps.on_click = self.on_toggle_fps
-        grid.add(btn_toggle_fps, col_num=2, row_num=0)
+        grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
         widgets = [
             btn_back,
+            btn_toggle_fullscreen,
             btn_toggle_vsync,
             btn_toggle_fps
         ]
@@ -95,6 +106,22 @@ class Video(arcade.gui.UIManager):
 
         self.setup(self._callback)
 
+    def on_toggle_fullscreen(self, event):
+
+        logging.debug(event)
+
+        self._state.fullscreen = not arcade.get_window().fullscreen
+        self._state.save()
+
+        w, h = self._state.screen_resolution
+
+        arcade.get_window().set_fullscreen(not arcade.get_window().fullscreen, width=w, height=h)
+
+        if not self._state.fullscreen:
+            arcade.get_window().set_size(w, h)
+
+        self.setup(self._callback)
+
     def on_toggle_vsync(self, event):
 
         logging.debug(event)
@@ -102,6 +129,7 @@ class Video(arcade.gui.UIManager):
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
         self._state.vsync = arcade.get_window().vsync
+        self._state.save()
         arcade.get_window().set_draw_rate(self._state.draw_rate)
 
         self.setup(self._callback)

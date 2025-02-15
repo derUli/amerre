@@ -12,8 +12,6 @@ import pyglet
 
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
-    SETTINGS_DEFAULT_FULLSCREEN,
-    SETTINGS_DEFAULT_SIZE,
     SETTINGS_ANTIALIASING_CHOICES,
     SETTINGS_DEFAULT_ANTIALIASING,SETTINGS_DEFAULT_UPDATE_RATE,
     SETTINGS_DEFAULT_VOLUME_MUSIC, SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER,
@@ -79,15 +77,10 @@ class Startup:
     def start(self) -> None:
         """ Start game """
 
-        fullscreen = SETTINGS_DEFAULT_FULLSCREEN
 
         args = self.get_args()
         logging.info(args)
-
-        if args.fullscreen:
-            fullscreen = True
-        elif args.window:
-            fullscreen = False
+        self.log_version_info()
 
         show_intro = True
 
@@ -95,21 +88,6 @@ class Startup:
             show_intro = True
         elif args.no_intro:
             show_intro = False
-
-        size = args.size
-        size = size.lower()
-        width, height = size.split('x')
-        width, height = int(width), int(height)
-
-        try:
-            width, height = int(width), int(height)
-        except ValueError:
-            logging.error('size has invalid format')
-            return
-
-        if width == 0 or height == 0:
-            logging.error('Width and height must be greater than 0')
-            return
 
         lang = list(locale.getlocale())
 
@@ -124,7 +102,7 @@ class Startup:
         samples = args.antialiasing
         antialiasing = samples > 0
 
-        state = SettingsState()
+        state = SettingsState.load()
 
 
         # Update rate
@@ -137,8 +115,10 @@ class Startup:
         if str(args.window_style).lower() == 'none':
             args.window_style = None
 
+        width, height = state.screen_resolution
+
         window = GameWindow(
-            fullscreen=fullscreen,
+            fullscreen=state.fullscreen,
             visible=False,
             style=args.window_style,
             vsync=state.vsync,
@@ -146,7 +126,7 @@ class Startup:
             height=height,
             antialiasing=antialiasing,
             samples=samples,
-            center_window=args.center_window,
+            center_window=True,
             draw_rate=state.draw_rate,
             update_rate=update_rate,
             fixed_rate=update_rate
@@ -164,7 +144,6 @@ class Startup:
         window.set_location(x, y)
         window.set_visible(True)
 
-        self.log_version_info()
         log_hardware_info(window)
 
         volume_music = args.volume_music
@@ -191,27 +170,6 @@ class Startup:
         parser = argparse.ArgumentParser()
 
         parser.add_argument(
-            '--fullscreen',
-            action='store_true',
-            default=False,
-            help='Run in fullscreen mode'
-        )
-
-        parser.add_argument(
-            '--window',
-            action='store_true',
-            default=False,
-            help='Run in windowed mode'
-        )
-
-        parser.add_argument(
-            '--center-window',
-            action='store_true',
-            default=False,
-            help='Center window on screen'
-        )
-
-        parser.add_argument(
             '-x',
             action='store',
             type=int,
@@ -234,13 +192,6 @@ class Startup:
             help='The window style',
             choices=SETTINGS_WINDOW_STYLE_CHOICES,
             default=SETTINGS_DEFAULT_WINDOW_STYLE
-        )
-
-        parser.add_argument(
-            '--size',
-            action='store',
-            default=SETTINGS_DEFAULT_SIZE,
-            help='Size of window'
         )
 
         parser.add_argument(

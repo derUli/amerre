@@ -67,6 +67,8 @@ class MainMenu(View):
 
         self._effects = []
 
+        self._first_resized = False
+
     def setup(self, root_dir: str):
         """ Setup the start screen """
 
@@ -188,7 +190,6 @@ class MainMenu(View):
 
     def on_update(self, delta_time: float):
         """ On update """
-
         self.on_update_particles()
         self._text_start.center_x = self.window.width / 2
         self._text_start.bottom = MARGIN
@@ -249,6 +250,7 @@ class MainMenu(View):
         self.clear()
 
         # Draw scene
+
         self._scene.draw()
 
         if SCENE_LAYER_FADEIN in self._scene:

@@ -5,10 +5,11 @@ import jsonpickle
 import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
-    SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
+    SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN
 from app.utils.paths import settings_path
+from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 2
+VERSION = 4
 
 class SettingsState:
     """ Game settings """
@@ -18,6 +19,7 @@ class SettingsState:
         self._version = VERSION
         self._vsync = SETTINGS_DEFAULT_VSYNC
         self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
+        self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
 
     @staticmethod
     def exists() -> bool:
@@ -97,6 +99,20 @@ class SettingsState:
     def vsync(self, value: bool) -> None:
         self._vsync = value
 
+    @property
+    def fullscreen(self) -> bool:
+        return self._fullscreen
+
+    @fullscreen.setter
+    def fullscreen(self, value: bool) -> None:
+        self._fullscreen = value
+
+    @property
+    def screen_resolution(self):
+        if self.fullscreen:
+            return fullscreen_resolution()
+
+        return window_resolution()
 
     @property
     def draw_rate(self) -> float:
