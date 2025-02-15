@@ -39,7 +39,6 @@ class Settings(arcade.gui.UIManager):
             widget_layout.add(widget)
 
         frame = self.add(arcade.gui.UIAnchorLayout())
-        frame.with_padding(bottom=20)
 
         frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
 

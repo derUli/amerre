@@ -1,13 +1,14 @@
 import logging
 import os
 
-import arcade
 import jsonpickle
+import pyglet
 
-from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS
+from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
+    SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
 from app.utils.paths import settings_path
 
-VERSION = 1
+VERSION = 2
 
 class SettingsState:
     """ Game settings """
@@ -15,6 +16,7 @@ class SettingsState:
     def __init__(self):
         """ Constructor """
         self._version = VERSION
+        self._vsync = SETTINGS_DEFAULT_VSYNC
         self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
 
     @staticmethod
@@ -86,3 +88,21 @@ class SettingsState:
     @show_fps.setter
     def show_fps(self, value: bool) -> None:
         self._show_fps = value
+
+    @property
+    def vsync(self) -> bool:
+        return self._vsync
+
+    @vsync.setter
+    def vsync(self, value: bool) -> None:
+        self._vsync = value
+
+
+    @property
+    def draw_rate(self) -> float:
+        # Draw rate
+
+        if self.vsync:
+            return 1 / pyglet.display.get_display().get_default_screen().get_mode().rate
+
+        return 1 / SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED

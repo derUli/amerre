@@ -25,11 +25,23 @@ class Video(arcade.gui.UIManager):
         self._callback = callback
         self._state = SettingsState.load()
 
-        grid = arcade.gui.UIGridLayout(column_count=2, row_count=1, vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1, vertical_spacing=20)
 
         btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
+
+        vsync_text = _('Off')
+        if arcade.get_window().vsync:
+            vsync_text = _('On')
+
+        btn_toggle_vsync = arcade.gui.UIFlatButton(
+            text=': '.join([_('V-Sync'), vsync_text]),
+            width=BUTTON_WIDTH
+        )
+        btn_toggle_vsync.on_click = self.on_toggle_vsync
+
+        grid.add(btn_toggle_vsync, col_num=1, row_num=0)
 
         fps_text = _('Off')
         if arcade.timings_enabled():
@@ -40,10 +52,11 @@ class Video(arcade.gui.UIManager):
             width=BUTTON_WIDTH
         )
         btn_toggle_fps.on_click = self.on_toggle_fps
-        grid.add(btn_toggle_fps, col_num=1, row_num=0)
+        grid.add(btn_toggle_fps, col_num=2, row_num=0)
 
         widgets = [
             btn_back,
+            btn_toggle_vsync,
             btn_toggle_fps
         ]
 
@@ -54,7 +67,6 @@ class Video(arcade.gui.UIManager):
             widget_layout.add(widget)
 
         frame = self.add(arcade.gui.UIAnchorLayout())
-        frame.with_padding(bottom=20)
 
         frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
 
@@ -80,5 +92,16 @@ class Video(arcade.gui.UIManager):
 
         self._state.show_fps = arcade.timings_enabled()
         self._state.save()
+
+        self.setup(self._callback)
+
+    def on_toggle_vsync(self, event):
+
+        logging.debug(event)
+
+        arcade.get_window().set_vsync(not arcade.get_window().vsync)
+
+        self._state.vsync = arcade.get_window().vsync
+        arcade.get_window().set_draw_rate(self._state.draw_rate)
 
         self.setup(self._callback)

@@ -13,14 +13,14 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_DEFAULT_FULLSCREEN,
-    SETTINGS_DEFAULT_VSYNC,
     SETTINGS_DEFAULT_SIZE,
     SETTINGS_ANTIALIASING_CHOICES,
-    SETTINGS_DEFAULT_ANTIALIASING, SETTINGS_DEFAULT_DRAW_RATE, SETTINGS_DEFAULT_UPDATE_RATE,
+    SETTINGS_DEFAULT_ANTIALIASING,SETTINGS_DEFAULT_UPDATE_RATE,
     SETTINGS_DEFAULT_VOLUME_MUSIC, SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER,
-    SETTINGS_DEFAULT_VOLUME_SPEECH, SETTINGS_WINDOW_STYLE_CHOICES, SETTINGS_DEFAULT_WINDOW_STYLE
+    SETTINGS_DEFAULT_VOLUME_SPEECH, SETTINGS_WINDOW_STYLE_CHOICES, SETTINGS_DEFAULT_WINDOW_STYLE,
 )
 from app.gamewindow import GameWindow
+from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.log import configure_logger, log_hardware_info
 from app.utils.string import label_value
@@ -80,7 +80,6 @@ class Startup:
         """ Start game """
 
         fullscreen = SETTINGS_DEFAULT_FULLSCREEN
-        vsync = SETTINGS_DEFAULT_VSYNC
 
         args = self.get_args()
         logging.info(args)
@@ -89,11 +88,6 @@ class Startup:
             fullscreen = True
         elif args.window:
             fullscreen = False
-
-        if args.vsync:
-            vsync = True
-        elif args.no_vsync:
-            vsync = False
 
         show_intro = True
 
@@ -130,13 +124,8 @@ class Startup:
         samples = args.antialiasing
         antialiasing = samples > 0
 
-        # Draw rate
-        draw_rate = 1 / 99999
+        state = SettingsState()
 
-        if args.draw_rate > 0:
-            draw_rate = 1 / args.draw_rate
-        elif vsync:
-            draw_rate = 1 / pyglet.display.get_display().get_default_screen().get_mode().rate
 
         # Update rate
 
@@ -152,13 +141,13 @@ class Startup:
             fullscreen=fullscreen,
             visible=False,
             style=args.window_style,
-            vsync=vsync,
+            vsync=state.vsync,
             width=width,
             height=height,
             antialiasing=antialiasing,
             samples=samples,
             center_window=args.center_window,
-            draw_rate=draw_rate,
+            draw_rate=state.draw_rate,
             update_rate=update_rate,
             fixed_rate=update_rate
         )
@@ -239,20 +228,6 @@ class Startup:
         )
 
         parser.add_argument(
-            '--vsync',
-            action='store_true',
-            default=False,
-            help='Enable VSync'
-        )
-
-        parser.add_argument(
-            '--no-vsync',
-            action='store_true',
-            default=False,
-            help='Disable VSync'
-        )
-
-        parser.add_argument(
             '--window-style',
             action='store',
             type=str,
@@ -280,14 +255,6 @@ class Startup:
             action='store_true',
             default=False,
             help='Don\'t show intro'
-        )
-
-        parser.add_argument(
-            '--draw-rate',
-            action='store',
-            type=int,
-            help='The draw rate',
-            default=SETTINGS_DEFAULT_DRAW_RATE
         )
 
         parser.add_argument(

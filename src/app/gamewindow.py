@@ -35,7 +35,7 @@ class GameWindow(arcade.Window):
             visible: bool = True,
             style: str | None = None,
             vsync: bool = True,
-            draw_rate: int = 1 / 60,
+            draw_rate: float = 1 / 60,
             update_rate=1 / 60,
             center_window=False,
             antialiasing: bool = True,
@@ -99,7 +99,6 @@ class GameWindow(arcade.Window):
             view = MainMenu
 
         self._fps_counter = FPSCounter().setup(self)
-
 
         state = SettingsState.load()
 

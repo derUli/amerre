@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-15 11:23+0100\n"
+"POT-Creation-Date: 2025-02-15 14:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: app/gamewindow.py:59
+#: app/gamewindow.py:60
 msgid "Welcome to Amerre"
 msgstr ""
 
@@ -47,15 +47,15 @@ msgstr ""
 msgid "Back to Menu"
 msgstr ""
 
-#: app/views/pausemenu.py:127
+#: app/views/pausemenu.py:130
 msgid "Exit to main menu?"
 msgstr ""
 
-#: app/views/pausemenu.py:128 app/views/pausemenu.py:136
+#: app/views/pausemenu.py:131 app/views/pausemenu.py:139
 msgid "Yes"
 msgstr ""
 
-#: app/views/pausemenu.py:128
+#: app/views/pausemenu.py:131
 msgid "No"
 msgstr ""
 
@@ -63,7 +63,27 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:22
+#: app/views/ui/settings/settings.py:24 app/views/ui/settings/video.py:30
 msgid "Back"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:27
+msgid "Video"
+msgstr ""
+
+#: app/views/ui/settings/video.py:34 app/views/ui/settings/video.py:46
+msgid "Off"
+msgstr ""
+
+#: app/views/ui/settings/video.py:36 app/views/ui/settings/video.py:48
+msgid "On"
+msgstr ""
+
+#: app/views/ui/settings/video.py:39
+msgid "V-Sync"
+msgstr ""
+
+#: app/views/ui/settings/video.py:51
+msgid "Show FPS"
 msgstr ""
 
