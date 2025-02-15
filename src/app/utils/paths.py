@@ -20,6 +20,11 @@ def screenshot_path() -> str:
     return os.path.join(data_path(), 'screenshots')
 
 
+def settings_path() -> str:
+    """ Settings path """
+
+    return os.path.join(data_path(), 'settings', 'settings.json')
+
 def log_path() -> str:
     """ Log path """
 
