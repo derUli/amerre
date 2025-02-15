@@ -357,15 +357,21 @@ class MainMenu(View):
         """ On settings """
 
         self._scene[SCENE_LAYER_TEXT].visible = False
+        self._scene[SCENE_LAYER_ICON].visible = False
         self._manager = Settings()
         self._manager.setup(callback=self.on_close_settings)
         self._manager.enable()
 
-    def on_close_settings(self) -> None:
+    def on_close_settings(self, new_manager = None) -> None:
         """ On close settings"""
         self._manager.disable()
         self._manager = None
+        if new_manager:
+            self._manager = new_manager
+            return
+
         self._scene[SCENE_LAYER_TEXT].visible = True
+        self._scene[SCENE_LAYER_ICON].visible = True
 
     @staticmethod
     def on_exit() -> None:

@@ -160,7 +160,10 @@ class PauseMenu(arcade.View):
         if key == KEY_START:
             self.on_continue()
 
-    def on_close_settings(self):
+    def on_close_settings(self, new_manager = None):
         self._manager2.disable()
-        self._manager2 = None
+        self._manager2 = new_manager
+        if new_manager:
+            return
+
         self._manager.enable()

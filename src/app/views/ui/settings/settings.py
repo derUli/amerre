@@ -3,6 +3,10 @@ import logging
 
 import arcade.gui
 
+from app.constants.ui import BUTTON_WIDTH
+from app.views.ui.settings.video import Video
+
+
 class Settings(arcade.gui.UIManager):
     """ Settings menu """
 
@@ -17,19 +21,39 @@ class Settings(arcade.gui.UIManager):
         self.clear()
         self._callback = callback
 
-        grid = arcade.gui.UIGridLayout(column_count=2, row_count=3, horizontal_spacing=20, vertical_spacing=20)
-
-        btn_back = arcade.gui.UIFlatButton(text=_('Back'))
+        btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
         btn_back.on_click = self.on_back
-        grid.add(btn_back, col_num=0, row_num=0)
 
-        layout = arcade.gui.UIAnchorLayout(anchor_x='center', anchor_y='center')
-        layout.add(grid)
+        btn_video = arcade.gui.UIFlatButton(text=_('Video'), width=BUTTON_WIDTH)
+        btn_video.on_click = self.on_video
 
-        self.add(layout)
+        widgets = [
+            btn_back,
+            btn_video
+        ]
+
+        # Initialise a BoxLayout in which widgets can be arranged.
+        widget_layout = arcade.gui.UIBoxLayout(space_between=20, align='center')
+
+        for widget in widgets:
+            widget_layout.add(widget)
+
+        frame = self.add(arcade.gui.UIAnchorLayout())
+        frame.with_padding(bottom=20)
+
+        frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
 
         self.enable()
 
+    def on_video(self, event):
+        self.disable()
+        menu = Video()
+        menu.setup(self.on_enable)
+        self._callback(menu)
+
+    def on_enable(self):
+        self.enable()
+        self._callback(self)
 
     def on_back(self, event):
         """ On go back """
