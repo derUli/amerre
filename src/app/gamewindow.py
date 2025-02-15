@@ -8,13 +8,11 @@ import time
 
 import arcade
 import pyglet
-import userpaths
-
-from app.constants.gameinfo import DIRECTORY_GAME_NAME
-from app.constants.input.keyboard import KEY_SCREENSHOT, KEY_TOGGLE_FULLSCREEN, KEY_TOGGLE_FPS
+from app.constants.input.keyboard import KEY_SCREENSHOT, KEY_TOGGLE_FPS
 from app.constants.settings import SETTINGS_SIZE_MINIUM
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
+from app.utils.paths import screenshot_path
 from app.utils.string import label_value
 from app.views.logo import Logo
 from app.views.mainmenu import MainMenu
@@ -225,20 +223,16 @@ class GameWindow(arcade.Window):
 
         if symbol in KEY_SCREENSHOT:
             self.on_screenshot()
-        if symbol in KEY_TOGGLE_FULLSCREEN:
-            self.set_fullscreen(not self.fullscreen)
         if symbol in KEY_TOGGLE_FPS:
             self.on_toggle_fps()
 
     def on_screenshot(self):
         """ Save a screenshot """
 
-        screenshot_dir = str(os.path.join(userpaths.get_my_pictures(), DIRECTORY_GAME_NAME))
+        if not os.path.exists(screenshot_path()):
+            os.makedirs(screenshot_path())
 
-        if not os.path.exists(screenshot_dir):
-            os.makedirs(screenshot_dir)
-
-        filename = os.path.join(screenshot_dir, time.strftime("%Y%m%d-%H%M%S") + '.jpg')
+        filename = os.path.join(screenshot_path(), time.strftime("%Y%m%d-%H%M%S") + '.jpg')
 
         start = time.time()
         image = arcade.get_image().convert('RGB')
