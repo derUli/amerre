@@ -74,6 +74,17 @@ class Audio(arcade.gui.UIManager):
         )
         slider_music.on_change = self.on_change_volume_music
 
+
+        label_subtitle_size = arcade.gui.UILabel(text=_('Size of subtitles'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        slider_subtitle_size = arcade.gui.UISlider(
+            value=self._state.subtitle_size,
+            min_value=0,
+            max_value=24,
+            width=BUTTON_WIDTH
+        )
+        slider_subtitle_size.on_change = self.on_change_subtitle_size
+
+
         widgets = [
             btn_back,
             label_master,
@@ -83,7 +94,9 @@ class Audio(arcade.gui.UIManager):
             label_speech,
             slider_speech,
             label_music,
-            slider_music
+            slider_music,
+            label_subtitle_size,
+            slider_subtitle_size
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -164,4 +177,8 @@ class Audio(arcade.gui.UIManager):
 
     def on_change_volume_music(self, event):
         self._state.audio_volumes.volume_music = int(event.new_value)
+        self._on_change(self._state)
+
+    def on_change_subtitle_size(self, event):
+        self._state.subtitle_size = int(event.new_value)
         self._on_change(self._state)

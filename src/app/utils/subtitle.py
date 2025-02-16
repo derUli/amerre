@@ -5,11 +5,9 @@ import arcade
 from arcade import SpriteList
 
 from app.constants.fonts import FONT_CONSOLA_MONO
+from app.state.settingsstate import SettingsState
 
 MARGIN = 10
-
-FONT_SIZE_1280 = 16
-FONT_SIZE_1920 = 20
 
 TEXT_COLOR = arcade.csscolor.WHITE
 
@@ -32,6 +30,11 @@ class Subtitle:
 
         self._texts = []
 
+        state = SettingsState.load()
+
+        if state.subtitle_size == 0:
+            return
+
         with open(text_file, 'r', encoding='UTF-8') as file:
             while line := file.readline():
                 self._texts.append(line.rstrip())
@@ -44,10 +47,7 @@ class Subtitle:
 
             parts = text.split(' ', maxsplit=1)
 
-            font_size = FONT_SIZE_1280
-
-            if w >= 1920:
-                font_size = FONT_SIZE_1920
+            font_size = state.subtitle_size
 
             sprite = arcade.create_text_sprite(
                 text=parts[1],

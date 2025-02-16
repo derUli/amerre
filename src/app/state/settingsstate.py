@@ -6,12 +6,13 @@ import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
-    SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH
+    SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
+    SETTINGS_DEFAULT_SUBTITLE_SIZE
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 5
+VERSION = 6
 
 class SettingsState:
     """ Game settings """
@@ -33,6 +34,7 @@ class SettingsState:
                 volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
                 volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
             )
+        self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
 
     @staticmethod
     def exists() -> bool:
@@ -143,3 +145,11 @@ class SettingsState:
     @audio_volumes.setter
     def audio_volumes(self, value: AudioVolumes) -> None:
         self.audio_volumes = value
+
+    @property
+    def subtitle_size(self) -> int:
+        return self._subtitle_size
+
+    @subtitle_size.setter
+    def subtitle_size(self, value: int) -> None:
+        self._subtitle_size = value
