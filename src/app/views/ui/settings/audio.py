@@ -77,8 +77,8 @@ class Audio(arcade.gui.UIManager):
         label_subtitle_size = arcade.gui.UILabel(text=_('Size of subtitles'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
         slider_subtitle_size = arcade.gui.UISlider(
             value=self._state.subtitle_size,
-            min_value=0,
-            max_value=24,
+            min_value=14,
+            max_value=20,
             width=BUTTON_WIDTH
         )
         slider_subtitle_size.on_change = self.on_change_subtitle_size
