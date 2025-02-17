@@ -141,7 +141,9 @@ class Audio(arcade.gui.UIManager):
         self._state.audio_volumes.volume_master = int(event.new_value)
         self._on_change(self._state)
 
-    def on_change_volume_sound(self, event):
+    def on_change_volume_sound(self, event: UIOnChangeEvent) -> None:
+        """ Sound volume changed """
+
         self._state.audio_volumes.volume_sound = int(event.new_value)
         self._on_change(self._state)
 
