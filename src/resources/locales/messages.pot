@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-15 14:27+0100\n"
+"POT-Creation-Date: 2025-02-17 12:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: app/gamewindow.py:60
+#: app/gamewindow.py:54
 msgid "Welcome to Amerre"
 msgstr ""
 
-#: app/views/mainmenu.py:102
+#: app/views/mainmenu.py:105
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:105
+#: app/views/mainmenu.py:108
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:124
+#: app/views/mainmenu.py:127
 msgid "Version"
 msgstr ""
 
@@ -61,27 +61,62 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:24 app/views/ui/settings/video.py:30
+#: app/views/ui/settings/audio.py:35 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/video.py:30
 msgid "Back"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:27
-msgid "Video"
+#: app/views/ui/settings/audio.py:39
+msgid "Master volume"
 msgstr ""
 
-#: app/views/ui/settings/video.py:34 app/views/ui/settings/video.py:46
+#: app/views/ui/settings/audio.py:48
+msgid "Sound volume"
+msgstr ""
+
+#: app/views/ui/settings/audio.py:57
+msgid "Speech volume"
+msgstr ""
+
+#: app/views/ui/settings/audio.py:67
+msgid "Music volume"
+msgstr ""
+
+#: app/views/ui/settings/audio.py:77
+msgid "Size of subtitles"
+msgstr ""
+
+#: app/views/ui/settings/audio.py:86 app/views/ui/settings/video.py:34
+#: app/views/ui/settings/video.py:49 app/views/ui/settings/video.py:60
 msgid "Off"
 msgstr ""
 
-#: app/views/ui/settings/video.py:36 app/views/ui/settings/video.py:48
+#: app/views/ui/settings/audio.py:88 app/views/ui/settings/video.py:36
+#: app/views/ui/settings/video.py:51 app/views/ui/settings/video.py:62
 msgid "On"
 msgstr ""
 
+#: app/views/ui/settings/audio.py:91
+msgid "Subtitles"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:32
+msgid "Video"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:36
+msgid "Audio"
+msgstr ""
+
 #: app/views/ui/settings/video.py:39
+msgid "Fullscreen"
+msgstr ""
+
+#: app/views/ui/settings/video.py:54
 msgid "V-Sync"
 msgstr ""
 
-#: app/views/ui/settings/video.py:51
+#: app/views/ui/settings/video.py:65
 msgid "Show FPS"
 msgstr ""
 

@@ -12,7 +12,7 @@ from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 7
+VERSION = 1
 
 class SettingsState:
     """ Game settings """

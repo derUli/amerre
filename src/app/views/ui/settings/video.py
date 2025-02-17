@@ -40,6 +40,10 @@ class Video(arcade.gui.UIManager):
             width=BUTTON_WIDTH
         )
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
+
+        # Currently disabled because it's buggy
+        btn_toggle_fullscreen.disabled = True
+
         grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
 
         vsync_text = _('Off')
