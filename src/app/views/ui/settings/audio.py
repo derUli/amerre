@@ -24,7 +24,6 @@ class Audio(arcade.gui.UIManager):
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """
 
-        self.disable()
         self.clear()
         self._on_close = on_close
         self._on_change = on_change
@@ -84,6 +83,19 @@ class Audio(arcade.gui.UIManager):
         )
         slider_subtitle_size.on_change = self.on_change_subtitle_size
 
+        subtitles_text = _('Off')
+        if self._state.subtitle_enabled:
+            subtitles_text = _('On')
+
+        btn_toggle_subtitles = arcade.gui.UIFlatButton(
+            text=': '.join([_('Subtitles'), subtitles_text]),
+            width=BUTTON_WIDTH
+        )
+
+        btn_toggle_subtitles.on_click = self.on_toggle_subtitles
+
+        label_subtitle_size.disabled = not self._state.subtitle_enabled
+        slider_subtitle_size.disabled = not self._state.subtitle_enabled
 
         widgets = [
             btn_back,
@@ -95,6 +107,7 @@ class Audio(arcade.gui.UIManager):
             slider_speech,
             label_music,
             slider_music,
+            btn_toggle_subtitles,
             label_subtitle_size,
             slider_subtitle_size
         ]
@@ -120,49 +133,6 @@ class Audio(arcade.gui.UIManager):
         self.disable()
         self._on_close()
 
-
-    def on_toggle_fps(self, event):
-
-        logging.debug(event)
-
-        if arcade.timings_enabled():
-            arcade.disable_timings()
-        else:
-            arcade.enable_timings()
-
-        self._state.show_fps = arcade.timings_enabled()
-        self._state.save()
-
-        self.setup(self._on_close)
-
-    def on_toggle_fullscreen(self, event):
-
-        logging.debug(event)
-
-        self._state.fullscreen = not arcade.get_window().fullscreen
-        self._state.save()
-
-        w, h = self._state.screen_resolution
-
-        arcade.get_window().set_fullscreen(not arcade.get_window().fullscreen, width=w, height=h)
-
-        if not self._state.fullscreen:
-            arcade.get_window().set_size(w, h)
-
-        self.setup(self._on_close)
-
-    def on_toggle_vsync(self, event):
-
-        logging.debug(event)
-
-        arcade.get_window().set_vsync(not arcade.get_window().vsync)
-
-        self._state.vsync = arcade.get_window().vsync
-        self._state.save()
-        arcade.get_window().set_draw_rate(self._state.draw_rate)
-
-        self.setup(self._on_close)
-
     def on_change_volume_master(self, event):
         self._state.audio_volumes.volume_master = int(event.new_value)
         self._on_change(self._state)
@@ -182,3 +152,9 @@ class Audio(arcade.gui.UIManager):
     def on_change_subtitle_size(self, event):
         self._state.subtitle_size = int(event.new_value)
         self._on_change(self._state)
+
+    def on_toggle_subtitles(self, event):
+        self._state.subtitle_enabled = not self._state.subtitle_enabled
+        self._on_change(self._state)
+        self._state.save()
+        self.setup(self._on_close, self._on_change)

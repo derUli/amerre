@@ -7,12 +7,12 @@ import pyglet
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
-    SETTINGS_DEFAULT_SUBTITLE_SIZE
+    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 6
+VERSION = 7
 
 class SettingsState:
     """ Game settings """
@@ -34,6 +34,7 @@ class SettingsState:
                 volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
                 volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
             )
+        self._subtitle_enabled = SETTINGS_DEFAULT_SUBTITLE_ENABLED
         self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
 
     @staticmethod
@@ -79,7 +80,7 @@ class SettingsState:
             # If the state version from the code is newer than the stored version
             # discard the old settings state and return a new one
 
-            if SettingsState().version != state.version:
+            if SettingsState()._version != state._version:
                 return SettingsState()
 
             return state
@@ -93,10 +94,6 @@ class SettingsState:
 
         with open(settings_path(), 'w') as f:
             f.write(jsonpickle.encode(self, unpicklable=True))
-
-    @property
-    def version(self) -> int:
-        return self._version
 
     @property
     def show_fps(self) -> bool:
@@ -153,3 +150,12 @@ class SettingsState:
     @subtitle_size.setter
     def subtitle_size(self, value: int) -> None:
         self._subtitle_size = value
+
+
+    @property
+    def subtitle_enabled(self) -> bool:
+        return self._subtitle_enabled
+
+    @subtitle_enabled.setter
+    def subtitle_enabled(self, value: bool) -> None:
+        self._subtitle_enabled = value

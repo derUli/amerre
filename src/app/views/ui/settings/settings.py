@@ -13,6 +13,7 @@ class Settings(arcade.gui.UIManager):
 
     def __init__(self):
         """ Constructor """
+
         super().__init__()
 
         self._on_close = None
@@ -20,6 +21,7 @@ class Settings(arcade.gui.UIManager):
 
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """
+
         self.clear()
         self._on_close = on_close
         self._on_change = on_change

@@ -32,6 +32,9 @@ class Subtitle:
 
         state = SettingsState.load()
 
+        if not state.subtitle_enabled:
+            return
+
         if state.subtitle_size == 0:
             return
 
