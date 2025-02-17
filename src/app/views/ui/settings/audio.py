@@ -2,6 +2,7 @@
 import logging
 
 import arcade.gui
+from arcade.gui.events import UIOnChangeEvent
 
 from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.ui import BUTTON_WIDTH
@@ -133,7 +134,10 @@ class Audio(arcade.gui.UIManager):
         self.disable()
         self._on_close()
 
-    def on_change_volume_master(self, event):
+    def on_change_volume_master(self, event: UIOnChangeEvent) -> None:
+        """ master volume changed """
+
+        logging.debug(event)
         self._state.audio_volumes.volume_master = int(event.new_value)
         self._on_change(self._state)
 
