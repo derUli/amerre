@@ -121,10 +121,14 @@ class SettingsState:
 
     @property
     def fullscreen(self) -> bool:
+        """ Fullscreen """
+
         return self._fullscreen
 
     @fullscreen.setter
     def fullscreen(self, value: bool) -> None:
+        """ Fullscreen """
+
         self._fullscreen = value
 
     @property
