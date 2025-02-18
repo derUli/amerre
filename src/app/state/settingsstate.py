@@ -97,18 +97,26 @@ class SettingsState:
 
     @property
     def show_fps(self) -> bool:
+        """ Show FPS """
+
         return self._show_fps
 
     @show_fps.setter
     def show_fps(self, value: bool) -> None:
+        """ Show FPS """
+
         self._show_fps = value
 
     @property
     def vsync(self) -> bool:
+        """ V-Sync """
+
         return self._vsync
 
     @vsync.setter
     def vsync(self, value: bool) -> None:
+        """ V-Sync """
+
         self._vsync = value
 
     @property
