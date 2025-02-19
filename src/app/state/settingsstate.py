@@ -166,8 +166,12 @@ class SettingsState:
 
     @property
     def subtitle_enabled(self) -> bool:
+        """ Subtitles enabled """
+
         return self._subtitle_enabled
 
     @subtitle_enabled.setter
     def subtitle_enabled(self, value: bool) -> None:
+        """ Subtitles enabled """
+
         self._subtitle_enabled = value
