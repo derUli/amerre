@@ -156,15 +156,6 @@ class SettingsState:
         self.audio_volumes = value
 
     @property
-    def subtitle_size(self) -> int:
-        return self._subtitle_size
-
-    @subtitle_size.setter
-    def subtitle_size(self, value: int) -> None:
-        self._subtitle_size = value
-
-
-    @property
     def subtitle_enabled(self) -> bool:
         """ Subtitles enabled """
 
@@ -175,3 +166,11 @@ class SettingsState:
         """ Subtitles enabled """
 
         self._subtitle_enabled = value
+
+    @property
+    def subtitle_size(self) -> int:
+        return self._subtitle_size
+
+    @subtitle_size.setter
+    def subtitle_size(self, value: int) -> None:
+        self._subtitle_size = value
