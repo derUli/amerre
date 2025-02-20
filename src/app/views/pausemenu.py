@@ -1,6 +1,7 @@
 """ Pause Menu """
 
 import logging
+import sys
 
 import arcade
 import arcade.gui
@@ -58,22 +59,35 @@ class PauseMenu(arcade.View):
             self._manager2 = Settings()
             self._manager2.setup(self.on_close_settings, self.on_change_settings)
 
-        btn_exit = arcade.gui.UIFlatButton(
+        btn_exit_to_menu = arcade.gui.UIFlatButton(
             text=_('Back to Menu'),
             width=BUTTON_WIDTH
         )
 
-        @btn_exit.event("on_click")
-        def on_click_btn_exit(event):
+        @btn_exit_to_menu.event("on_click")
+        def on_click_btn_exit_to_menu(event):
             """ Exit button clicked """
 
             logging.debug(event)
-            self.on_exit()
+            self.on_exit_to_menu()
 
-        grid = arcade.gui.UIGridLayout(column_count=1, row_count=3, vertical_spacing=20)
+        btn_exit_to_desktop = arcade.gui.UIFlatButton(
+            text=_('Exit to desktop'),
+            width=BUTTON_WIDTH
+        )
+
+        @btn_exit_to_desktop.event("on_click")
+        def on_click_btn_exit_to_desktop(event):
+            """ Exit button clicked """
+
+            logging.debug(event)
+            self.on_exit_to_desktop()
+
+        grid = arcade.gui.UIGridLayout(column_count=1, row_count=4, vertical_spacing=20)
         grid.add(btn_continue, row=0)
         grid.add(btn_settings, row=1)
-        grid.add(btn_exit, row=2)
+        grid.add(btn_exit_to_menu, row=2)
+        grid.add(btn_exit_to_desktop, row=3)
 
         # Passing the main view into menu view as an argument.
         anchor = self._manager.add(arcade.gui.UIAnchorLayout())
@@ -122,7 +136,7 @@ class PauseMenu(arcade.View):
 
         self.previous_view.on_continue()
 
-    def on_exit(self, event: UIOnActionEvent | None = None) -> None:
+    def on_exit_to_menu(self, event: UIOnActionEvent | None = None) -> None:
         """ On exit to menu """
 
         if not event:
@@ -132,7 +146,7 @@ class PauseMenu(arcade.View):
                 width=MODAL_WIDTH,
                 height=MODAL_HEIGHT
             ).with_background(color=self.window.background_color)
-            dialog.on_action = self.on_exit
+            dialog.on_action = self.on_exit_to_menu
             self._manager.add(dialog)
             return
 
@@ -144,6 +158,27 @@ class PauseMenu(arcade.View):
         start_screen = MainMenu()
         start_screen.setup(self._root_dir)
         self.window.show_view(start_screen)
+
+
+    def on_exit_to_desktop(self, event: UIOnActionEvent | None = None) -> None:
+        """ On exit to desktop """
+
+        if not event:
+            dialog = arcade.gui.UIMessageBox(
+                message_text=_('Exit to desktop?'),
+                buttons=(_('Yes'), _('No')),
+                width=MODAL_WIDTH,
+                height=MODAL_HEIGHT
+            ).with_background(color=self.window.background_color)
+            dialog.on_action = self.on_exit_to_desktop
+            self._manager.add(dialog)
+            return
+
+        if event.action != _('Yes'):
+            return
+
+        self.previous_view.unsetup()
+        arcade.exit()
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
         """ On key press """

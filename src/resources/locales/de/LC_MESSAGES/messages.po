@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-17 12:44+0100\n"
+"POT-Creation-Date: 2025-02-20 19:42+0100\n"
 "PO-Revision-Date: 2024-11-05 19:44+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: app/gamewindow.py:54
 msgid "Welcome to Amerre"
@@ -34,70 +34,79 @@ msgstr "Drücken Sie START zum Starten"
 msgid "Version"
 msgstr "Version"
 
-#: app/views/pausemenu.py:36
+#: app/views/pausemenu.py:37
 msgid "Continue"
 msgstr "Fortsetzen"
 
-#: app/views/pausemenu.py:48
+#: app/views/pausemenu.py:49
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: app/views/pausemenu.py:62
+#: app/views/pausemenu.py:63
 msgid "Back to Menu"
 msgstr "Zurück ins Hauptmenü"
 
-#: app/views/pausemenu.py:130
+#: app/views/pausemenu.py:75
+msgid "Exit to desktop"
+msgstr "Zurück zum Desktop"
+
+#: app/views/pausemenu.py:144
 msgid "Exit to main menu?"
 msgstr "Möchten Sie zurück ins Hauptmenü?"
 
-#: app/views/pausemenu.py:131 app/views/pausemenu.py:139
+#: app/views/pausemenu.py:145 app/views/pausemenu.py:153
+#: app/views/pausemenu.py:169 app/views/pausemenu.py:177
 msgid "Yes"
 msgstr "Ja"
 
-#: app/views/pausemenu.py:131
+#: app/views/pausemenu.py:145 app/views/pausemenu.py:169
 msgid "No"
 msgstr "Nein"
+
+#: app/views/pausemenu.py:168
+msgid "Exit to desktop?"
+msgstr "Möchten Sie zurück zum Desktop?"
 
 #: app/views/tobecontinued.py:44
 msgid "To be continued"
 msgstr "Fortsetzung folgt"
 
-#: app/views/ui/settings/audio.py:35 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/audio.py:36 app/views/ui/settings/settings.py:29
 #: app/views/ui/settings/video.py:30
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/ui/settings/audio.py:39
+#: app/views/ui/settings/audio.py:40
 msgid "Master volume"
 msgstr "Gesamtlautstärke"
 
-#: app/views/ui/settings/audio.py:48
+#: app/views/ui/settings/audio.py:49
 msgid "Sound volume"
 msgstr "Soundeffekte"
 
-#: app/views/ui/settings/audio.py:57
+#: app/views/ui/settings/audio.py:58
 msgid "Speech volume"
 msgstr "Sprache"
 
-#: app/views/ui/settings/audio.py:67
+#: app/views/ui/settings/audio.py:68
 msgid "Music volume"
 msgstr "Musik"
 
-#: app/views/ui/settings/audio.py:77
+#: app/views/ui/settings/audio.py:78
 msgid "Size of subtitles"
 msgstr "Größe der Untertitel"
 
-#: app/views/ui/settings/audio.py:86 app/views/ui/settings/video.py:34
+#: app/views/ui/settings/audio.py:87 app/views/ui/settings/video.py:34
 #: app/views/ui/settings/video.py:49 app/views/ui/settings/video.py:60
 msgid "Off"
 msgstr "Aus"
 
-#: app/views/ui/settings/audio.py:88 app/views/ui/settings/video.py:36
+#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:36
 #: app/views/ui/settings/video.py:51 app/views/ui/settings/video.py:62
 msgid "On"
 msgstr "An"
 
-#: app/views/ui/settings/audio.py:91
+#: app/views/ui/settings/audio.py:92
 msgid "Subtitles"
 msgstr "Untertitel"
 

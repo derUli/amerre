@@ -14,6 +14,7 @@ from app.utils.screen import fullscreen_resolution, window_resolution
 
 VERSION = 1
 
+
 class SettingsState:
     """ Game settings """
 
@@ -29,11 +30,11 @@ class SettingsState:
 
         # Audio
         self._audio_volumes = AudioVolumes(
-                volume_music=SETTINGS_DEFAULT_VOLUME_MUSIC,
-                volume_sound=SETTINGS_DEFAULT_VOLUME_SOUND,
-                volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
-                volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
-            )
+            volume_music=SETTINGS_DEFAULT_VOLUME_MUSIC,
+            volume_sound=SETTINGS_DEFAULT_VOLUME_SOUND,
+            volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
+            volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
+        )
         self._subtitle_enabled = SETTINGS_DEFAULT_SUBTITLE_ENABLED
         self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
 
@@ -169,8 +170,12 @@ class SettingsState:
 
     @property
     def subtitle_size(self) -> int:
+        """ Subtitle size """
+
         return self._subtitle_size
 
     @subtitle_size.setter
     def subtitle_size(self, value: int) -> None:
+        """ Subtitle size """
+
         self._subtitle_size = value
