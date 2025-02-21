@@ -150,10 +150,14 @@ class SettingsState:
 
     @property
     def audio_volumes(self) -> AudioVolumes:
+        """ Audio volumes """
+
         return self._audio_volumes
 
     @audio_volumes.setter
     def audio_volumes(self, value: AudioVolumes) -> None:
+        """ Audio volumes """
+
         self.audio_volumes = value
 
     @property
