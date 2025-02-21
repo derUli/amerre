@@ -45,6 +45,7 @@ class SettingsState:
 
         @return: bool
         """
+
         return os.path.exists(settings_path())
 
     @staticmethod
@@ -54,6 +55,7 @@ class SettingsState:
 
         @return: SettingsState
         """
+
         try:
             return SettingsState._load()
         except ValueError as e:
@@ -72,6 +74,7 @@ class SettingsState:
 
         @return: SettingsState
         """
+
         with open(settings_path(), 'r') as f:
             state = jsonpickle.decode(f.read())
 
