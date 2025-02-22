@@ -137,6 +137,8 @@ class SettingsState:
 
     @property
     def screen_resolution(self):
+        """ Get the screen resolution for the screen mode """
+
         if self.fullscreen:
             return fullscreen_resolution()
 
