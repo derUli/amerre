@@ -12,14 +12,12 @@ import pyglet
 
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
-    SETTINGS_ANTIALIASING_CHOICES,
-    SETTINGS_DEFAULT_ANTIALIASING,SETTINGS_DEFAULT_UPDATE_RATE,
-    SETTINGS_DEFAULT_VOLUME_MUSIC, SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER,
-    SETTINGS_DEFAULT_VOLUME_SPEECH, SETTINGS_WINDOW_STYLE_CHOICES, SETTINGS_DEFAULT_WINDOW_STYLE,
+    SETTINGS_DEFAULT_UPDATE_RATE,
+    SETTINGS_WINDOW_STYLE_CHOICES,
+    SETTINGS_DEFAULT_WINDOW_STYLE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
-from app.utils.audiovolumes import AudioVolumes
 from app.utils.log import configure_logger, log_hardware_info
 from app.utils.string import label_value
 
@@ -99,11 +97,11 @@ class Startup:
 
         self.setup_locale(lang)
 
-        samples = args.antialiasing
-        antialiasing = samples > 0
 
         state = SettingsState.load()
 
+        samples = state.antialiasing
+        antialiasing = samples > 0
 
         # Update rate
 
@@ -204,39 +202,6 @@ class Startup:
             type=int,
             help='The update rate',
             default=SETTINGS_DEFAULT_UPDATE_RATE
-        )
-
-        parser.add_argument(
-            '--antialiasing',
-            action='store',
-            type=int,
-            help='The antialiasing level',
-            choices=SETTINGS_ANTIALIASING_CHOICES,
-            default=SETTINGS_DEFAULT_ANTIALIASING
-        )
-
-        parser.add_argument(
-            '--volume-music',
-            action='store',
-            type=int,
-            help='The music volume',
-            default=SETTINGS_DEFAULT_VOLUME_MUSIC
-        )
-
-        parser.add_argument(
-            '--volume-speech',
-            action='store',
-            type=int,
-            help='The music volume',
-            default=SETTINGS_DEFAULT_VOLUME_SPEECH
-        )
-
-        parser.add_argument(
-            '--volume-sound',
-            action='store',
-            type=int,
-            help='The sound volume',
-            default=SETTINGS_DEFAULT_VOLUME_SOUND
         )
 
         parser.add_argument(

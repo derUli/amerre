@@ -7,12 +7,12 @@ import pyglet
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
-    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED
+    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 1
+VERSION = 2
 
 
 class SettingsState:
@@ -27,6 +27,7 @@ class SettingsState:
         self._vsync = SETTINGS_DEFAULT_VSYNC
         self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
         self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
+        self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
 
         # Audio
         self._audio_volumes = AudioVolumes(
@@ -188,3 +189,9 @@ class SettingsState:
         """ Subtitle size """
 
         self._subtitle_size = value
+
+    @property
+    def antialiasing(self) -> int:
+        """ Antialiasing """
+
+        return self._antialiasing
