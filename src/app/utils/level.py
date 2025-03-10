@@ -84,12 +84,13 @@ class Level:
         self.wait_for_begin()
 
         # TODO: play music by map triggers
-
-        music_file = os.path.join(root_dir, 'resources', 'music', config[map_name]['music'])
+        map_config = config[map_name]
+        music_file = os.path.join(root_dir, 'resources', 'music', map_config['music'])
         music = arcade.load_sound(music_file, streaming=True)
         self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER)
 
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
+
         if os.path.exists(atmo_file):
             atmo = arcade.load_sound(atmo_file, streaming=True)
             self._atmo = atmo.play(volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER, loop=True)
@@ -97,12 +98,18 @@ class Level:
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
         self._voiceover_triggers = VoiceOverTiggers().setup(callbacks=callbacks)
         self.scroll_to_player()
-        self._animations = [
-            Particles(),
+
+        animations = []
+
+        if 'particles' in map_config and map_config['particles']:
+            animations += [Particles()]
+
+        animations += [
             CloudAnimation(),
             Bushes(),
             Filmgrain()
         ]
+        self._animations = animations
 
         for animation in self._animations:
             animation.setup(self._scene, self.tilemap, root_dir)

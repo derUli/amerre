@@ -39,7 +39,7 @@ class Logo(View):
         self._phase = None
         self._fade_sprite = arcade.sprite.SpriteSolidColor(
             width=self.window.width,
-            height=self.window.height,
+            height=self.window.height + 2,
             color=arcade.color.BLACK
         )
         self._fade_sprite.center_x = self.window.width / 2

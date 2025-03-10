@@ -20,6 +20,7 @@ class Particles(Effect):
 
     def setup(self, scene, tilemap, root_dir: str):
         """ Setup animation """
+        
         super().setup(scene, tilemap, root_dir)
 
         width = tilemap.width * tilemap.tile_width

@@ -1,5 +1,6 @@
 {
   "map01": {
-    "music": "BeforeDawn.mp3"
+    "music": "BeforeDawn.mp3",
+    "particles": true
   }
 }
