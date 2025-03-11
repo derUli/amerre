@@ -20,7 +20,7 @@ class Settings(arcade.gui.UIManager):
         self._on_close = None
         self._on_change = None
 
-    def setup(self, on_close, on_change = None) -> None:
+    def setup(self, on_close, on_change) -> None:
         """ Setup settings """
 
         self.clear()
@@ -58,7 +58,7 @@ class Settings(arcade.gui.UIManager):
     def on_video(self, event):
         self.disable()
         menu = Video()
-        menu.setup(self.on_enable)
+        menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
 
@@ -69,9 +69,6 @@ class Settings(arcade.gui.UIManager):
         self._on_close(menu)
 
     def on_enable(self, refresh_particles = False):
-        if refresh_particles and self._on_change:
-            self._on_change(refresh_particles=True)
-            return
 
         self.enable()
         self._on_close(self)

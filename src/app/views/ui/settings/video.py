@@ -16,14 +16,16 @@ class Video(arcade.gui.UIManager):
 
         super().__init__()
         self._state = None
-        self._callback = None
+        self._on_close = None
+        self._on_change = None
 
-    def setup(self, callback) -> None:
+    def setup(self, on_close, on_change) -> None:
         """ Setup settings """
 
         self.disable()
         self.clear()
-        self._callback = callback
+        self._on_close = on_close
+        self._on_change = on_change
         self._state = SettingsState.load()
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1, vertical_spacing=20)
@@ -105,8 +107,7 @@ class Video(arcade.gui.UIManager):
         logging.debug(event)
 
         self.disable()
-        self._callback()
-
+        self._on_close()
 
     def on_toggle_fps(self, event):
 
@@ -120,7 +121,7 @@ class Video(arcade.gui.UIManager):
         self._state.show_fps = arcade.timings_enabled()
         self._state.save()
 
-        self.setup(self._callback)
+        self.setup(self._on_close, self._on_change)
 
     def on_toggle_fullscreen(self, event):
 
@@ -136,7 +137,7 @@ class Video(arcade.gui.UIManager):
         if not self._state.fullscreen:
             arcade.get_window().set_size(w, h)
 
-        self.setup(self._callback)
+        self.setup(self._on_close, self._on_change)
 
     def on_toggle_vsync(self, event):
 
@@ -148,12 +149,12 @@ class Video(arcade.gui.UIManager):
         self._state.save()
         arcade.get_window().set_draw_rate(self._state.draw_rate)
 
-        self.setup(self._callback)
+        self.setup(self._on_close, self._on_change)
 
-    def on_change_particles(self, event):
+    def on_change_particles(self, event, ):
         """ master volume changed """
 
         logging.debug(event)
         self._state.particles = float(event.new_value)
         self._state.save()
-        self._callback(refresh_particles=True)
+        self._on_change(refresh_particles=True)

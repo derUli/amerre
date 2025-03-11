@@ -57,7 +57,7 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self._manager.disable()
             self._manager2 = Settings()
-            self._manager2.setup(self.on_close_settings)
+            self._manager2.setup(self.on_close_settings, self.on_change_settings)
 
         btn_exit_to_menu = arcade.gui.UIFlatButton(
             text=_('Back to Menu'),
@@ -202,3 +202,6 @@ class PauseMenu(arcade.View):
             return
 
         self._manager.enable()
+
+    def on_change_settings(self, refresh_particles = False):
+        pass
