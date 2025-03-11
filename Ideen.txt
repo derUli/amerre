@@ -1,5 +1,6 @@
 Kapitel 1: Willkommen
 Kapitel 2: Leben (Wüste)
 Kapitel 3: Zivilisation (Großstadt bei Gewitter)
-Kapitel 4: Gedankensprung (???)
-Kapitelauswahl und Savegame
+Kapitel 4: Selbstreflektion (???)
+
+* Kapitelauswahl und Savegame
