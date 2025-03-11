@@ -76,7 +76,6 @@ class FPSCounter:
             self._fps_text = new_dict
             logging.info('More than MAX_FPS_COUNT')
 
-
         self._last_update = time.time()
 
     def draw(self):

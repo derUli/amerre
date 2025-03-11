@@ -4,7 +4,6 @@ import logging
 import arcade.gui
 
 from app.constants.ui import BUTTON_WIDTH
-from app.state.settingsstate import SettingsState
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.video import Video
 
@@ -33,7 +32,6 @@ class Settings(arcade.gui.UIManager):
         btn_video = arcade.gui.UIFlatButton(text=_('Video'), width=BUTTON_WIDTH)
         btn_video.on_click = self.on_video
 
-
         btn_audio = arcade.gui.UIFlatButton(text=_('Audio'), width=BUTTON_WIDTH)
         btn_audio.on_click = self.on_audio
 
@@ -61,19 +59,18 @@ class Settings(arcade.gui.UIManager):
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-
     def on_audio(self, event):
         self.disable()
         menu = Audio()
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-    def on_enable(self, refresh_particles = False):
+    def on_enable(self, refresh_particles=False):
 
         self.enable()
         self._on_close(self)
 
-    def on_back(self, event, refresh_particles = False):
+    def on_back(self, event, refresh_particles=False):
         """ On go back """
 
         logging.debug(event)
@@ -83,4 +80,3 @@ class Settings(arcade.gui.UIManager):
 
         self.disable()
         self._on_close()
-

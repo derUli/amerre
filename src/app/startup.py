@@ -75,7 +75,6 @@ class Startup:
     def start(self) -> None:
         """ Start game """
 
-
         args = self.get_args()
         logging.info(args)
         self.log_version_info()
@@ -96,7 +95,6 @@ class Startup:
             lang = [DEFAULT_LOCALE]
 
         self.setup_locale(lang)
-
 
         state = SettingsState.load()
 

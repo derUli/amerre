@@ -10,6 +10,7 @@ from app.state.settingsstate import SettingsState
 
 MARGIN = 20
 
+
 class Audio(arcade.gui.UIManager):
     """ Settings settings """
 
@@ -64,7 +65,6 @@ class Audio(arcade.gui.UIManager):
         )
         slider_speech.on_change = self.on_change_volume_speech
 
-
         label_music = arcade.gui.UILabel(text=_('Music volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
         slider_music = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_music,
@@ -74,8 +74,8 @@ class Audio(arcade.gui.UIManager):
         )
         slider_music.on_change = self.on_change_volume_music
 
-
-        label_subtitle_size = arcade.gui.UILabel(text=_('Size of subtitles'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        label_subtitle_size = arcade.gui.UILabel(text=_('Size of subtitles'), width=BUTTON_WIDTH,
+                                                 font_name=FONT_CONSOLA_MONO)
         slider_subtitle_size = arcade.gui.UISlider(
             value=self._state.subtitle_size,
             min_value=14,

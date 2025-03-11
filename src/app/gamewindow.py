@@ -18,6 +18,7 @@ from app.utils.string import label_value
 from app.views.logo import Logo
 from app.views.mainmenu import MainMenu
 
+
 class GameWindow(arcade.Window):
     """
     Main application class

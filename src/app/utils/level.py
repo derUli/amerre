@@ -389,7 +389,6 @@ class Level:
             self._voiceover_triggers.media,
         ]
 
-
         state = SettingsState.load()
 
         if self._music:

@@ -1,7 +1,6 @@
 """ Pause Menu """
 
 import logging
-import sys
 
 import arcade
 import arcade.gui
@@ -159,7 +158,6 @@ class PauseMenu(arcade.View):
         start_screen.setup(self._root_dir)
         self.window.show_view(start_screen)
 
-
     def on_exit_to_desktop(self, event: UIOnActionEvent | None = None) -> None:
         """ On exit to desktop """
 
@@ -195,7 +193,7 @@ class PauseMenu(arcade.View):
         if key == KEY_START:
             self.on_continue()
 
-    def on_close_settings(self, new_manager = None, on_change = None):
+    def on_close_settings(self, new_manager=None, on_change=None):
         self._manager2.disable()
         self._manager2 = new_manager
         if new_manager:
@@ -203,5 +201,5 @@ class PauseMenu(arcade.View):
 
         self._manager.enable()
 
-    def on_change_settings(self, refresh_particles = False):
+    def on_change_settings(self, refresh_particles=False):
         pass

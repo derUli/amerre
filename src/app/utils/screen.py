@@ -9,6 +9,7 @@ def screen_resolutions() -> list:
     modes = filter(lambda mode: is_16_9_ratio(mode), modes)
     return sorted(list(set(map(lambda mode: (mode.width, mode.height), modes))))
 
+
 def fullscreen_resolution() -> list:
     resolutions = list(reversed(screen_resolutions()))
 
@@ -16,6 +17,7 @@ def fullscreen_resolution() -> list:
         return SETTINGS_SIZE_MINIUM
 
     return resolutions[0]
+
 
 def window_resolution() -> list:
     resolutions = list(reversed(screen_resolutions()))
@@ -25,8 +27,10 @@ def window_resolution() -> list:
 
     return resolutions[1]
 
+
 def is_16_9_ratio(mode) -> bool:
     return calculate_aspect(mode.width, mode.height) == "16:9"
+
 
 def calculate_aspect(width: int, height: int) -> str:
     def gcd(a, b):

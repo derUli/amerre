@@ -25,6 +25,7 @@ def settings_path() -> str:
 
     return os.path.join(data_path(), 'settings', 'settings.json')
 
+
 def log_path() -> str:
     """ Log path """
 

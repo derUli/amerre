@@ -21,7 +21,7 @@ class Particles(Effect):
 
     def setup(self, scene, tilemap, root_dir: str):
         """ Setup animation """
-        
+
         super().setup(scene, tilemap, root_dir)
 
         width = tilemap.width * tilemap.tile_width
@@ -83,7 +83,7 @@ class Particles(Effect):
         if new_count < old_count:
             diff = new_count - old_count
 
-            sprites =  self._scene[LAYER_PARTICLES][diff:]
+            sprites = self._scene[LAYER_PARTICLES][diff:]
 
             for sprite in sprites:
                 self._scene[LAYER_PARTICLES].remove(sprite)

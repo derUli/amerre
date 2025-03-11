@@ -5,6 +5,7 @@ import random
 import webbrowser
 
 import arcade
+import arcade.gui
 
 from app.constants.fonts import FONT_MARKER_FELT, FONT_CONSOLA_MONO
 from app.constants.gameinfo import VERSION_STRING, MAPS
@@ -16,7 +17,7 @@ from app.state.settingsstate import SettingsState
 from app.views.game import Game
 from app.views.ui.settings.settings import Settings
 from app.views.view import View
-import arcade.gui
+
 BACKGROUND_COLOR = (58, 158, 236, 255)
 FONT_SIZE = 20
 FONT_SIZE_TITLE = 80
@@ -280,7 +281,6 @@ class MainMenu(View):
             self._last_hover = None
             return
 
-
         self.window.set_mouse_visible(True)
 
         if self._last_hover:
@@ -360,7 +360,7 @@ class MainMenu(View):
         self._manager.setup(on_close=self.on_close_settings, on_change=self.on_change_settings)
         self._manager.enable()
 
-    def on_change_settings(self, state: SettingsState = None, refresh_particles = False) -> None:
+    def on_change_settings(self, state: SettingsState = None, refresh_particles=False) -> None:
         if state:
             self._music.volume = state.audio_volumes.volume_music_normalized
             self.window.audio_volumes = state.audio_volumes
@@ -368,7 +368,7 @@ class MainMenu(View):
         if refresh_particles:
             self.on_refresh_particles()
 
-    def on_close_settings(self, new_manager = None) -> None:
+    def on_close_settings(self, new_manager=None) -> None:
         """ On close settings"""
         self._manager.disable()
         self._manager = None
@@ -404,7 +404,7 @@ class MainMenu(View):
         if new_count < old_count:
             diff = new_count - old_count
 
-            sprites =  self._scene[SCENE_LAYER_PARTICLES][diff:]
+            sprites = self._scene[SCENE_LAYER_PARTICLES][diff:]
 
             for sprite in sprites:
                 self._scene[SCENE_LAYER_PARTICLES].remove(sprite)
@@ -414,4 +414,3 @@ class MainMenu(View):
         """ On exit game """
 
         arcade.exit()
-
