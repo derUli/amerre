@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-20 19:42+0100\n"
+"POT-Creation-Date: 2025-03-11 17:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -19,52 +19,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app/gamewindow.py:54
+#: app/gamewindow.py:55
 msgid "Welcome to Amerre"
 msgstr ""
 
-#: app/views/mainmenu.py:105
+#: app/views/mainmenu.py:106
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:108
+#: app/views/mainmenu.py:109
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:127
+#: app/views/mainmenu.py:128
 msgid "Version"
 msgstr ""
 
-#: app/views/pausemenu.py:37
+#: app/views/pausemenu.py:36
 msgid "Continue"
 msgstr ""
 
-#: app/views/pausemenu.py:49
+#: app/views/pausemenu.py:48
 msgid "Settings"
 msgstr ""
 
-#: app/views/pausemenu.py:63
+#: app/views/pausemenu.py:62
 msgid "Back to Menu"
 msgstr ""
 
-#: app/views/pausemenu.py:75
+#: app/views/pausemenu.py:74
 msgid "Exit to desktop"
 msgstr ""
 
-#: app/views/pausemenu.py:144
+#: app/views/pausemenu.py:143
 msgid "Exit to main menu?"
 msgstr ""
 
-#: app/views/pausemenu.py:145 app/views/pausemenu.py:153
-#: app/views/pausemenu.py:169 app/views/pausemenu.py:177
+#: app/views/pausemenu.py:144 app/views/pausemenu.py:152
+#: app/views/pausemenu.py:167 app/views/pausemenu.py:175
 msgid "Yes"
 msgstr ""
 
-#: app/views/pausemenu.py:145 app/views/pausemenu.py:169
+#: app/views/pausemenu.py:144 app/views/pausemenu.py:167
 msgid "No"
 msgstr ""
 
-#: app/views/pausemenu.py:168
+#: app/views/pausemenu.py:166
 msgid "Exit to desktop?"
 msgstr ""
 
@@ -72,20 +72,20 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:36 app/views/ui/settings/settings.py:29
-#: app/views/ui/settings/video.py:30
+#: app/views/ui/settings/audio.py:37 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/video.py:33
 msgid "Back"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:40
+#: app/views/ui/settings/audio.py:41
 msgid "Master volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:49
+#: app/views/ui/settings/audio.py:50
 msgid "Sound volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:58
+#: app/views/ui/settings/audio.py:59
 msgid "Speech volume"
 msgstr ""
 
@@ -93,17 +93,17 @@ msgstr ""
 msgid "Music volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:78
+#: app/views/ui/settings/audio.py:77
 msgid "Size of subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:87 app/views/ui/settings/video.py:34
-#: app/views/ui/settings/video.py:49 app/views/ui/settings/video.py:60
+#: app/views/ui/settings/audio.py:87 app/views/ui/settings/video.py:37
+#: app/views/ui/settings/video.py:52 app/views/ui/settings/video.py:63
 msgid "Off"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:36
-#: app/views/ui/settings/video.py:51 app/views/ui/settings/video.py:62
+#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:39
+#: app/views/ui/settings/video.py:54 app/views/ui/settings/video.py:65
 msgid "On"
 msgstr ""
 
@@ -115,19 +115,23 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:36
+#: app/views/ui/settings/settings.py:35
 msgid "Audio"
 msgstr ""
 
-#: app/views/ui/settings/video.py:39
+#: app/views/ui/settings/video.py:42
 msgid "Fullscreen"
 msgstr ""
 
-#: app/views/ui/settings/video.py:54
+#: app/views/ui/settings/video.py:57
 msgid "V-Sync"
 msgstr ""
 
-#: app/views/ui/settings/video.py:65
+#: app/views/ui/settings/video.py:68
 msgid "Show FPS"
+msgstr ""
+
+#: app/views/ui/settings/video.py:74
+msgid "Particles amount"
 msgstr ""
 
