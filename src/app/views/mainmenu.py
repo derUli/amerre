@@ -179,15 +179,10 @@ class MainMenu(View):
         except KeyError:
             pass
 
-        for i in range(0, PARTICLES_COUNT):
-            sprite = arcade.sprite.SpriteCircle(
-                color=random.choice(PARTICLE_COLORS),
-                soft=True,
-                radius=random.randint(1, PARTICLES_SIZE_RANGE)
-            )
-            sprite.center_x = random.randint(0, self.window.width)
-            sprite.center_y = random.randint(0, self.window.height)
-            self._scene.add_sprite(SCENE_LAYER_PARTICLES, sprite)
+        state = SettingsState.load()
+        particles_count = int(PARTICLES_COUNT * state.particles)
+
+        self.make_particles(particles_count)
 
     def on_update(self, delta_time: float):
         """ On update """
@@ -365,9 +360,13 @@ class MainMenu(View):
         self._manager.setup(on_close=self.on_close_settings, on_change=self.on_change_settings)
         self._manager.enable()
 
-    def on_change_settings(self, state: SettingsState) -> None:
-        self._music.volume = state.audio_volumes.volume_music_normalized
-        self.window.audio_volumes = state.audio_volumes
+    def on_change_settings(self, state: SettingsState = None, refresh_particles = False) -> None:
+        if state:
+            self._music.volume = state.audio_volumes.volume_music_normalized
+            self.window.audio_volumes = state.audio_volumes
+
+        if refresh_particles:
+            self.on_refresh_particles()
 
     def on_close_settings(self, new_manager = None) -> None:
         """ On close settings"""
@@ -380,8 +379,39 @@ class MainMenu(View):
         self._scene[SCENE_LAYER_TEXT].visible = True
         self._scene[SCENE_LAYER_ICON].visible = True
 
+    def make_particles(self, particles_count):
+        for i in range(0, particles_count):
+            sprite = arcade.sprite.SpriteCircle(
+                color=random.choice(PARTICLE_COLORS),
+                soft=True,
+                radius=random.randint(1, PARTICLES_SIZE_RANGE)
+            )
+            sprite.center_x = random.randint(0, self.window.width)
+            sprite.center_y = random.randint(0, self.window.height)
+            self._scene.add_sprite(SCENE_LAYER_PARTICLES, sprite)
+
+    def on_refresh_particles(self):
+        modifier = SettingsState.load().particles
+        new_count = int(PARTICLES_COUNT * modifier)
+        old_count = len(self._scene[SCENE_LAYER_PARTICLES])
+        if new_count == old_count:
+            return
+
+        if new_count > old_count:
+            self.make_particles(new_count - old_count)
+            return
+
+        if new_count < old_count:
+            diff = new_count - old_count
+
+            sprites =  self._scene[SCENE_LAYER_PARTICLES][diff:]
+
+            for sprite in sprites:
+                self._scene[SCENE_LAYER_PARTICLES].remove(sprite)
+
     @staticmethod
     def on_exit() -> None:
         """ On exit game """
 
         arcade.exit()
+

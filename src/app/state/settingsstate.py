@@ -7,12 +7,13 @@ import pyglet
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
-    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING
+    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
+    SETTINGS_DEFAULT_PARTICLES
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
 
-VERSION = 2
+VERSION = 1
 
 
 class SettingsState:
@@ -28,6 +29,7 @@ class SettingsState:
         self._show_fps = SETTINGS_DEFAULT_SHOW_FPS
         self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
         self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
+        self._particles = SETTINGS_DEFAULT_PARTICLES
 
         # Audio
         self._audio_volumes = AudioVolumes(
@@ -195,3 +197,14 @@ class SettingsState:
         """ Antialiasing """
 
         return self._antialiasing
+
+    @property
+    def particles(self) -> float:
+        """ Particle count modifier """
+        return self._particles
+
+    @particles.setter
+    def particles(self, value: float) -> None:
+        """ Particle count modifier """
+
+        self._particles = value

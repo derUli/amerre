@@ -10,6 +10,7 @@ class Effect:
         self._scene = None
         self._tilemap = None
         self._root_dir = None
+        self._width = None
 
     def setup(self, scene, tilemap, root_dir: str):
         """ Setup animation """
@@ -29,4 +30,7 @@ class Effect:
     def draw(self) -> None:
         """ Draw effect """
 
+        return
+
+    def refresh(self) -> None:
         return

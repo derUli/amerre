@@ -3,6 +3,7 @@ import logging
 
 import arcade.gui
 
+from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.ui import BUTTON_WIDTH
 from app.state.settingsstate import SettingsState
 
@@ -68,11 +69,22 @@ class Video(arcade.gui.UIManager):
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
+        label_particles = arcade.gui.UILabel(text=_('Particles amount'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        slider_particles = arcade.gui.UISlider(
+            value=self._state.particles,
+            min_value=0.1,
+            max_value=1.0,
+            width=BUTTON_WIDTH
+        )
+        slider_particles.on_change = self.on_change_particles
+
         widgets = [
             btn_back,
             btn_toggle_fullscreen,
             btn_toggle_vsync,
-            btn_toggle_fps
+            btn_toggle_fps,
+            label_particles,
+            slider_particles,
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -137,3 +149,11 @@ class Video(arcade.gui.UIManager):
         arcade.get_window().set_draw_rate(self._state.draw_rate)
 
         self.setup(self._callback)
+
+    def on_change_particles(self, event):
+        """ master volume changed """
+
+        logging.debug(event)
+        self._state.particles = float(event.new_value)
+        self._state.save()
+        self._callback(refresh_particles=True)

@@ -406,6 +406,9 @@ class Level:
             if sound:
                 sound.play()
 
+        for effect in self._animations:
+            effect.refresh()
+
     def on_level_completed(self):
         """ Called when a level is completed """
 
