@@ -9,7 +9,7 @@ from app.state.settingsstate import SettingsState
 
 PARTICLES_COUNT = 300
 PARTICLES_RADIUS = 6
-PARTICLES_Y_MIN = 380
+PARTICLES_Y_MIN = 500
 PARTICLES_Y_MAX = 800
 PARTICLE_SPEED = 0.2
 

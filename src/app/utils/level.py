@@ -98,8 +98,10 @@ class Level:
             self._atmo = atmo.play(volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER, loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
-        self._voiceover_triggers = VoiceOverTiggers().setup(voiceoverRange=map_config['voiceovers'],
-                                                            callbacks=callbacks)
+        self._voiceover_triggers = VoiceOverTiggers().setup(
+            voiceoverRange=map_config['voiceovers'],
+            callbacks=callbacks
+        )
         self.scroll_to_player()
 
         self._effect_manager = EffectManager()
