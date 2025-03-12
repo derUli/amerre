@@ -4,7 +4,10 @@
     "particles": true,
     "cloudSpeed": 0.25,
     "cloudMode": "clouds",
-    "voiceovers": [0, 9]
+    "voiceovers": [
+      0,
+      9
+    ]
   },
   "map02": {
     "music": "Caravan.mp3",
@@ -13,6 +16,9 @@
     "cloudSpeed": 0.1,
     "cloudMode": "texture",
     "tumbleweed": true,
-    "voiceovers": [9, 10]
+    "voiceovers": [
+      9,
+      10
+    ]
   }
 }

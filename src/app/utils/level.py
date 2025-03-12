@@ -15,10 +15,10 @@ from app.constants.layers import (
     LAYER_FIRST_VOICEOVER, LAYER_FADEOUT
 )
 from app.effects.bushes import Bushes
-from app.effects.tumbleweed import Tumbleweed
 from app.effects.cloudanimation import CloudAnimation
 from app.effects.filmgrain import Filmgrain
 from app.effects.particles import Particles
+from app.effects.tumbleweed import Tumbleweed
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
@@ -103,7 +103,8 @@ class Level:
             self._atmo = atmo.play(volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER, loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
-        self._voiceover_triggers = VoiceOverTiggers().setup(voiceoverRange=map_config['voiceovers'], callbacks=callbacks)
+        self._voiceover_triggers = VoiceOverTiggers().setup(voiceoverRange=map_config['voiceovers'],
+                                                            callbacks=callbacks)
         self.scroll_to_player()
 
         animations = []

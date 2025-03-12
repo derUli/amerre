@@ -25,7 +25,6 @@ class CloudAnimation(Effect):
         for cloud in clouds:
             cloud.center_x -= self._options['cloudSpeed'] * self._options['direction']
 
-
             if self._options['direction'] == 1 and cloud.right <= 0:
                 if self._options['cloudMode'] == 'texture':
                     change_direction = True

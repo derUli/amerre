@@ -1,16 +1,13 @@
 """ Move clouds """
 import random
 
-import arcade
-
-from app.constants.layers import LAYER_CLOUD
 from app.effects.effect import Effect
-from app.state.settingsstate import SettingsState
 
 MOVE_SPEED = 10
 MOVE_ANGLE = 5
 
 LAYER_NAME = 'Tumbleweed'
+
 
 class Tumbleweed(Effect):
     """ Move clouds """
@@ -26,7 +23,6 @@ class Tumbleweed(Effect):
                 self._options['initialized'] = False
             return
 
-
         for sprite in sprites:
             if sprite.visible:
                 sprite.left -= MOVE_SPEED
@@ -34,7 +30,6 @@ class Tumbleweed(Effect):
 
                 if sprite.right <= 0:
                     sprite.visible = False
-
 
         not_visible = list(filter(lambda s: not s.visible, sprites))
 
