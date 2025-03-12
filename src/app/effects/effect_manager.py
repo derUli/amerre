@@ -50,4 +50,3 @@ class EffectManager:
     def refresh(self):
         for animation in self._animations:
             animation.refresh()
-

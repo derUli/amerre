@@ -293,7 +293,6 @@ class Level:
 
         found = None
 
-
         for layer in LAYERS_VOICEOVER:
             if layer in self._scene:
                 for sprite in self._scene[layer]:

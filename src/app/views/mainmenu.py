@@ -57,8 +57,10 @@ class MainMenu(View):
         self._text_start = None
         self._text_title = None
         self._text_version = None
+        self._text_load = None
 
         self._scene = None
+        self._scene2 = None
         self._manager = None
         self._icon_itch_io = None
         self._icon_settings = None
@@ -75,6 +77,8 @@ class MainMenu(View):
         """ Setup the start screen """
 
         super().setup(root_dir)
+
+        self._scene2 = arcade.scene.Scene()
 
         # Background color
         arcade.set_background_color(BACKGROUND_COLOR)
@@ -123,6 +127,15 @@ class MainMenu(View):
             bold=True
         )
         self._scene.add_sprite(SCENE_LAYER_TEXT, self._text_title)
+
+        self._text_load = arcade.create_text_sprite(
+            text=_('Loading...'),
+            font_name=FONT_CONSOLA_MONO,
+            font_size=FONT_SIZE
+        )
+
+        self._text_load.visible = False
+        self._scene2.add_sprite(SCENE_LAYER_TEXT, self._text_load)
 
         self._text_version = arcade.create_text_sprite(
             text=" ".join([_('Version'), VERSION_STRING]),
@@ -198,6 +211,9 @@ class MainMenu(View):
         self._text_version.left = MARGIN
         self._text_version.bottom = MARGIN
 
+        self._text_load.right = self.window.width - MARGIN
+        self._text_load.bottom = MARGIN
+
         self._icon_itch_io.right = self.window.width - MARGIN
         self._icon_itch_io.bottom = MARGIN
 
@@ -219,6 +235,7 @@ class MainMenu(View):
             self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
 
             if self._music:
+                self._text_load.visible = True
                 self._music.volume = max(self._music.volume - MUSIC_FADE_SPEED, 0)
                 if self._music.volume <= 0:
                     self._music.pause()
@@ -253,6 +270,8 @@ class MainMenu(View):
 
         if SCENE_LAYER_FADEIN in self._scene:
             self._scene[SCENE_LAYER_FADEIN].draw()
+            if self._fade_sprite.alpha >= 255:
+                self._scene2.draw()
 
         for effect in self._effects:
             effect.draw()
