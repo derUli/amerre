@@ -73,7 +73,12 @@ class Level:
         self.load_tilemap(os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
         config = self.load_config()
 
-        self._camera = arcade.camera.Camera2D()
+        base_height = 1080
+        w, h = arcade.get_window().get_size()
+
+        zoom = h / base_height
+        self._camera = arcade.camera.Camera2D(zoom=zoom)
+
         self._camera_gui = arcade.camera.Camera2D()
 
         self.setup_physics_engine()
@@ -186,10 +191,6 @@ class Level:
         player = self.player
 
         x, y = player.position
-
-        max_x = self.tilemap.width * self.tilemap.tile_width
-
-
 
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
