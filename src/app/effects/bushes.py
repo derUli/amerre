@@ -7,7 +7,7 @@ from app.effects.effect import Effect
 
 FADE_SPEED = 1
 ALPHA_MAX = 255
-ALPHA_MIN = 255 * 0.5
+ALPHA_MIN = 255 * 0.4
 
 MIN_DISTANCE = 64
 

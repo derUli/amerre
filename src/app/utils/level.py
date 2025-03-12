@@ -187,6 +187,10 @@ class Level:
 
         x, y = player.position
 
+        max_x = self.tilemap.width * self.tilemap.tile_width
+
+
+
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
         )
