@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="264" height="56" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#316db6" nextlayerid="8" nextobjectid="2">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="264" height="56" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#316db6" nextlayerid="9" nextobjectid="3">
  <tileset firstgid="1" name="Backdrops" tilewidth="5632" tileheight="1408" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1">
@@ -24,10 +24,153 @@
    <image source="../images/sprites/vegetation/thumbleweed.png" width="65" height="64"/>
   </tile>
  </tileset>
- <tileset firstgid="24" name="Buildings" tilewidth="580" tileheight="384" tilecount="1" columns="0">
+ <tileset firstgid="23" name="Buildings" tilewidth="580" tileheight="384" tilecount="1" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image source="../images/sprites/buildings/pyramid.png" width="580" height="384"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="24" name="Lightball" tilewidth="128" tileheight="128" tilecount="28" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../images/sprites/lightballs/light001.png" width="128" height="128"/>
+  </tile>
+  <tile id="1">
+   <image source="../images/sprites/lightballs/light002.png" width="128" height="128"/>
+  </tile>
+  <tile id="2">
+   <image source="../images/sprites/lightballs/light003.png" width="128" height="128"/>
+   <animation>
+    <frame tileid="0" duration="50"/>
+    <frame tileid="1" duration="50"/>
+    <frame tileid="2" duration="50"/>
+    <frame tileid="4" duration="50"/>
+    <frame tileid="5" duration="50"/>
+    <frame tileid="6" duration="50"/>
+    <frame tileid="7" duration="50"/>
+    <frame tileid="8" duration="50"/>
+    <frame tileid="9" duration="50"/>
+    <frame tileid="10" duration="50"/>
+    <frame tileid="11" duration="50"/>
+    <frame tileid="12" duration="50"/>
+    <frame tileid="13" duration="50"/>
+    <frame tileid="14" duration="50"/>
+    <frame tileid="15" duration="50"/>
+    <frame tileid="16" duration="50"/>
+    <frame tileid="17" duration="50"/>
+    <frame tileid="18" duration="50"/>
+    <frame tileid="19" duration="50"/>
+    <frame tileid="20" duration="50"/>
+    <frame tileid="21" duration="50"/>
+    <frame tileid="22" duration="50"/>
+    <frame tileid="23" duration="50"/>
+    <frame tileid="24" duration="50"/>
+    <frame tileid="25" duration="50"/>
+    <frame tileid="26" duration="50"/>
+    <frame tileid="27" duration="50"/>
+    <frame tileid="28" duration="50"/>
+    <frame tileid="27" duration="50"/>
+    <frame tileid="26" duration="50"/>
+    <frame tileid="25" duration="50"/>
+    <frame tileid="24" duration="50"/>
+    <frame tileid="23" duration="50"/>
+    <frame tileid="22" duration="50"/>
+    <frame tileid="21" duration="50"/>
+    <frame tileid="20" duration="50"/>
+    <frame tileid="19" duration="50"/>
+    <frame tileid="18" duration="50"/>
+    <frame tileid="17" duration="50"/>
+    <frame tileid="16" duration="50"/>
+    <frame tileid="15" duration="50"/>
+    <frame tileid="14" duration="50"/>
+    <frame tileid="13" duration="50"/>
+    <frame tileid="12" duration="50"/>
+    <frame tileid="11" duration="50"/>
+    <frame tileid="10" duration="50"/>
+    <frame tileid="9" duration="50"/>
+    <frame tileid="8" duration="50"/>
+    <frame tileid="7" duration="50"/>
+    <frame tileid="6" duration="50"/>
+    <frame tileid="5" duration="50"/>
+    <frame tileid="4" duration="50"/>
+    <frame tileid="2" duration="50"/>
+    <frame tileid="1" duration="50"/>
+   </animation>
+  </tile>
+  <tile id="4">
+   <image source="../images/sprites/lightballs/light005.png" width="128" height="128"/>
+  </tile>
+  <tile id="5">
+   <image source="../images/sprites/lightballs/light006.png" width="128" height="128"/>
+  </tile>
+  <tile id="6">
+   <image source="../images/sprites/lightballs/light007.png" width="128" height="128"/>
+  </tile>
+  <tile id="7">
+   <image source="../images/sprites/lightballs/light008.png" width="128" height="128"/>
+  </tile>
+  <tile id="8">
+   <image source="../images/sprites/lightballs/light009.png" width="128" height="128"/>
+  </tile>
+  <tile id="9">
+   <image source="../images/sprites/lightballs/light010.png" width="128" height="128"/>
+  </tile>
+  <tile id="10">
+   <image source="../images/sprites/lightballs/light011.png" width="128" height="128"/>
+  </tile>
+  <tile id="11">
+   <image source="../images/sprites/lightballs/light012.png" width="128" height="128"/>
+  </tile>
+  <tile id="12">
+   <image source="../images/sprites/lightballs/light013.png" width="128" height="128"/>
+  </tile>
+  <tile id="13">
+   <image source="../images/sprites/lightballs/light014.png" width="128" height="128"/>
+  </tile>
+  <tile id="14">
+   <image source="../images/sprites/lightballs/light015.png" width="128" height="128"/>
+  </tile>
+  <tile id="15">
+   <image source="../images/sprites/lightballs/light016.png" width="128" height="128"/>
+  </tile>
+  <tile id="16">
+   <image source="../images/sprites/lightballs/light017.png" width="128" height="128"/>
+  </tile>
+  <tile id="17">
+   <image source="../images/sprites/lightballs/light018.png" width="128" height="128"/>
+  </tile>
+  <tile id="18">
+   <image source="../images/sprites/lightballs/light019.png" width="128" height="128"/>
+  </tile>
+  <tile id="19">
+   <image source="../images/sprites/lightballs/light020.png" width="128" height="128"/>
+  </tile>
+  <tile id="20">
+   <image source="../images/sprites/lightballs/light021.png" width="128" height="128"/>
+  </tile>
+  <tile id="21">
+   <image source="../images/sprites/lightballs/light022.png" width="128" height="128"/>
+  </tile>
+  <tile id="22">
+   <image source="../images/sprites/lightballs/light023.png" width="128" height="128"/>
+  </tile>
+  <tile id="23">
+   <image source="../images/sprites/lightballs/light024.png" width="128" height="128"/>
+  </tile>
+  <tile id="24">
+   <image source="../images/sprites/lightballs/light025.png" width="128" height="128"/>
+  </tile>
+  <tile id="25">
+   <image source="../images/sprites/lightballs/light026.png" width="128" height="128"/>
+  </tile>
+  <tile id="26">
+   <image source="../images/sprites/lightballs/light027.png" width="128" height="128"/>
+  </tile>
+  <tile id="27">
+   <image source="../images/sprites/lightballs/light028.png" width="128" height="128"/>
+  </tile>
+  <tile id="28">
+   <image source="../images/sprites/lightballs/light029.png" width="128" height="128"/>
   </tile>
  </tileset>
  <layer id="3" name="Cloud" width="264" height="56">
@@ -90,6 +233,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="8" name="RandomVoiceOver">
+  <object id="2" gid="26" x="3969.21" y="2853.94" width="128" height="128" rotation="-90"/>
+ </objectgroup>
  <layer id="1" name="Sand" width="264" height="56">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -256,7 +402,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2147483672,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2147483671,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

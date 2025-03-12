@@ -5,6 +5,7 @@ import arcade
 
 from app.constants.layers import LAYER_CLOUD
 from app.effects.effect import Effect
+from app.state.settingsstate import SettingsState
 
 MOVE_SPEED = 10
 MOVE_ANGLE = 5
@@ -44,4 +45,3 @@ class Tumbleweed(Effect):
             sprite = random.choice(list(not_visible))
             sprite.visible = True
             sprite.left = self._tilemap.width * self._tilemap.tile_width
-

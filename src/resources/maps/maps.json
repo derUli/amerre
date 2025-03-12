@@ -3,7 +3,8 @@
     "music": "BeforeDawn.mp3",
     "particles": true,
     "cloudSpeed": 0.25,
-    "cloudMode": "clouds"
+    "cloudMode": "clouds",
+    "voiceovers": [0, 9]
   },
   "map02": {
     "music": "Caravan.mp3",
@@ -11,6 +12,7 @@
     "particles": false,
     "cloudSpeed": 0.1,
     "cloudMode": "texture",
-    "tumbleweed": true
+    "tumbleweed": true,
+    "voiceovers": [9, 10]
   }
 }

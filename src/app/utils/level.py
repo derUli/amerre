@@ -103,7 +103,7 @@ class Level:
             self._atmo = atmo.play(volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER, loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
-        self._voiceover_triggers = VoiceOverTiggers().setup(callbacks=callbacks)
+        self._voiceover_triggers = VoiceOverTiggers().setup(voiceoverRange=map_config['voiceovers'], callbacks=callbacks)
         self.scroll_to_player()
 
         animations = []
@@ -112,7 +112,6 @@ class Level:
             animations += [Particles()]
 
         if 'tumbleweed' in map_config and map_config['tumbleweed']:
-            print('tumble')
             animations += [Tumbleweed()]
 
         animations += [

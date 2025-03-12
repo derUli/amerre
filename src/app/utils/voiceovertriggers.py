@@ -29,14 +29,14 @@ class VoiceOverTiggers:
         self._initial_volume = 0
         self._subtitle = Subtitle()
 
-    def setup(self, callbacks: Callbacks):
+    def setup(self, voiceoverRange: list, callbacks: Callbacks):
         """ Setup """
 
         self._callbacks = callbacks
 
         voiceovers = []
 
-        for i in range(1, 9):
+        for i in range(voiceoverRange[0], voiceoverRange[1]):
             voiceovers.append("text" + str(i).rjust(2, '0') + '.mp3')
 
         random.shuffle(voiceovers)
