@@ -22,10 +22,10 @@ class Filmgrain(Effect):
         self._grain = None
         self._spritelist = None
 
-    def setup(self, scene, tilemap, root_dir):
+    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
         """ Setup animation """
 
-        super().setup(scene, tilemap, root_dir)
+        super().setup(scene, tilemap, root_dir, options)
 
         self._camera = arcade.camera.Camera2D()
 

@@ -1,11 +1,14 @@
 {
   "map01": {
     "music": "BeforeDawn.mp3",
-    "particles": true
+    "particles": true,
+    "cloudSpeed": 0.25,
+    "cloudMode": "clouds"
   },
-  
   "map02": {
     "music": "Caravan.mp3",
-    "particles": false
+    "particles": false,
+    "cloudSpeed": 0.1,
+    "cloudMode": "texture"
   }
 }

@@ -11,13 +11,15 @@ class Effect:
         self._tilemap = None
         self._root_dir = None
         self._width = None
+        self._options = {}
 
-    def setup(self, scene, tilemap, root_dir: str):
+    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
         """ Setup animation """
 
         self._scene = scene
         self._tilemap = tilemap
         self._root_dir = root_dir
+        self._options = options
 
     def update(self, delta_time: float) -> None:
         """

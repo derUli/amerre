@@ -84,10 +84,15 @@ class Level:
         self.wait_for_begin()
 
         # TODO: play music by map triggers
-        map_config = config[map_name]
-        music_file = os.path.join(root_dir, 'resources', 'music', map_config['music'])
-        music = arcade.load_sound(music_file, streaming=True)
-        self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER)
+
+        map_config = {}
+        if map_name in config:
+            map_config = config[map_name]
+
+        if 'music' in map_config:
+            music_file = os.path.join(root_dir, 'resources', 'music', map_config['music'])
+            music = arcade.load_sound(music_file, streaming=True)
+            self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER)
 
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
 
@@ -112,7 +117,7 @@ class Level:
         self._animations = animations
 
         for animation in self._animations:
-            animation.setup(self._scene, self.tilemap, root_dir)
+            animation.setup(self._scene, self.tilemap, root_dir, map_config)
 
     def read_config(self):
 

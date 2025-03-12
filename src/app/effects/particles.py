@@ -19,12 +19,10 @@ PARTICLES_COLOR = (255, 255, 255)
 class Particles(Effect):
     """ Effect """
 
-    def setup(self, scene, tilemap, root_dir: str):
+    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
         """ Setup animation """
 
-        super().setup(scene, tilemap, root_dir)
-
-        width = tilemap.width * tilemap.tile_width
+        super().setup(scene, tilemap, root_dir, options)
 
         state = SettingsState.load()
         particles_count = int(PARTICLES_COUNT * state.particles)
