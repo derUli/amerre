@@ -84,8 +84,6 @@ class Level:
         self.setup_physics_engine()
         self.wait_for_begin()
 
-        # TODO: play music by map triggers
-
         map_config = {}
         if map_name in config:
             map_config = config[map_name]
