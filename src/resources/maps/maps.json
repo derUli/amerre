@@ -2,5 +2,10 @@
   "map01": {
     "music": "BeforeDawn.mp3",
     "particles": true
+  },
+  
+  "map02": {
+    "music": "Caravan.mp3",
+    "particles": false
   }
 }
