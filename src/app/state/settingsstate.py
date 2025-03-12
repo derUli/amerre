@@ -201,6 +201,7 @@ class SettingsState:
     @property
     def particles(self) -> float:
         """ Particle count modifier """
+
         return self._particles
 
     @particles.setter
