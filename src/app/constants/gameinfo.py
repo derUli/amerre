@@ -12,3 +12,5 @@ MAPS = [
 ]
 
 DEFAULT_LOCALE = 'en'
+
+BASE_HEIGHT = 1080

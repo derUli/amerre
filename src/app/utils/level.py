@@ -8,6 +8,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
+from app.constants.gameinfo import BASE_HEIGHT
 from app.constants.layers import (
     LAYER_PLAYER,
     LAYER_WALL,
@@ -73,10 +74,9 @@ class Level:
         self.load_tilemap(os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
         config = self.load_config()
 
-        base_height = 1080
         w, h = arcade.get_window().get_size()
 
-        zoom = h / base_height
+        zoom = h / BASE_HEIGHT
         self._camera = arcade.camera.Camera2D(zoom=zoom)
 
         self._camera_gui = arcade.camera.Camera2D()
@@ -189,6 +189,8 @@ class Level:
         player = self.player
 
         x, y = player.position
+
+        y = max(BASE_HEIGHT / 2, y)
 
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
