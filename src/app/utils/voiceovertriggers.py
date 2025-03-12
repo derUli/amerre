@@ -43,8 +43,6 @@ class VoiceOverTiggers:
 
         self.randomized_voiceovers = voiceovers
 
-        print(voiceovers)
-
         return self
 
     def on_speech_completed(self) -> None:

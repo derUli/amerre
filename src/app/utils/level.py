@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import time
 
 import arcade
 import pyglet
@@ -115,13 +116,6 @@ class Level:
             root_dir
         )
 
-    def read_config(self):
-
-        with open('smartphone.json') as file:
-            smartphone_dict = json.load(file)
-
-        print(type(smartphone_dict))  # <class 'dict'>
-
     def setup_physics_engine(self):
         """ Setup physics engine """
 
@@ -138,8 +132,13 @@ class Level:
         w, h = arcade.get_window().get_size()
         zoom = h / VIEWPORT_BASE_H
 
+        time_start = time.time()
+
         self.tilemap = arcade.load_tilemap(path, scaling=zoom)
         self._scene = arcade.Scene.from_tilemap(self.tilemap)
+
+        time_end = time.time() - time_start
+        logging.info('Scene loaded in ' + str(time_end) + ' seconds')
         self.player.alpha = 0
 
     def update(
