@@ -15,6 +15,7 @@ from app.constants.layers import (
     LAYER_FIRST_VOICEOVER, LAYER_FADEOUT
 )
 from app.effects.bushes import Bushes
+from app.effects.tumbleweed import Tumbleweed
 from app.effects.cloudanimation import CloudAnimation
 from app.effects.filmgrain import Filmgrain
 from app.effects.particles import Particles
@@ -92,7 +93,8 @@ class Level:
         if 'music' in map_config:
             music_file = os.path.join(root_dir, 'resources', 'music', map_config['music'])
             music = arcade.load_sound(music_file, streaming=True)
-            self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER)
+            loop = 'musicLoop' in map_config and map_config['musicLoop']
+            self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER, loop=loop)
 
         atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
 
@@ -108,6 +110,10 @@ class Level:
 
         if 'particles' in map_config and map_config['particles']:
             animations += [Particles()]
+
+        if 'tumbleweed' in map_config and map_config['tumbleweed']:
+            print('tumble')
+            animations += [Tumbleweed()]
 
         animations += [
             CloudAnimation(),

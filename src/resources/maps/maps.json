@@ -7,8 +7,10 @@
   },
   "map02": {
     "music": "Caravan.mp3",
+    "musicLoop": true,
     "particles": false,
     "cloudSpeed": 0.1,
-    "cloudMode": "texture"
+    "cloudMode": "texture",
+    "tumbleweed": true
   }
 }
