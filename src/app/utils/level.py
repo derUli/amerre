@@ -14,11 +14,7 @@ from app.constants.layers import (
     LAYERS_VOICEOVER,
     LAYER_FIRST_VOICEOVER, LAYER_FADEOUT
 )
-from app.effects.bushes import Bushes
-from app.effects.cloudanimation import CloudAnimation
-from app.effects.filmgrain import Filmgrain
-from app.effects.particles import Particles
-from app.effects.tumbleweed import Tumbleweed
+from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
@@ -66,9 +62,8 @@ class Level:
         self._voiceover_triggers = None
         self._music = None
         self._atmo = None
-        self._animations = []
-
         self._root_dir = None
+        self._effect_manager = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
@@ -107,23 +102,13 @@ class Level:
                                                             callbacks=callbacks)
         self.scroll_to_player()
 
-        animations = []
-
-        if 'particles' in map_config and map_config['particles']:
-            animations += [Particles()]
-
-        if 'tumbleweed' in map_config and map_config['tumbleweed']:
-            animations += [Tumbleweed()]
-
-        animations += [
-            CloudAnimation(),
-            Bushes(),
-            Filmgrain()
-        ]
-        self._animations = animations
-
-        for animation in self._animations:
-            animation.setup(self._scene, self.tilemap, root_dir, map_config)
+        self._effect_manager = EffectManager()
+        self._effect_manager.setup(
+            map_config,
+            self._scene,
+            self.tilemap,
+            root_dir
+        )
 
     def read_config(self):
 
@@ -181,8 +166,7 @@ class Level:
         self.update_collision_light()
         self.update_fade()
 
-        for animation in self._animations:
-            animation.update(delta_time)
+        self._effect_manager.update(delta_time)
 
         self._voiceover_triggers.update()
 
@@ -211,8 +195,7 @@ class Level:
         self._camera.use()
         self._scene.draw()
 
-        for animation in self._animations:
-            animation.draw()
+        self._effect_manager.draw()
 
         self._camera_gui.use()
         self._voiceover_triggers.draw_subtitle()
@@ -303,6 +286,7 @@ class Level:
             return
 
         found = None
+
 
         for layer in LAYERS_VOICEOVER:
             if layer in self._scene:
@@ -416,8 +400,7 @@ class Level:
             if sound:
                 sound.play()
 
-        for effect in self._animations:
-            effect.refresh()
+        self._effect_manager.refresh()
 
     def on_level_completed(self):
         """ Called when a level is completed """
@@ -437,6 +420,7 @@ class Level:
 
     def update_fade(self):
         """ Update fade """
+
         if LAYER_FADEOUT not in self._scene:
             return
 
