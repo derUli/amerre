@@ -5,6 +5,7 @@ import time
 import arcade
 
 from app.constants.fonts import FONT_CONSOLA_MONO
+from app.state.settingsstate import SettingsState
 
 FONT_SIZE_FPS = 14
 FONT_COLOR_FPS = arcade.csscolor.WHITE
@@ -44,8 +45,9 @@ class FPSCounter:
 
         fps = round(arcade.get_fps())
 
-        if fps == 0 and self._current_fps == 0:
-            return
+
+        if fps == 0 and self._current_fps is None:
+            fps = SettingsState.load().draw_rate
 
         # if current_fps is unchanged return here
         if str(fps) == self._current_fps:
