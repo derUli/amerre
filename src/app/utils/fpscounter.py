@@ -24,10 +24,12 @@ class FPSCounter:
         self._current_fps = None
         self._fps_camera = None
         self._last_update = 0
+        self._default_draw_rate = None
 
     def setup(self, window: arcade.Window):
         """ Setup FPSCounter """
 
+        self._default_draw_rate = SettingsState.load().draw_rate
         self._fps_text = {}
         self._window = window
         self._fps_camera = arcade.camera.Camera2D()
@@ -45,9 +47,8 @@ class FPSCounter:
 
         fps = round(arcade.get_fps())
 
-
         if fps == 0 and self._current_fps is None:
-            fps = SettingsState.load().draw_rate
+            fps = self._default_draw_rate
 
         # if current_fps is unchanged return here
         if str(fps) == self._current_fps:
