@@ -200,9 +200,10 @@ class Video(arcade.gui.UIManager):
         if draw_rate == SETTINGS_UNLIMITED_DRAW_RATE and self._state.vsync:
             draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
 
-        self._state.draw_rate = draw_rate
+        self._state.draw_rate = draw_rates[index]
 
-        self.window.set_draw_rate(1.0 / self._state.draw_rate)
+        self.window.set_draw_rate(1.0 / draw_rate)
+
         self._state.save()
 
         self.refresh()
