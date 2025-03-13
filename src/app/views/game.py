@@ -56,6 +56,11 @@ class Game(View):
         if self._jump:
             self._jump = False
 
+    def on_fixed_update(self, delta_time: float):
+        self._level.fixed_update(
+            delta_time=delta_time,
+        )
+
     def on_draw(self):
         """ On draw """
 

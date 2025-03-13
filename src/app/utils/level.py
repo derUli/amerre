@@ -153,7 +153,7 @@ class Level:
 
         if jump:
             self.jump()
-
+        self._physics_engine.update()
         if move_horizontal == FACE_RIGHT:
             self.move_right(delta_time, sprint)
         elif move_horizontal == FACE_LEFT:
@@ -169,13 +169,15 @@ class Level:
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_collision_light(delta_time)
         self.update_fade()
-        #self._physics_engine.on_update(delta_time)
         self._effect_manager.update(delta_time)
-        self._physics_engine.update()
+
         self._voiceover_triggers.update()
 
         if self._music and not self._music.playing:
             self._music.delete()
+
+    def fixed_update(self, delta_time):
+        pass
 
     def scroll_to_player(self, camera_speed=1):
         """ Scroll the window to the player. """
