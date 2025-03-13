@@ -23,9 +23,8 @@ from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
-VIEWPORT_BASE_H = 1440
 PLAYER_MOVE_SPEED = 420
-PLAYER_JUMP_SPEED = 10
+PLAYER_JUMP_SPEED = 16
 PLAYER_MOVE_ANGLE = 210
 
 MODIFIER_WALK = 1.0
@@ -33,7 +32,7 @@ MODIFIER_SPRINT = 1.0
 MODIFIER_SPEECH = MODIFIER_WALK
 
 GRAVITY_SLOWMO = 0.0005
-GRAVITY_DEFAULT = 0.4
+GRAVITY_DEFAULT = 0.8
 
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
@@ -129,12 +128,10 @@ class Level:
     def load_tilemap(self, path):
         """ Load tilemap """
 
-        w, h = arcade.get_window().get_size()
-        zoom = h / VIEWPORT_BASE_H
 
         time_start = time.time()
 
-        self.tilemap = arcade.load_tilemap(path, scaling=zoom)
+        self.tilemap = arcade.load_tilemap(path)
         self._scene = arcade.Scene.from_tilemap(self.tilemap)
 
         time_end = time.time() - time_start
@@ -143,13 +140,14 @@ class Level:
 
     def update(
             self,
-            delta_time: float,
-            window,
-            move_horizontal: int = None,
-            jump: bool = False,
-            sprint: bool = False
+            delta_time: float
     ):
-        pass
+        self.update_collision_light(delta_time)
+        self._effect_manager.update(delta_time)
+
+        self._scene.update(delta_time)
+        self._scene.update_animation(delta_time)
+        self.scroll_to_player()
 
     def fixed_update(
             self,
@@ -171,14 +169,9 @@ class Level:
             self.move_stop()
 
         self.player.alpha = min(self.player.alpha + ALPHA_SPEED, 255)
-        self.scroll_to_player()
 
-        self._scene.update(delta_time)
-        self._scene.update_animation(delta_time)
         self.check_collision_lights(window.root_dir, window.audio_volumes)
-        self.update_collision_light(delta_time)
         self.update_fade()
-        self._effect_manager.update(delta_time)
 
         self._voiceover_triggers.update()
 

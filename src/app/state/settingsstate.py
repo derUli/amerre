@@ -212,4 +212,6 @@ class SettingsState:
 
         rate = min(rate, SETTINGS_DEFAULT_UPDATE_RATE)
 
-        return 1 / rate
+        print(rate)
+
+        return 1.0 / rate
