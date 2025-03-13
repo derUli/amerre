@@ -2,6 +2,8 @@
 import logging
 
 import arcade.gui
+import pyglet
+from pygame.draw_py import draw_aaline
 
 from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
@@ -159,6 +161,14 @@ class Video(arcade.gui.UIManager):
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
         self._state.vsync = arcade.get_window().vsync
+
+        rate = self._state.draw_rate
+
+        if self._state.vsync:
+            rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+
+        arcade.get_window().set_draw_rate(1 / rate)
+
         self._state.save()
 
         self.refresh()
@@ -185,7 +195,12 @@ class Video(arcade.gui.UIManager):
         else:
             index = 0
 
-        self._state.draw_rate = draw_rates[index]
+        draw_rate = draw_rates[index]
+
+        if draw_rate == SETTINGS_UNLIMITED_DRAW_RATE and self._state.vsync:
+            draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+
+        self._state.draw_rate = draw_rate
 
         self.window.set_draw_rate(1.0 / self._state.draw_rate)
         self._state.save()

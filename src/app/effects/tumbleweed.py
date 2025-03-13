@@ -1,4 +1,5 @@
 """ Move clouds """
+import logging
 import random
 
 from app.effects.effect import Effect
@@ -9,11 +10,20 @@ MOVE_ANGLE = 500
 LAYER_NAME = 'Tumbleweed'
 
 
+RANDOMIZE_DELTA = 1
+
 class Tumbleweed(Effect):
     """ Move clouds """
 
+    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
+        super().setup(scene, tilemap, root_dir, options)
+
+        self._options['delta'] = 0
+
     def update(self, delta_time: float):
         """ Update animation"""
+
+        self._options['delta'] += delta_time
 
         sprites = self._scene[LAYER_NAME]
 
@@ -36,7 +46,12 @@ class Tumbleweed(Effect):
         if not any(not_visible):
             return
 
-        if random.randint(1, 200) == 10:
+        if self._options['delta'] < RANDOMIZE_DELTA:
+            return
+
+        self._options['delta'] = 0
+
+        if random.randint(1, 10) == 5:
             sprite = random.choice(list(not_visible))
             sprite.visible = True
             sprite.left = self._tilemap.width * self._tilemap.tile_width

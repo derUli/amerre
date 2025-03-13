@@ -111,6 +111,11 @@ class Startup:
 
         width, height = state.screen_resolution
 
+        draw_rate = state.draw_rate
+
+        if state.vsync:
+            draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+
         window = GameWindow(
             fullscreen=state.fullscreen,
             visible=False,
@@ -121,7 +126,7 @@ class Startup:
             antialiasing=antialiasing,
             samples=samples,
             center_window=True,
-            draw_rate=1.0 / state.draw_rate,
+            draw_rate=1.0 / draw_rate,
             update_rate=1.0 / UPDATE_RATE,
             fixed_rate=1.0 / FIXED_RATE
         )
