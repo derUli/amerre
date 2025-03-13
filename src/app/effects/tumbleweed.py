@@ -59,7 +59,7 @@ class Tumbleweed(Effect):
         if len(visible) >= max_count:
             return
 
-        if random.randint(1, 1) == 1:
+        if random.randint(1, 10) == 1:
             sprite = random.choice(list(not_visible))
             sprite.visible = True
             sprite.left = self._tilemap.width * self._tilemap.tile_width
