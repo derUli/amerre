@@ -20,13 +20,14 @@ from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
+from app.utils.physics_engine import PhysicsEngine
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
 VIEWPORT_BASE_H = 1440
-PLAYER_MOVE_SPEED = 400
-PLAYER_JUMP_SPEED = 10
-PLAYER_MOVE_ANGLE = 200
+PLAYER_MOVE_SPEED = 420
+PLAYER_JUMP_SPEED = 7
+PLAYER_MOVE_ANGLE = 210
 
 MODIFIER_WALK = 1.0
 MODIFIER_SPRINT = 1.0
@@ -38,8 +39,8 @@ GRAVITY_DEFAULT = 0.4
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
 
-LIGHT_LAUNCHING_MOVEMENT_SPEED = 50
-LIGHT_LAUNCHING_ROTATING_SPEED = 25
+LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
+LIGHT_LAUNCHING_ROTATING_SPEED = 500
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
 VOLUME_MUSIC_MODIFIER = 0.3
@@ -119,12 +120,14 @@ class Level:
     def setup_physics_engine(self):
         """ Setup physics engine """
 
-        self._physics_engine = arcade.PhysicsEnginePlatformer(
+        self._physics_engine = PhysicsEngine(
             self.player,
             ladders=None,
             walls=self._scene[LAYER_WALL],
             gravity_constant=GRAVITY_SLOWMO
         )
+
+        pyglet.clock.schedule_interval(self._physics_engine.handle_gravity, 1 / 62)
 
     def load_tilemap(self, path):
         """ Load tilemap """
@@ -152,7 +155,7 @@ class Level:
         """ Update """
 
         if jump:
-            self.jump(delta_time)
+            self.jump()
 
         if move_horizontal == FACE_RIGHT:
             self.move_right(delta_time, sprint)
@@ -169,9 +172,9 @@ class Level:
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_collision_light(delta_time)
         self.update_fade()
-        self._physics_engine.update()
+        #self._physics_engine.on_update(delta_time)
         self._effect_manager.update(delta_time)
-
+        self._physics_engine.update()
         self._voiceover_triggers.update()
 
         if self._music and not self._music.playing:
@@ -250,7 +253,7 @@ class Level:
 
         self.player.change_x = 0
 
-    def jump(self, delta_time: float):
+    def jump(self):
         """ Do jump """
         if not self._can_walk:
             return
@@ -334,7 +337,7 @@ class Level:
         if not self._launching_sprite:
             return
 
-        self._launching_sprite.center_y += LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
+        self._launching_sprite.center_y += (LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time)
         self._launching_sprite.angle = min(
             self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
             360

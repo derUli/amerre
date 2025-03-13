@@ -147,12 +147,6 @@ class SettingsState:
         return window_resolution()
 
     @property
-    def draw_rate(self) -> float:
-        # Draw rate
-
-        return 1.0 / SETTINGS_DEFAULT_DRAW_RATE
-
-    @property
     def audio_volumes(self) -> AudioVolumes:
         """ Audio volumes """
 

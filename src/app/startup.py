@@ -13,7 +13,7 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_UPDATE_RATE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_UPDATE_RATE, SETTINGS_DEFAULT_DRAW_RATE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
@@ -102,8 +102,6 @@ class Startup:
 
         # Update rate
 
-        update_rate = 1 / SETTINGS_DEFAULT_UPDATE_RATE
-
         if str(args.window_style).lower() == 'none':
             args.window_style = None
 
@@ -119,9 +117,9 @@ class Startup:
             antialiasing=antialiasing,
             samples=samples,
             center_window=True,
-            draw_rate=state.draw_rate,
-            update_rate=update_rate,
-            fixed_rate=update_rate
+            draw_rate= 1.0 / SETTINGS_DEFAULT_DRAW_RATE,
+            update_rate=1.0 / SETTINGS_DEFAULT_UPDATE_RATE,
+            fixed_rate=1.0 / SETTINGS_DEFAULT_UPDATE_RATE
         )
 
         # Set window location based on arguments
