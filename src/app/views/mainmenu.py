@@ -33,7 +33,7 @@ SCENE_LAYER_ICON = 'icon'
 SCENE_LAYER_PARTICLES = 'particles'
 SCENE_LAYER_TEXT = 'Text'
 
-PARTICLE_SPEED = 1
+PARTICLE_SPEED = 100
 
 PARTICLE_COLORS = [
     (228, 255, 4, 200),
@@ -201,7 +201,7 @@ class MainMenu(View):
     def on_update(self, delta_time: float):
         """ On update """
 
-        self.on_update_particles()
+        self.on_update_particles(delta_time)
         self._text_start.center_x = self.window.width / 2
         self._text_start.bottom = MARGIN
 
@@ -247,12 +247,12 @@ class MainMenu(View):
 
                     self.window.show_view(view)
 
-    def on_update_particles(self):
+    def on_update_particles(self, delta_time: float):
         """ Update particles """
 
         particles = self._scene[SCENE_LAYER_PARTICLES]
         for particle in particles:
-            particle.center_x -= PARTICLE_SPEED
+            particle.center_x -= PARTICLE_SPEED * delta_time
 
             if particle.right < 0:
                 particle.center_x = self.window.width + particle.width
