@@ -12,9 +12,8 @@ import pyglet
 
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
-    SETTINGS_DEFAULT_UPDATE_RATE,
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_DRAW_RATE, SETTINGS_DEFAULT_UPDATE_RATE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
@@ -103,10 +102,8 @@ class Startup:
 
         # Update rate
 
-        update_rate = 1 / 62
+        update_rate = 1 / SETTINGS_DEFAULT_UPDATE_RATE
 
-        if args.update_rate > 0:
-            update_rate = 1 / args.update_rate
 
         if str(args.window_style).lower() == 'none':
             args.window_style = None
@@ -192,14 +189,6 @@ class Startup:
             action='store_true',
             default=False,
             help='Don\'t show intro'
-        )
-
-        parser.add_argument(
-            '--update-rate',
-            action='store',
-            type=int,
-            help='The update rate',
-            default=SETTINGS_DEFAULT_UPDATE_RATE
         )
 
         parser.add_argument(
