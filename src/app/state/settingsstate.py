@@ -1,12 +1,10 @@
 import logging
 import os
 
-import arcade
 import jsonpickle
-import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
-    SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
+    SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
     SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
     SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_DRAW_RATE
@@ -31,7 +29,7 @@ class SettingsState:
         self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
         self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
         self._particles = SETTINGS_DEFAULT_PARTICLES
-        self._draw_rate = self.highest_draw_rate
+        self._draw_rate = SETTINGS_DEFAULT_DRAW_RATE
 
         # Audio
         self._audio_volumes = AudioVolumes(
@@ -211,23 +209,3 @@ class SettingsState:
     @draw_rate.setter
     def draw_rate(self, rate: int) -> None:
         self._draw_rate = rate
-
-    @property
-    def draw_rates(self):
-        default_screen = pyglet.display.get_display().get_default_screen()
-        default_rate = default_screen.get_mode().rate
-        modes = default_screen.get_modes()
-
-        rates = map(lambda mode: mode.rate, modes)
-        rates = filter(lambda mode: mode <= default_rate, rates)
-        if not any(rates):
-            rates += [SETTINGS_DEFAULT_DRAW_RATE]
-
-        rates = list(rates)
-        rates += [SETTINGS_UNLIMITED_DRAW_RATE]
-
-        return rates
-
-    @property
-    def highest_draw_rate(self):
-        return max(self.draw_rates)

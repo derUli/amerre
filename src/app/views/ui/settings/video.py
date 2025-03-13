@@ -4,6 +4,7 @@ import logging
 import arcade.gui
 
 from app.constants.fonts import FONT_CONSOLA_MONO
+from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
 from app.constants.ui import BUTTON_WIDTH
 from app.state.settingsstate import SettingsState
 
@@ -60,6 +61,16 @@ class Video(arcade.gui.UIManager):
         btn_toggle_vsync.on_click = self.on_toggle_vsync
         grid.add(btn_toggle_vsync, col_num=2, row_num=0)
 
+        draw_rate_text = self._state.draw_rate
+        if draw_rate_text == SETTINGS_UNLIMITED_DRAW_RATE:
+            draw_rate_text = _('Unlimited')
+
+        btn_fps_limit = arcade.gui.UIFlatButton(
+            text=': '.join([_('FPS Limit'), str(draw_rate_text)]),
+            width=BUTTON_WIDTH
+        )
+        btn_fps_limit.on_click = self.on_change_fps_limit
+
         fps_text = _('Off')
         if arcade.timings_enabled():
             fps_text = _('On')
@@ -85,6 +96,7 @@ class Video(arcade.gui.UIManager):
             btn_back,
             btn_toggle_fullscreen,
             btn_toggle_vsync,
+            btn_fps_limit,
             btn_toggle_fps,
             label_particles,
             slider_particles,
@@ -122,7 +134,7 @@ class Video(arcade.gui.UIManager):
         self._state.show_fps = arcade.timings_enabled()
         self._state.save()
 
-        self.setup(self._on_close, self._on_change)
+        self.refresh()
 
     def on_toggle_fullscreen(self, event):
 
@@ -138,7 +150,7 @@ class Video(arcade.gui.UIManager):
         if not self._state.fullscreen:
             arcade.get_window().set_size(w, h)
 
-        self.setup(self._on_close, self._on_change)
+        self.refresh()
 
     def on_toggle_vsync(self, event):
 
@@ -147,10 +159,9 @@ class Video(arcade.gui.UIManager):
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
         self._state.vsync = arcade.get_window().vsync
-        self.window.set_draw_rate(1.0 / self._state.draw_rate)
         self._state.save()
 
-        self.setup(self._on_close, self._on_change)
+        self.refresh()
 
     def on_change_particles(self, event, ):
         """ master volume changed """
@@ -159,3 +170,27 @@ class Video(arcade.gui.UIManager):
         self._state.particles = float(event.new_value)
         self._state.save()
         self._on_change(refresh_particles=True)
+
+    def on_change_fps_limit(self, event):
+        current_fps = self._state.draw_rate
+        draw_rates = SETTINGS_DRAW_RATES
+
+        try:
+            index = draw_rates.index(current_fps)
+        except ValueError:
+            index = 0
+
+        if index <= len(draw_rates) - 2:
+            index += 1
+        else:
+            index = 0
+
+        self._state.draw_rate = draw_rates[index]
+
+        self.window.set_draw_rate(1.0 / self._state.draw_rate)
+        self._state.save()
+
+        self.refresh()
+
+    def refresh(self):
+        self.setup(self._on_close, self._on_change)
