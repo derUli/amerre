@@ -250,7 +250,7 @@ class Level:
 
         self.player.change_x = 0
 
-    def jump(self, delta_time):
+    def jump(self, delta_time: float):
         """ Do jump """
         if not self._can_walk:
             return
@@ -262,8 +262,6 @@ class Level:
 
         if self._voiceover_triggers.playing:
             speed *= MODIFIER_SPEECH
-
-        speed = speed
 
         self._physics_engine.jump(speed)
 

@@ -11,7 +11,7 @@ PARTICLES_COUNT = 300
 PARTICLES_RADIUS = 6
 PARTICLES_Y_MIN = 500
 PARTICLES_Y_MAX = 800
-PARTICLE_SPEED = 0.1
+PARTICLE_SPEED = 15
 
 PARTICLES_COLOR = (255, 255, 255)
 
@@ -36,7 +36,7 @@ class Particles(Effect):
         """
 
         for sprite in self._scene[LAYER_PARTICLES]:
-            sprite.center_x -= PARTICLE_SPEED
+            sprite.center_x -= PARTICLE_SPEED * delta_time
             if sprite.right < 0:
                 sprite.center_x = self._tilemap.width * self._tilemap.tile_width
                 sprite.center_y = random.randint(PARTICLES_Y_MIN, PARTICLES_Y_MAX)

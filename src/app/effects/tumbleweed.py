@@ -3,8 +3,8 @@ import random
 
 from app.effects.effect import Effect
 
-MOVE_SPEED = 5
-MOVE_ANGLE = 5
+MOVE_SPEED = 1000
+MOVE_ANGLE = 500
 
 LAYER_NAME = 'Tumbleweed'
 
@@ -25,8 +25,8 @@ class Tumbleweed(Effect):
 
         for sprite in sprites:
             if sprite.visible:
-                sprite.left -= MOVE_SPEED
-                sprite.angle -= MOVE_ANGLE
+                sprite.left -= (MOVE_SPEED * delta_time)
+                sprite.angle -= (MOVE_ANGLE * delta_time)
 
                 if sprite.right <= 0:
                     sprite.visible = False
