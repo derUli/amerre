@@ -24,9 +24,9 @@ from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
 VIEWPORT_BASE_H = 1440
-PLAYER_MOVE_SPEED = 4
-PLAYER_JUMP_SPEED = 14
-PLAYER_MOVE_ANGLE = 2
+PLAYER_MOVE_SPEED = 400
+PLAYER_JUMP_SPEED = 20
+PLAYER_MOVE_ANGLE = 200
 
 MODIFIER_WALK = 1.0
 MODIFIER_SPRINT = 1.0
@@ -152,12 +152,12 @@ class Level:
         """ Update """
 
         if jump:
-            self.jump()
+            self.jump(delta_time)
 
         if move_horizontal == FACE_RIGHT:
-            self.move_right(sprint)
+            self.move_right(delta_time, sprint)
         elif move_horizontal == FACE_LEFT:
-            self.move_left(sprint)
+            self.move_left(delta_time, sprint)
         else:
             self.move_stop()
 
@@ -201,7 +201,7 @@ class Level:
         self._camera_gui.use()
         self._voiceover_triggers.draw_subtitle()
 
-    def move_left(self, sprint: bool = False):
+    def move_left(self,  delta_time: float, sprint: bool = False):
         """ Move left """
 
         if not self._can_walk:
@@ -215,13 +215,13 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self.player.change_x = -PLAYER_MOVE_SPEED * modifier
-        self.player.angle -= PLAYER_MOVE_ANGLE * modifier
+        self.player.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
+        self.player.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
 
         if self.player.angle <= 0:
             self.player.angle = 360 - abs(self.player.angle)
 
-    def move_right(self, sprint: bool = False):
+    def move_right(self, delta_time: float, sprint: bool = False):
         """ Move right """
 
         if not self._can_walk:
@@ -235,8 +235,9 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self.player.change_x = PLAYER_MOVE_SPEED * modifier
-        self.player.angle += PLAYER_MOVE_ANGLE * modifier
+
+        self.player.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
+        self.player.angle += PLAYER_MOVE_ANGLE * modifier  * delta_time
 
         if self.player.angle > 360:
             self.player.angle = self.player.angle - 360
@@ -249,7 +250,7 @@ class Level:
 
         self.player.change_x = 0
 
-    def jump(self):
+    def jump(self, delta_time):
         """ Do jump """
         if not self._can_walk:
             return
@@ -261,6 +262,8 @@ class Level:
 
         if self._voiceover_triggers.playing:
             speed *= MODIFIER_SPEECH
+
+        speed = speed
 
         self._physics_engine.jump(speed)
 
