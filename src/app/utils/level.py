@@ -32,14 +32,14 @@ MODIFIER_WALK = 1.0
 MODIFIER_SPRINT = 1.0
 MODIFIER_SPEECH = MODIFIER_WALK
 
-GRAVITY_SLOWMO = 0.001
-GRAVITY_DEFAULT = 0.8
+GRAVITY_SLOWMO = 0.0005
+GRAVITY_DEFAULT = 0.4
 
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
 
-LIGHT_LAUNCHING_MOVEMENT_SPEED = 10
-LIGHT_LAUNCHING_ROTATING_SPEED = 5
+LIGHT_LAUNCHING_MOVEMENT_SPEED = 5
+LIGHT_LAUNCHING_ROTATING_SPEED = 2.5
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
 VOLUME_MUSIC_MODIFIER = 0.3
@@ -169,18 +169,13 @@ class Level:
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_collision_light()
         self.update_fade()
-
+        self._physics_engine.update()
         self._effect_manager.update(delta_time)
 
         self._voiceover_triggers.update()
 
         if self._music and not self._music.playing:
             self._music.delete()
-
-    def update_fixed(self):
-        """ On Fixed update """
-
-        self._physics_engine.update()
 
     def scroll_to_player(self, camera_speed=1):
         """ Scroll the window to the player. """

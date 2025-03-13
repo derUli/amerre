@@ -3,7 +3,7 @@ import random
 
 from app.effects.effect import Effect
 
-MOVE_SPEED = 10
+MOVE_SPEED = 5
 MOVE_ANGLE = 5
 
 LAYER_NAME = 'Tumbleweed'

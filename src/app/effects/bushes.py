@@ -5,7 +5,7 @@ import arcade
 from app.constants.layers import LAYER_BUSH, LAYER_PLAYER
 from app.effects.effect import Effect
 
-FADE_SPEED = 1
+FADE_SPEED = 0.5
 ALPHA_MAX = 255
 ALPHA_MIN = 255 * 0.4
 
