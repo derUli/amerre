@@ -25,7 +25,7 @@ from app.views.tobecontinued import ToBeContinued
 
 VIEWPORT_BASE_H = 1440
 PLAYER_MOVE_SPEED = 400
-PLAYER_JUMP_SPEED = 20
+PLAYER_JUMP_SPEED = 10
 PLAYER_MOVE_ANGLE = 200
 
 MODIFIER_WALK = 1.0
@@ -38,8 +38,8 @@ GRAVITY_DEFAULT = 0.4
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
 
-LIGHT_LAUNCHING_MOVEMENT_SPEED = 5
-LIGHT_LAUNCHING_ROTATING_SPEED = 2.5
+LIGHT_LAUNCHING_MOVEMENT_SPEED = 50
+LIGHT_LAUNCHING_ROTATING_SPEED = 25
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
 VOLUME_MUSIC_MODIFIER = 0.3
@@ -167,7 +167,7 @@ class Level:
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
         self.check_collision_lights(window.root_dir, window.audio_volumes)
-        self.update_collision_light()
+        self.update_collision_light(delta_time)
         self.update_fade()
         self._physics_engine.update()
         self._effect_manager.update(delta_time)
@@ -328,15 +328,15 @@ class Level:
             self._music
         )
 
-    def update_collision_light(self):
+    def update_collision_light(self, delta_time: float):
         """ Update voiceover light """
 
         if not self._launching_sprite:
             return
 
-        self._launching_sprite.center_y += LIGHT_LAUNCHING_MOVEMENT_SPEED
+        self._launching_sprite.center_y += LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
         self._launching_sprite.angle = min(
-            self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED,
+            self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
             360
         )
 
