@@ -3,6 +3,7 @@ import logging
 import random
 
 from app.effects.effect import Effect
+from app.state.settingsstate import SettingsState
 
 MOVE_SPEED = 1000
 MOVE_ANGLE = 500
@@ -19,6 +20,7 @@ class Tumbleweed(Effect):
         super().setup(scene, tilemap, root_dir, options)
 
         self._options['delta'] = 0
+        self._options['particles'] = SettingsState.load().particles
 
     def update(self, delta_time: float):
         """ Update animation"""
@@ -51,7 +53,29 @@ class Tumbleweed(Effect):
 
         self._options['delta'] = 0
 
-        if random.randint(1, 10) == 5:
+        visible = list(filter(lambda s: s.visible, sprites))
+        max_count = max(2, int(len(sprites) * self._options['particles']))
+
+        if len(visible) >= max_count:
+            return
+
+        if random.randint(1, 1) == 1:
             sprite = random.choice(list(not_visible))
             sprite.visible = True
             sprite.left = self._tilemap.width * self._tilemap.tile_width
+
+    def refresh(self) -> None:
+        self._options['particles'] = SettingsState.load().particles
+
+        sprites = self._scene[LAYER_NAME]
+
+        visible = list(filter(lambda s: s.visible, sprites))
+        max_count = max(2, int(len(sprites) * self._options['particles']))
+
+        if len(visible) < max_count:
+            return
+
+        remove_count = len(visible) - max_count
+
+        for sprite in visible[remove_count:]:
+            sprite.visible = False
