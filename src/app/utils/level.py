@@ -20,13 +20,12 @@ from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
-from app.utils.physics_engine import PhysicsEngine
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
 VIEWPORT_BASE_H = 1440
 PLAYER_MOVE_SPEED = 420
-PLAYER_JUMP_SPEED = 7
+PLAYER_JUMP_SPEED = 10
 PLAYER_MOVE_ANGLE = 210
 
 MODIFIER_WALK = 1.0
@@ -120,14 +119,12 @@ class Level:
     def setup_physics_engine(self):
         """ Setup physics engine """
 
-        self._physics_engine = PhysicsEngine(
+        self._physics_engine = arcade.PhysicsEnginePlatformer(
             self.player,
             ladders=None,
             walls=self._scene[LAYER_WALL],
             gravity_constant=GRAVITY_SLOWMO
         )
-
-        pyglet.clock.schedule_interval(self._physics_engine.handle_gravity, 1 / 62)
 
     def load_tilemap(self, path):
         """ Load tilemap """
