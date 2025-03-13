@@ -44,6 +44,9 @@ class FPSCounter:
 
         fps = round(arcade.get_fps())
 
+        if fps == 0 and self._current_fps == 0:
+            return
+
         # if current_fps is unchanged return here
         if str(fps) == self._current_fps:
             return
