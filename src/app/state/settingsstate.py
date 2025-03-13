@@ -9,7 +9,7 @@ from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_V
     SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
     SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
-    SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_UPDATE_RATE
+    SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_DRAW_RATE
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
@@ -31,6 +31,7 @@ class SettingsState:
         self._fullscreen = SETTINGS_DEFAULT_FULLSCREEN
         self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
         self._particles = SETTINGS_DEFAULT_PARTICLES
+        self._draw_rate = self.highest_draw_rate
 
         # Audio
         self._audio_volumes = AudioVolumes(
@@ -204,14 +205,29 @@ class SettingsState:
 
 
     @property
-    def draw_rate(self):
-        rate = SETTINGS_UNLIMITED_DRAW_RATE
+    def draw_rate(self) -> float:
+        return self._draw_rate
 
-        if self._vsync:
-            rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+    @draw_rate.setter
+    def draw_rate(self, rate: int) -> None:
+        self._draw_rate = rate
 
-        rate = min(rate, SETTINGS_DEFAULT_UPDATE_RATE)
+    @property
+    def draw_rates(self):
+        default_screen = pyglet.display.get_display().get_default_screen()
+        default_rate = default_screen.get_mode().rate
+        modes = default_screen.get_modes()
 
-        print(rate)
+        rates = map(lambda mode: mode.rate, modes)
+        rates = filter(lambda mode: mode <= default_rate, rates)
+        if not any(rates):
+            rates += [SETTINGS_DEFAULT_DRAW_RATE]
 
-        return 1.0 / rate
+        rates = list(rates)
+        rates += [SETTINGS_UNLIMITED_DRAW_RATE]
+
+        return rates
+
+    @property
+    def highest_draw_rate(self):
+        return max(self.draw_rates)

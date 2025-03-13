@@ -13,8 +13,7 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_UPDATE_RATE, SETTINGS_UNLIMITED_DRAW_RATE,
-    SETTINGS_DEFAULT_FIXED_RATE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_UPDATE_RATE, SETTINGS_DEFAULT_FIXED_RATE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
@@ -98,6 +97,10 @@ class Startup:
 
         state = SettingsState.load()
 
+        # Create settings state on first launch
+        if not state.exists():
+            state.save()
+
         samples = state.antialiasing
         antialiasing = samples > 0
 
@@ -118,7 +121,7 @@ class Startup:
             antialiasing=antialiasing,
             samples=samples,
             center_window=True,
-            draw_rate=state.draw_rate,
+            draw_rate=1.0 / state.draw_rate,
             update_rate=1.0 / SETTINGS_DEFAULT_UPDATE_RATE,
             fixed_rate=1.0 / SETTINGS_DEFAULT_FIXED_RATE
         )
