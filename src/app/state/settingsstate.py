@@ -151,10 +151,7 @@ class SettingsState:
     def draw_rate(self) -> float:
         # Draw rate
 
-        if self.vsync:
-            return 1.0 / pyglet.display.get_display().get_default_screen().get_mode().rate
-
-        return 1 / SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
+        return 1.0 / SETTINGS_DEFAULT_DRAW_RATE_UNLIMITED
 
     @property
     def audio_volumes(self) -> AudioVolumes:

@@ -48,6 +48,8 @@ class GameWindow(arcade.Window):
         self._fps_counter = None
         self._audio_volumes = None
 
+        update_rate = min(update_rate, draw_rate)
+
         # Call the parent class and set up the window
         super().__init__(
             width=width,
