@@ -149,11 +149,20 @@ class Level:
             jump: bool = False,
             sprint: bool = False
     ):
+        pass
+
+    def fixed_update(
+            self,
+            delta_time: float,
+            window,
+            move_horizontal: int = None,
+            jump: bool = False,
+            sprint: bool = False
+    ):
         """ Update """
 
         if jump:
             self.jump()
-        self._physics_engine.update()
         if move_horizontal == FACE_RIGHT:
             self.move_right(delta_time, sprint)
         elif move_horizontal == FACE_LEFT:
@@ -173,11 +182,10 @@ class Level:
 
         self._voiceover_triggers.update()
 
+        self._physics_engine.update()
+
         if self._music and not self._music.playing:
             self._music.delete()
-
-    def fixed_update(self, delta_time):
-        pass
 
     def scroll_to_player(self, camera_speed=1):
         """ Scroll the window to the player. """

@@ -1,13 +1,15 @@
 import logging
 import os
 
+import arcade
 import jsonpickle
+import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
-    SETTINGS_DEFAULT_DRAW_RATE, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
+    SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
     SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
     SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
-    SETTINGS_DEFAULT_PARTICLES
+    SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_UPDATE_RATE
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.paths import settings_path
 from app.utils.screen import fullscreen_resolution, window_resolution
@@ -199,3 +201,15 @@ class SettingsState:
         """ Particle count modifier """
 
         self._particles = value
+
+
+    @property
+    def draw_rate(self):
+        rate = SETTINGS_UNLIMITED_DRAW_RATE
+
+        if self._vsync:
+            rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+
+        rate = min(rate, SETTINGS_DEFAULT_UPDATE_RATE)
+
+        return 1 / rate

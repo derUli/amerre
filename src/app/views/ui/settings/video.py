@@ -147,6 +147,7 @@ class Video(arcade.gui.UIManager):
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
         self._state.vsync = arcade.get_window().vsync
+        self.window.set_draw_rate(self._state.draw_rate)
         self._state.save()
 
         self.setup(self._on_close, self._on_change)
