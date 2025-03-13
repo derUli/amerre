@@ -13,7 +13,7 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_DRAW_RATE, SETTINGS_DEFAULT_UPDATE_RATE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, SETTINGS_DEFAULT_UPDATE_RATE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
@@ -103,7 +103,6 @@ class Startup:
         # Update rate
 
         update_rate = 1 / SETTINGS_DEFAULT_UPDATE_RATE
-
 
         if str(args.window_style).lower() == 'none':
             args.window_style = None

@@ -2,7 +2,6 @@ import logging
 import os
 
 import jsonpickle
-import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_DRAW_RATE, SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
