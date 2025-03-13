@@ -23,9 +23,9 @@ from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
-PLAYER_MOVE_SPEED = 420
-PLAYER_JUMP_SPEED = 16
-PLAYER_MOVE_ANGLE = 210
+PLAYER_MOVE_SPEED = 400
+PLAYER_JUMP_SPEED = 17
+PLAYER_MOVE_ANGLE = 200
 
 MODIFIER_WALK = 1.0
 MODIFIER_SPRINT = 1.0
@@ -411,6 +411,7 @@ class Level:
 
         w, h = arcade.get_window().get_size()
 
+        w, h = w * (1 + self._camera.zoom), h * (1 + self._camera.zoom),
         # Add fade sprite to scene
         sprite = arcade.sprite.SpriteSolidColor(width=w, height=h, color=WHITE)
 

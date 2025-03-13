@@ -1,4 +1,5 @@
 """ Main game class """
+import sys
 
 from arcade import FACE_LEFT, FACE_RIGHT
 
@@ -10,8 +11,9 @@ from app.constants.input.controllers import (
     LEFT_TRIGGER,
     KEY_START
 )
-from app.constants.input.keyboard import KEY_LEFT, KEY_RIGHT, KEY_JUMP, KEY_SPRINT, KEY_ESCAPE
+from app.constants.input.keyboard import KEY_LEFT, KEY_RIGHT, KEY_JUMP, KEY_SPRINT, KEY_ESCAPE, KEY_SKIP_LEVEL
 from app.state.settingsstate import SettingsState
+from app.utils.dev import is_frozen
 from app.utils.level import Level
 from app.views.view import View
 
@@ -85,6 +87,9 @@ class Game(View):
 
         if symbol in KEY_SPRINT:
             self._sprint = True
+
+        if symbol in KEY_SKIP_LEVEL and not is_frozen():
+            self._level.on_level_completed()
 
     def on_key_release(self, _symbol: int, _modifiers: int):
         """ On key release"""

@@ -229,23 +229,33 @@ class MainMenu(View):
         for effect in self._effects:
             effect.update(delta_time)
 
+        if not self._fade_sprite:
+            return
+
+        if self._fade_sprite.alpha < 255:
+            return
+
+        if self._music.volume > 0:
+            return
+
+        self._music.pause()
+
+        view = Game()
+        view.setup(self._root_dir)
+        view.setup_level(MAPS[0])
+
+        self.window.show_view(view)
+
+    def on_fixed_update(self, delta_time: float):
+
+        if not self._fade_sprite:
+            return
+
         # On fading in
-        if self._fade_sprite is not None:
+        self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
 
-            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
-
-            if self._music:
-                self._text_load.visible = True
-                self._music.volume = max(self._music.volume - MUSIC_FADE_SPEED, 0)
-                if self._music.volume <= 0:
-                    self._music.pause()
-                    self._music = None
-
-                    view = Game()
-                    view.setup(self._root_dir)
-                    view.setup_level(MAPS[0])
-
-                    self.window.show_view(view)
+        self._text_load.visible = self._fade_sprite.alpha >= 255
+        self._music.volume = max(self._music.volume - MUSIC_FADE_SPEED, 0)
 
     def on_update_particles(self, delta_time: float):
         """ Update particles """

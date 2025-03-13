@@ -9,9 +9,11 @@ import sys
 import pyglet
 from stopwatch import Stopwatch
 
+from app.utils.dev import is_frozen
+
 pyglet.options['debug_gl'] = False
 
-if hasattr(sys, 'frozen'):
+if is_frozen():
     root_dir = os.path.dirname(os.path.abspath(sys.executable))
 else:
     root_dir = os.path.dirname(os.path.abspath(__file__))

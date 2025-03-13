@@ -53,12 +53,15 @@ class Logo(View):
         return self
 
     def on_update(self, delta_time: float):
-        """ On update """
-
-        super().on_update(delta_time)
 
         if self._phase == PHASE_NEXT:
             self.window.show_view(MainMenu().setup(root_dir=self._root_dir))
+
+        self._scene[SCENE_LAYER_LOGO][0].center_x = self.window.width / 2
+        self._scene[SCENE_LAYER_LOGO][0].center_y = self.window.height / 2
+
+    def on_fixed_update(self, delta_time: float):
+        """ On update """
 
         if self._phase == PHASE_FADE_IN:
             self._fade_sprite.alpha = max(self._fade_sprite.alpha - FADE_SPEED, 0)
@@ -83,9 +86,6 @@ class Logo(View):
             self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
             if self._fade_sprite.alpha >= 255:
                 self._phase = PHASE_NEXT
-
-        self._scene[SCENE_LAYER_LOGO][0].center_x = self.window.width / 2
-        self._scene[SCENE_LAYER_LOGO][0].center_y = self.window.height / 2
 
     def on_draw(self):
         """ On draw """
