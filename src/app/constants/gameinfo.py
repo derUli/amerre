@@ -7,7 +7,7 @@ DIRECTORY_GAME_NAME_WIN = 'Amerre'
 DIRECTORY_GAME_NAME_LINUX = '.amerre'
 
 MAPS = [
-    #'map01',
+    'map01',
     'map02'
 ]
 

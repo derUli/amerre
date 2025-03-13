@@ -13,7 +13,7 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, UPDATE_RATE, FIXED_RATE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, UPDATE_RATE, FIXED_RATE, SETTINGS_UNLIMITED_DRAW_RATE,
 )
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
@@ -113,7 +113,7 @@ class Startup:
 
         draw_rate = state.draw_rate
 
-        if state.vsync:
+        if state.vsync and draw_rate == SETTINGS_UNLIMITED_DRAW_RATE:
             draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
 
         window = GameWindow(
