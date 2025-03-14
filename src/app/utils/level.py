@@ -16,20 +16,20 @@ from app.constants.layers import (
     LAYERS_VOICEOVER,
     LAYER_FIRST_VOICEOVER, LAYER_FADEOUT
 )
+from app.constants.player import (
+    PLAYER_MOVE_SPEED,
+    MODIFIER_SPEECH,
+    MODIFIER_SPRINT,
+    MODIFIER_WALK,
+    PLAYER_JUMP_SPEED,
+    PLAYER_MOVE_ANGLE
+)
 from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
-
-PLAYER_MOVE_SPEED = 380
-PLAYER_JUMP_SPEED = 17
-PLAYER_MOVE_ANGLE = 200
-
-MODIFIER_WALK = 1.0
-MODIFIER_SPRINT = 1.0
-MODIFIER_SPEECH = MODIFIER_WALK
 
 GRAVITY_SLOWMO = 0.0005
 GRAVITY_DEFAULT = 0.8
