@@ -23,7 +23,7 @@ from app.utils.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
-PLAYER_MOVE_SPEED = 400
+PLAYER_MOVE_SPEED = 380
 PLAYER_JUMP_SPEED = 17
 PLAYER_MOVE_ANGLE = 200
 

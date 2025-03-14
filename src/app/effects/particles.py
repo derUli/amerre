@@ -1,4 +1,5 @@
 """ Particles """
+
 import random
 
 import arcade.sprite
@@ -47,7 +48,10 @@ class Particles(Effect):
 
         return
 
-    def make_particles(self, particles_count: int):
+    def make_particles(self, particles_count: int) -> None:
+        """
+        Make particles
+        """
         width = self._data.tilemap.width * self._data.tilemap.tile_width
 
         for i in range(0, particles_count):
