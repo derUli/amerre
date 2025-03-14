@@ -13,3 +13,15 @@ def make_label(text: str) -> arcade.gui.UILabel:
 
 def make_button(text: str) -> arcade.gui.UIFlatButton:
     return arcade.gui.UIFlatButton(text=text, width=BUTTON_WIDTH)
+
+def make_slider(
+    value: float = 0,
+    min_value: float = 0,
+    max_value: float = 100,
+) -> arcade.gui.UISlider:
+    return arcade.gui.UISlider(
+        value=value,
+        min_value=min_value,
+        max_value=max_value,
+        width=BUTTON_WIDTH
+    )

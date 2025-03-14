@@ -6,7 +6,7 @@ import pyglet
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
 from app.constants.ui import BUTTON_WIDTH
-from app.helpers.gui import make_label, make_button
+from app.helpers.gui import make_label, make_button, make_slider
 from app.state.settingsstate import SettingsState
 
 
@@ -72,12 +72,7 @@ class Video(arcade.gui.UIManager):
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
         label_particles = make_label(text=_('Particles amount'))
-        slider_particles = arcade.gui.UISlider(
-            value=self._state.particles,
-            min_value=0.1,
-            max_value=1.0,
-            width=BUTTON_WIDTH
-        )
+        slider_particles = make_slider(value=self._state.particles, min_value=0.1, max_value=1.0)
         slider_particles.on_change = self.on_change_particles
 
         widgets = [
