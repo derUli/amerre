@@ -4,9 +4,9 @@ import logging
 import arcade.gui
 import pyglet
 
-from app.constants.fonts import FONT_MARKER_FELT, FONT_SIZE_LABEL
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
 from app.constants.ui import BUTTON_WIDTH
+from app.helpers.gui import make_label
 from app.state.settingsstate import SettingsState
 
 
@@ -83,11 +83,7 @@ class Video(arcade.gui.UIManager):
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
-        label_particles = arcade.gui.UILabel(
-            text=_('Particles amount'),
-            font_name=FONT_MARKER_FELT,
-            font_size=FONT_SIZE_LABEL
-        )
+        label_particles = make_label(text=_('Particles amount'))
         slider_particles = arcade.gui.UISlider(
             value=self._state.particles,
             min_value=0.1,
