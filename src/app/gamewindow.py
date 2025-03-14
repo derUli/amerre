@@ -9,7 +9,7 @@ import time
 import arcade
 import pyglet
 from arcade.gui import UIFlatButton
-from app.constants.fonts import FONT_MARKER_FELT, FONT_SIZE_BUTTON
+from app.constants.fonts import FONT_DEFAULT, FONT_SIZE_BUTTON
 from app.constants.input.keyboard import KEY_SCREENSHOT
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
@@ -104,7 +104,7 @@ class GameWindow(arcade.Window):
 
     def setup_style(self):
         for style in UIFlatButton.DEFAULT_STYLE.values():
-            style.font_name = FONT_MARKER_FELT
+            style.font_name = FONT_DEFAULT
             style.font_size = FONT_SIZE_BUTTON
 
     @property

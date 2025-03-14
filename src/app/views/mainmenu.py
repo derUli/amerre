@@ -7,7 +7,7 @@ import webbrowser
 import arcade
 import arcade.gui
 
-from app.constants.fonts import FONT_MARKER_FELT, FONT_CONSOLA_MONO
+from app.constants.fonts import FONT_DEFAULT, FONT_MONOTYPE
 from app.constants.gameinfo import VERSION_STRING, MAPS
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
@@ -117,7 +117,7 @@ class MainMenu(View):
 
         self._text_start = arcade.create_text_sprite(
             text=text,
-            font_name=FONT_MARKER_FELT,
+            font_name=FONT_DEFAULT,
             font_size=FONT_SIZE,
             bold=True
         )
@@ -125,7 +125,7 @@ class MainMenu(View):
 
         self._text_title = arcade.create_text_sprite(
             text=self.window.caption,
-            font_name=FONT_MARKER_FELT,
+            font_name=FONT_DEFAULT,
             font_size=FONT_SIZE_TITLE,
             bold=True
         )
@@ -133,7 +133,7 @@ class MainMenu(View):
 
         self._text_load = arcade.create_text_sprite(
             text=_('Loading...'),
-            font_name=FONT_CONSOLA_MONO,
+            font_name=FONT_MONOTYPE,
             font_size=FONT_SIZE
         )
 
@@ -142,7 +142,7 @@ class MainMenu(View):
 
         self._text_version = arcade.create_text_sprite(
             text=" ".join([_('Version'), VERSION_STRING]),
-            font_name=FONT_CONSOLA_MONO,
+            font_name=FONT_MONOTYPE,
             font_size=FONT_SIZE_VERSION,
             bold=True
         )

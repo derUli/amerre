@@ -4,7 +4,7 @@ import time
 
 import arcade
 
-from app.constants.fonts import FONT_CONSOLA_MONO
+from app.constants.fonts import FONT_MONOTYPE
 from app.state.settingsstate import SettingsState
 
 FONT_SIZE_FPS = 14
@@ -58,7 +58,7 @@ class FPSCounter:
 
         fps_text = arcade.Text(
             self._current_fps,
-            font_name=FONT_CONSOLA_MONO,
+            font_name=FONT_MONOTYPE,
             font_size=FONT_SIZE_FPS,
             color=FONT_COLOR_FPS,
             x=0,

@@ -2,7 +2,7 @@
 
 import arcade
 
-from app.constants.fonts import FONT_MARKER_FELT
+from app.constants.fonts import FONT_DEFAULT
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_CONFIRM
 from app.containers.effect_data import EffectData
@@ -43,7 +43,7 @@ class ToBeContinued(View):
 
         self._text_completed = arcade.create_text_sprite(
             text=_('To be continued'),
-            font_name=FONT_MARKER_FELT,
+            font_name=FONT_DEFAULT,
             font_size=FONT_SIZE,
             color=arcade.csscolor.BLACK,
             bold=True,
