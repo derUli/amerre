@@ -14,8 +14,8 @@ from app.constants.input.keyboard import KEY_SCREENSHOT
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
-from app.utils.paths import screenshot_path
-from app.utils.string import label_value
+from app.helpers.paths import screenshot_path
+from app.helpers.string import label_value
 from app.views.logo import Logo
 from app.views.mainmenu import MainMenu
 

@@ -8,8 +8,8 @@ import pyglet
 
 from app.constants.gameinfo import DEFAULT_LOCALE
 from app.utils.audiovolumes import AudioVolumes
-from app.utils.callbacks import Callbacks
-from app.utils.string import label_value
+from app.containers.callbacks import Callbacks
+from app.helpers.string import label_value
 from .subtitle import Subtitle
 
 VOICEOVER_DEFAULT = 'text00.mp3'

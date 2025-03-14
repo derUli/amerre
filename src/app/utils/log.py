@@ -19,8 +19,8 @@ except OSError as e:
     logging.error(e)
     sounddevice = None
 
-from .paths import log_path
-from .string import label_value
+from app.helpers.paths import log_path
+from app.helpers.string import label_value
 
 
 def get_handlers():

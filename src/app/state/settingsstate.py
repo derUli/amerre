@@ -9,8 +9,8 @@ from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_V
     SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
     SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_DRAW_RATE
 from app.utils.audiovolumes import AudioVolumes
-from app.utils.paths import settings_path
-from app.utils.screen import fullscreen_resolution, window_resolution
+from app.helpers.paths import settings_path
+from app.helpers.screen import fullscreen_resolution, window_resolution
 
 VERSION = 1
 

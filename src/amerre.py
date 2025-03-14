@@ -9,7 +9,7 @@ import sys
 import pyglet
 from stopwatch import Stopwatch
 
-from app.utils.dev import is_frozen
+from app.helpers.dev import is_frozen
 
 pyglet.options['debug_gl'] = False
 

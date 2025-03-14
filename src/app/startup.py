@@ -18,7 +18,7 @@ from app.constants.settings import (
 from app.gamewindow import GameWindow
 from app.state.settingsstate import SettingsState
 from app.utils.log import configure_logger, log_hardware_info
-from app.utils.string import label_value
+from app.helpers.string import label_value
 
 try:
     import sounddevice

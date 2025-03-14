@@ -27,7 +27,7 @@ from app.constants.player import (
 from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
-from app.utils.callbacks import Callbacks
+from app.containers.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 

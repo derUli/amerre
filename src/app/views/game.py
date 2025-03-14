@@ -12,7 +12,7 @@ from app.constants.input.controllers import (
 )
 from app.constants.input.keyboard import KEY_LEFT, KEY_RIGHT, KEY_JUMP, KEY_SPRINT, KEY_ESCAPE, KEY_SKIP_LEVEL
 from app.state.settingsstate import SettingsState
-from app.utils.dev import is_frozen
+from app.helpers.dev import is_frozen
 from app.utils.level import Level
 from app.views.view import View
 
