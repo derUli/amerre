@@ -6,6 +6,7 @@ from arcade.gui import UIFlatButton
 
 from app.constants.fonts import FONT_DEFAULT
 from app.constants.ui import BUTTON_WIDTH
+from app.helpers.gui import make_button
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.video import Video
 
@@ -28,13 +29,13 @@ class Settings(arcade.gui.UIManager):
         self._on_close = on_close
         self._on_change = on_change
 
-        btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
+        btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back
 
-        btn_video = arcade.gui.UIFlatButton(text=_('Video'), width=BUTTON_WIDTH)
+        btn_video = make_button(text=_('Video'))
         btn_video.on_click = self.on_video
 
-        btn_audio = arcade.gui.UIFlatButton(text=_('Audio'), width=BUTTON_WIDTH)
+        btn_audio = make_button(text=_('Audio'))
         btn_audio.on_click = self.on_audio
 
         widgets = [

@@ -6,7 +6,7 @@ import pyglet
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
 from app.constants.ui import BUTTON_WIDTH
-from app.helpers.gui import make_label
+from app.helpers.gui import make_label, make_button
 from app.state.settingsstate import SettingsState
 
 
@@ -32,7 +32,7 @@ class Video(arcade.gui.UIManager):
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1, vertical_spacing=20)
 
-        btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
+        btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
@@ -40,10 +40,7 @@ class Video(arcade.gui.UIManager):
         if arcade.get_window().fullscreen:
             fullscreen_text = _('On')
 
-        btn_toggle_fullscreen = arcade.gui.UIFlatButton(
-            text=': '.join([_('Fullscreen'), fullscreen_text]),
-            width=BUTTON_WIDTH
-        )
+        btn_toggle_fullscreen = make_button(text=': '.join([_('Fullscreen'), fullscreen_text]))
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
 
         # Currently disabled because it's buggy
@@ -55,10 +52,7 @@ class Video(arcade.gui.UIManager):
         if arcade.get_window().vsync:
             vsync_text = _('On')
 
-        btn_toggle_vsync = arcade.gui.UIFlatButton(
-            text=': '.join([_('V-Sync'), vsync_text]),
-            width=BUTTON_WIDTH
-        )
+        btn_toggle_vsync = make_button(text=': '.join([_('V-Sync'), vsync_text]))
         btn_toggle_vsync.on_click = self.on_toggle_vsync
         grid.add(btn_toggle_vsync, col_num=2, row_num=0)
 
@@ -66,20 +60,14 @@ class Video(arcade.gui.UIManager):
         if draw_rate_text == SETTINGS_UNLIMITED_DRAW_RATE:
             draw_rate_text = _('Unlimited')
 
-        btn_fps_limit = arcade.gui.UIFlatButton(
-            text=': '.join([_('FPS Limit'), str(draw_rate_text)]),
-            width=BUTTON_WIDTH
-        )
+        btn_fps_limit = make_button(text=': '.join([_('FPS Limit'), str(draw_rate_text)]))
         btn_fps_limit.on_click = self.on_change_fps_limit
 
         fps_text = _('Off')
         if arcade.timings_enabled():
             fps_text = _('On')
 
-        btn_toggle_fps = arcade.gui.UIFlatButton(
-            text=': '.join([_('Show FPS'), fps_text]),
-            width=BUTTON_WIDTH
-        )
+        btn_toggle_fps = make_button(text=': '.join([_('Show FPS'), fps_text]))
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 

@@ -5,7 +5,7 @@ import arcade.gui
 from arcade.gui.events import UIOnChangeEvent
 
 from app.constants.ui import BUTTON_WIDTH
-from app.helpers.gui import make_label
+from app.helpers.gui import make_label, make_button
 from app.state.settingsstate import SettingsState
 
 MARGIN = 20
@@ -34,7 +34,7 @@ class Audio(arcade.gui.UIManager):
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1)
 
-        btn_back = arcade.gui.UIFlatButton(text=_('Back'), width=BUTTON_WIDTH)
+        btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
@@ -87,9 +87,8 @@ class Audio(arcade.gui.UIManager):
         if self._state.subtitle_enabled:
             subtitles_text = _('On')
 
-        btn_toggle_subtitles = arcade.gui.UIFlatButton(
-            text=': '.join([_('Subtitles'), subtitles_text]),
-            width=BUTTON_WIDTH
+        btn_toggle_subtitles = make_button(
+            text=': '.join([_('Subtitles'), subtitles_text])
         )
 
         btn_toggle_subtitles.on_click = self.on_toggle_subtitles

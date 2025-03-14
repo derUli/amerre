@@ -9,6 +9,7 @@ from arcade.gui import UIOnActionEvent
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_ESCAPE
 from app.constants.ui import BUTTON_WIDTH
+from app.helpers.gui import make_button
 from app.views.ui.settings.settings import Settings
 
 MODAL_WIDTH = 300
@@ -32,10 +33,7 @@ class PauseMenu(arcade.View):
         self._root_dir = root_dir
         self.window.set_mouse_visible(True)
 
-        btn_continue = arcade.gui.UIFlatButton(
-            text=_('Continue'),
-            width=BUTTON_WIDTH,
-        )
+        btn_continue = make_button(text=_('Continue'))
 
         @btn_continue.event("on_click")
         def on_click_btn_continue(event):
@@ -44,10 +42,7 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_continue()
 
-        btn_settings = arcade.gui.UIFlatButton(
-            text=_('Settings'),
-            width=BUTTON_WIDTH,
-        )
+        btn_settings = make_button(text=_('Settings'))
 
         @btn_settings.event("on_click")
         def on_click_settings(event):
@@ -58,10 +53,7 @@ class PauseMenu(arcade.View):
             self._manager2 = Settings()
             self._manager2.setup(self.on_close_settings, self.on_change_settings)
 
-        btn_exit_to_menu = arcade.gui.UIFlatButton(
-            text=_('Back to Menu'),
-            width=BUTTON_WIDTH
-        )
+        btn_exit_to_menu = make_button(text=_('Back to Menu'))
 
         @btn_exit_to_menu.event("on_click")
         def on_click_btn_exit_to_menu(event):
@@ -70,10 +62,7 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_exit_to_menu()
 
-        btn_exit_to_desktop = arcade.gui.UIFlatButton(
-            text=_('Exit to desktop'),
-            width=BUTTON_WIDTH
-        )
+        btn_exit_to_desktop = make_button(text=_('Exit to desktop'))
 
         @btn_exit_to_desktop.event("on_click")
         def on_click_btn_exit_to_desktop(event):
