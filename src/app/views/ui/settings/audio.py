@@ -4,7 +4,7 @@ import logging
 import arcade.gui
 from arcade.gui.events import UIOnChangeEvent
 
-from app.constants.fonts import FONT_CONSOLA_MONO
+from app.constants.fonts import FONT_MARKER_FELT, FONT_SIZE_BUTTON, FONT_SIZE_LABEL
 from app.constants.ui import BUTTON_WIDTH
 from app.state.settingsstate import SettingsState
 
@@ -38,7 +38,11 @@ class Audio(arcade.gui.UIManager):
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
-        label_master = arcade.gui.UILabel(text=_('Master volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        label_master = arcade.gui.UILabel(
+            text=_('Master volume'),
+            font_name=FONT_MARKER_FELT,
+            font_size=FONT_SIZE_LABEL
+        )
         slider_master = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_master,
             min_value=0,
@@ -47,7 +51,11 @@ class Audio(arcade.gui.UIManager):
         )
         slider_master.on_change = self.on_change_volume_master
 
-        label_sound = arcade.gui.UILabel(text=_('Sound volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        label_sound = arcade.gui.UILabel(
+            text=_('Sound volume'),
+            font_name=FONT_MARKER_FELT,
+            font_size=FONT_SIZE_LABEL
+        )
         slider_sound = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_sound,
             min_value=0,
@@ -56,7 +64,11 @@ class Audio(arcade.gui.UIManager):
         )
         slider_sound.on_change = self.on_change_volume_sound
 
-        label_speech = arcade.gui.UILabel(text=_('Speech volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        label_speech = arcade.gui.UILabel(
+            text=_('Speech volume'),
+            font_name=FONT_MARKER_FELT,
+            font_size=FONT_SIZE_LABEL
+        )
         slider_speech = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_speech,
             min_value=0,
@@ -65,7 +77,11 @@ class Audio(arcade.gui.UIManager):
         )
         slider_speech.on_change = self.on_change_volume_speech
 
-        label_music = arcade.gui.UILabel(text=_('Music volume'), width=BUTTON_WIDTH, font_name=FONT_CONSOLA_MONO)
+        label_music = arcade.gui.UILabel(
+            text=_('Music volume'),
+            font_name=FONT_MARKER_FELT,
+            font_size=FONT_SIZE_LABEL
+        )
         slider_music = arcade.gui.UISlider(
             value=self._state.audio_volumes.volume_music,
             min_value=0,
@@ -74,8 +90,11 @@ class Audio(arcade.gui.UIManager):
         )
         slider_music.on_change = self.on_change_volume_music
 
-        label_subtitle_size = arcade.gui.UILabel(text=_('Size of subtitles'), width=BUTTON_WIDTH,
-                                                 font_name=FONT_CONSOLA_MONO)
+        label_subtitle_size = arcade.gui.UILabel(
+            text=_('Size of subtitles'),
+            font_name=FONT_MARKER_FELT,
+            font_size=FONT_SIZE_LABEL
+        )
         slider_subtitle_size = arcade.gui.UISlider(
             value=self._state.subtitle_size,
             min_value=14,
