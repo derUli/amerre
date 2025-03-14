@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-13 00:41+0100\n"
+"POT-Creation-Date: 2025-03-14 20:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -23,19 +23,19 @@ msgstr ""
 msgid "Welcome to Amerre"
 msgstr ""
 
-#: app/views/mainmenu.py:110
+#: app/views/mainmenu.py:113
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:113
+#: app/views/mainmenu.py:116
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:132
+#: app/views/mainmenu.py:135
 msgid "Loading..."
 msgstr ""
 
-#: app/views/mainmenu.py:141
+#: app/views/mainmenu.py:144
 msgid "Version"
 msgstr ""
 
@@ -72,12 +72,12 @@ msgstr ""
 msgid "Exit to desktop?"
 msgstr ""
 
-#: app/views/tobecontinued.py:44
+#: app/views/tobecontinued.py:45
 msgid "To be continued"
 msgstr ""
 
 #: app/views/ui/settings/audio.py:37 app/views/ui/settings/settings.py:29
-#: app/views/ui/settings/video.py:33
+#: app/views/ui/settings/video.py:35
 msgid "Back"
 msgstr ""
 
@@ -101,13 +101,13 @@ msgstr ""
 msgid "Size of subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:87 app/views/ui/settings/video.py:37
-#: app/views/ui/settings/video.py:52 app/views/ui/settings/video.py:63
+#: app/views/ui/settings/audio.py:87 app/views/ui/settings/video.py:39
+#: app/views/ui/settings/video.py:54 app/views/ui/settings/video.py:75
 msgid "Off"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:39
-#: app/views/ui/settings/video.py:54 app/views/ui/settings/video.py:65
+#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:41
+#: app/views/ui/settings/video.py:56 app/views/ui/settings/video.py:77
 msgid "On"
 msgstr ""
 
@@ -123,19 +123,27 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: app/views/ui/settings/video.py:42
+#: app/views/ui/settings/video.py:44
 msgid "Fullscreen"
 msgstr ""
 
-#: app/views/ui/settings/video.py:57
+#: app/views/ui/settings/video.py:59
 msgid "V-Sync"
 msgstr ""
 
-#: app/views/ui/settings/video.py:68
+#: app/views/ui/settings/video.py:67
+msgid "Unlimited"
+msgstr ""
+
+#: app/views/ui/settings/video.py:70
+msgid "FPS Limit"
+msgstr ""
+
+#: app/views/ui/settings/video.py:80
 msgid "Show FPS"
 msgstr ""
 
-#: app/views/ui/settings/video.py:74
+#: app/views/ui/settings/video.py:86
 msgid "Particles amount"
 msgstr ""
 
