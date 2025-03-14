@@ -1,5 +1,4 @@
 """ Move clouds """
-import logging
 import random
 
 from app.effects.effect import Effect
@@ -10,8 +9,8 @@ MOVE_ANGLE = 500
 
 LAYER_NAME = 'Tumbleweed'
 
-
 RANDOMIZE_DELTA = 1
+
 
 class Tumbleweed(Effect):
     """ Move clouds """

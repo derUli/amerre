@@ -201,7 +201,6 @@ class SettingsState:
 
         self._particles = value
 
-
     @property
     def draw_rate(self) -> float:
         return self._draw_rate

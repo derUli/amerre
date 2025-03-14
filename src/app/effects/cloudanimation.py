@@ -3,6 +3,7 @@
 from app.constants.layers import LAYER_CLOUD
 from app.effects.effect import Effect
 
+
 class CloudAnimation(Effect):
     """ Move clouds """
 

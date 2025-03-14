@@ -128,7 +128,6 @@ class Level:
     def load_tilemap(self, path):
         """ Load tilemap """
 
-
         time_start = time.time()
 
         self.tilemap = arcade.load_tilemap(path)
@@ -204,7 +203,7 @@ class Level:
         self._camera_gui.use()
         self._voiceover_triggers.draw_subtitle()
 
-    def move_left(self,  delta_time: float, sprint: bool = False):
+    def move_left(self, delta_time: float, sprint: bool = False):
         """ Move left """
 
         if not self._can_walk:
@@ -238,9 +237,8 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-
         self.player.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
-        self.player.angle += PLAYER_MOVE_ANGLE * modifier  * delta_time
+        self.player.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
 
         if self.player.angle > 360:
             self.player.angle = self.player.angle - 360

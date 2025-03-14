@@ -3,7 +3,6 @@ import logging
 
 import arcade.gui
 import pyglet
-from pygame.draw_py import draw_aaline
 
 from app.constants.fonts import FONT_CONSOLA_MONO
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES

@@ -1,5 +1,4 @@
 """ Main game class """
-import sys
 
 from arcade import FACE_LEFT, FACE_RIGHT
 
