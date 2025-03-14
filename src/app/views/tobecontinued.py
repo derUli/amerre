@@ -5,6 +5,7 @@ import arcade
 from app.constants.fonts import FONT_MARKER_FELT
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_CONFIRM
+from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.views.view import View
 
@@ -55,8 +56,9 @@ class ToBeContinued(View):
             Filmgrain()
         ]
 
+        data = EffectData(root_dir=root_dir)
         for effect in self._effects:
-            effect.setup(self._scene, None, root_dir)
+            effect.setup(data=data)
 
         return self
 

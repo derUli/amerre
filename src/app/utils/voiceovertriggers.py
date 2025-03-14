@@ -83,7 +83,6 @@ class VoiceOverTiggers:
     ):
         """ Play voiceover """
 
-        logging.debug('play_voiceover delta_time %d' % str(delta_time))
         logging.info(label_value('Play speech', voiceover))
 
         languages = list(map(lambda x: x.split('_'), os.environ['LANG'].split(':')))

@@ -1,4 +1,5 @@
 """ Effect """
+from app.containers.effect_data import EffectData
 
 
 class Effect:
@@ -7,19 +8,12 @@ class Effect:
     def __init__(self):
         """ Constructor """
 
-        self._scene = None
-        self._tilemap = None
-        self._root_dir = None
-        self._width = None
-        self._options = {}
+        self._data = None
 
-    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
+    def setup(self, data: EffectData) -> None:
         """ Setup animation """
 
-        self._scene = scene
-        self._tilemap = tilemap
-        self._root_dir = root_dir
-        self._options = options
+        self._data = data
 
     def update(self, delta_time: float) -> None:
         """

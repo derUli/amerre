@@ -12,6 +12,7 @@ from app.constants.gameinfo import VERSION_STRING, MAPS
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
+from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.state.settingsstate import SettingsState
 from app.views.game import Game
@@ -99,8 +100,10 @@ class MainMenu(View):
             Filmgrain()
         ]
 
+        data = EffectData(root_dir=root_dir)
+
         for effect in self._effects:
-            effect.setup(self._scene, None, root_dir)
+            effect.setup(data)
 
         return self
 

@@ -22,12 +22,12 @@ class Bushes(Effect):
         """
 
         try:
-            sprites = self._scene[LAYER_BUSH]
+            sprites = self._data.scene[LAYER_BUSH]
         except arcade.scene.SceneKeyError:
             return
 
         collides = False
-        player = self._scene[LAYER_PLAYER][0]
+        player = self._data.scene[LAYER_PLAYER][0]
 
         for sprite in sprites:
             if arcade.get_distance_between_sprites(sprite, player) < MIN_DISTANCE:

@@ -1,6 +1,7 @@
 """ Move clouds """
 import random
 
+from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
 from app.state.settingsstate import SettingsState
 
@@ -15,23 +16,23 @@ RANDOMIZE_DELTA = 1
 class Tumbleweed(Effect):
     """ Move clouds """
 
-    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
-        super().setup(scene, tilemap, root_dir, options)
+    def setup(self, data: EffectData) -> None:
+        super().setup(data)
 
-        self._options['delta'] = 0
-        self._options['particles'] = SettingsState.load().particles
+        self._data.options['delta'] = 0
+        self._data.options['particles'] = SettingsState.load().particles
 
     def update(self, delta_time: float):
         """ Update animation"""
 
-        self._options['delta'] += delta_time
+        self._data.options['delta'] += delta_time
 
-        sprites = self._scene[LAYER_NAME]
+        sprites = self._data.scene[LAYER_NAME]
 
-        if not 'initialized' in self._options:
+        if not 'initialized' in self._data.options:
             for sprite in sprites:
                 sprite.visible = False
-                self._options['initialized'] = False
+                self._data.options['initialized'] = False
             return
 
         for sprite in sprites:
@@ -47,13 +48,13 @@ class Tumbleweed(Effect):
         if not any(not_visible):
             return
 
-        if self._options['delta'] < RANDOMIZE_DELTA:
+        if self._data.options['delta'] < RANDOMIZE_DELTA:
             return
 
-        self._options['delta'] = 0
+        self._data.options['delta'] = 0
 
         visible = list(filter(lambda s: s.visible, sprites))
-        max_count = max(2, int(len(sprites) * self._options['particles']))
+        max_count = max(2, int(len(sprites) * self._data.options['particles']))
 
         if len(visible) >= max_count:
             return
@@ -61,15 +62,15 @@ class Tumbleweed(Effect):
         if random.randint(1, 10) == 1:
             sprite = random.choice(list(not_visible))
             sprite.visible = True
-            sprite.left = self._tilemap.width * self._tilemap.tile_width
+            sprite.left = self._data.tilemap.width * self._data.tilemap.tile_width
 
     def refresh(self) -> None:
-        self._options['particles'] = SettingsState.load().particles
+        self._data.options['particles'] = SettingsState.load().particles
 
-        sprites = self._scene[LAYER_NAME]
+        sprites = self._data.scene[LAYER_NAME]
 
         visible = list(filter(lambda s: s.visible, sprites))
-        max_count = max(2, int(len(sprites) * self._options['particles']))
+        max_count = max(2, int(len(sprites) * self._data.options['particles']))
 
         if len(visible) < max_count:
             return

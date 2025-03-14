@@ -4,6 +4,7 @@ import os
 
 import arcade
 
+from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
 
 ALPHA = 19
@@ -17,25 +18,25 @@ class Filmgrain(Effect):
 
         super().__init__()
 
-        self._camera = None
-        self._grain = None
-        self._spritelist = None
+        self.camera = None
+        self.grain = None
+        self.spritelist = None
 
-    def setup(self, scene, tilemap, root_dir: str, options: dict = None):
+    def setup(self, data: EffectData) -> None:
         """ Setup animation """
 
-        super().setup(scene, tilemap, root_dir, options)
+        super().setup(data)
 
-        self._camera = arcade.camera.Camera2D()
+        self.camera = arcade.camera.Camera2D()
 
-        self._grain = arcade.load_animated_gif(os.path.join(root_dir, 'resources', 'animations', 'grain.gif'))
-        self._grain.size = arcade.get_window().get_size()
-        self._grain.bottom = 0
-        self._grain.left = 0
-        self._spritelist = arcade.sprite_list.SpriteList()
-        self._spritelist.append(self._grain)
+        self.grain = arcade.load_animated_gif(os.path.join(data.root_dir, 'resources', 'animations', 'grain.gif'))
+        self.grain.size = arcade.get_window().get_size()
+        self.grain.bottom = 0
+        self.grain.left = 0
+        self.spritelist = arcade.sprite_list.SpriteList()
+        self.spritelist.append(self.grain)
 
-        self._spritelist.alpha = ALPHA
+        self.spritelist.alpha = ALPHA
 
     def update(self, delta_time: float) -> None:
         """
@@ -43,10 +44,10 @@ class Filmgrain(Effect):
         @param delta_time: Float
         """
 
-        self._grain.update_animation(delta_time=delta_time)
+        self.grain.update_animation(delta_time=delta_time)
 
     def draw(self) -> None:
         """ Draw it """
 
-        self._camera.use()
-        self._spritelist.draw()
+        self.camera.use()
+        self.spritelist.draw()

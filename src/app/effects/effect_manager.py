@@ -1,5 +1,6 @@
 import arcade.scene
 
+from app.containers.effect_data import EffectData
 from app.effects.bushes import Bushes
 from app.effects.cloudanimation import CloudAnimation
 from app.effects.filmgrain import Filmgrain
@@ -19,6 +20,14 @@ class EffectManager:
             tilemap: arcade.TileMap,
             root_dir: str
     ):
+
+        data = EffectData(
+            scene,
+            tilemap,
+            root_dir,
+            map_config
+        )
+
         animations = []
 
         if 'particles' in map_config and map_config['particles']:
@@ -35,7 +44,7 @@ class EffectManager:
         self._animations = animations
 
         for animation in self._animations:
-            animation.setup(scene, tilemap, root_dir, map_config)
+            animation.setup(data)
 
         self._animations = animations
 
