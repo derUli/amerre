@@ -1,3 +1,5 @@
+""" Path helper"""
+
 import os
 
 import userpaths
