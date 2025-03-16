@@ -84,7 +84,7 @@ class FPSCounter:
 
         self._last_update = time.time()
 
-    def draw(self):
+    def draw(self) -> None:
         """ Draw fps counter text """
 
         self._fps_camera.use()
