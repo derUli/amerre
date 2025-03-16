@@ -10,7 +10,7 @@ from app.constants.gameinfo import DEFAULT_LOCALE
 from app.utils.audiovolumes import AudioVolumes
 from app.containers.callbacks import Callbacks
 from app.helpers.string import label_value
-from .subtitle import Subtitle
+from app.utils.subtitle import Subtitle
 
 VOICEOVER_DEFAULT = 'text00.mp3'
 MULTIPLIER_MUSIC = 0.66
@@ -101,8 +101,6 @@ class VoiceOverTiggers:
             self._initial_volume = self._music.volume
             self._music.volume = self._initial_volume * MULTIPLIER_MUSIC
 
-            return playback
-
     def pop(self, first=False) -> str | None:
         """ Pop voiceover """
 
@@ -114,7 +112,9 @@ class VoiceOverTiggers:
 
         return self.randomized_voiceovers.pop(0)
 
-    def draw_subtitle(self):
+    def draw_subtitle(self) -> None:
+        """ Draw subtitle """
+
         self._subtitle.draw()
 
     @property
