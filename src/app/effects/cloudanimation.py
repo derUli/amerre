@@ -23,7 +23,11 @@ class CloudAnimation(Effect):
 
         change_direction = False
         for cloud in clouds:
-            cloud.center_x -= self._data.options['cloudSpeed'] * self._data.options['direction'] * delta_time
+            cloud.center_x -= (
+                    self._data.options['cloudSpeed'] *
+                    self._data.options['direction'] *
+                    delta_time
+            )
 
             if self._data.options['direction'] == 1 and cloud.right <= 0:
                 if self._data.options['cloudMode'] == 'texture':
@@ -31,7 +35,8 @@ class CloudAnimation(Effect):
                 else:
                     cloud.right = width - abs(cloud.right)
 
-            if self._data.options['direction'] == -1 and cloud.right >= width - cloud.width:
+            if self._data.options[
+                'direction'] == -1 and cloud.right >= width - cloud.width:
                 if self._data.options['cloudMode'] == 'texture':
                     change_direction = True
 

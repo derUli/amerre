@@ -1,5 +1,6 @@
 [MASTER]
 ignore=build
+init-hook='import os, sys; sys.path.append(os.getcwd())'
 
 [PYLINT]
 disable=logging-fstring-interpolation

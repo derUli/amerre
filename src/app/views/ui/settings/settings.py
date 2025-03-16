@@ -2,10 +2,6 @@
 import logging
 
 import arcade.gui
-from arcade.gui import UIFlatButton
-
-from app.constants.fonts import FONT_DEFAULT
-from app.constants.ui import BUTTON_WIDTH
 from app.helpers.gui import make_button
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.video import Video
