@@ -1,4 +1,5 @@
 """ FPSCounter """
+
 import logging
 import time
 

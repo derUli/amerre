@@ -1,4 +1,5 @@
 """ Effect """
+
 from app.containers.effect_data import EffectData
 
 

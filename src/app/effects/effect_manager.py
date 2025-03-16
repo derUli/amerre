@@ -1,3 +1,5 @@
+""" Effect manager """
+
 import arcade.scene
 
 from app.containers.effect_data import EffectData
@@ -9,8 +11,10 @@ from app.effects.tumbleweed import Tumbleweed
 
 
 class EffectManager:
+    """ Effect manager """
 
     def __init__(self):
+        """ Constructor """
         self._animations = []
 
     def setup(
@@ -49,13 +53,18 @@ class EffectManager:
         self._animations = animations
 
     def update(self, delta_time: float):
+        """ Update all effects """
         for animation in self._animations:
             animation.update(delta_time)
 
-    def draw(self):
+    def draw(self) -> None:
+        """ Draw all effects """
+
         for animation in self._animations:
             animation.draw()
 
-    def refresh(self):
+    def refresh(self) -> None:
+        """ Refresh all effects after changing settings """
+
         for animation in self._animations:
             animation.refresh()
