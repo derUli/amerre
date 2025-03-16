@@ -24,10 +24,10 @@ from app.constants.player import (
     PLAYER_JUMP_SPEED,
     PLAYER_MOVE_ANGLE
 )
+from app.containers.callbacks import Callbacks
 from app.effects.effect_manager import EffectManager
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
-from app.containers.callbacks import Callbacks
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
@@ -71,7 +71,8 @@ class Level:
 
         self._root_dir = root_dir
 
-        self.load_tilemap(os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
+        self.load_tilemap(
+            os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
         config = self.load_config()
 
         w, h = arcade.get_window().get_size()
@@ -89,20 +90,33 @@ class Level:
             map_config = config[map_name]
 
         if 'music' in map_config:
-            music_file = os.path.join(root_dir, 'resources', 'music', map_config['music'])
+            music_file = os.path.join(root_dir, 'resources', 'music',
+                                      map_config['music'])
             music = arcade.load_sound(music_file, streaming=True)
             loop = 'musicLoop' in map_config and map_config['musicLoop']
-            self._music = music.play(volume=audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER, loop=loop)
+            self._music = music.play(
+                volume=audio_volumes.volume_music_normalized *
+                       VOLUME_MUSIC_MODIFIER,
+                loop=loop
+            )
 
-        atmo_file = os.path.join(root_dir, 'resources', 'sounds', 'atmos', f"{map_name}.mp3")
+        atmo_file = os.path.join(
+            root_dir,
+            'resources',
+            'sounds',
+            'atmos',
+            f"{map_name}.mp3"
+        )
 
         if os.path.exists(atmo_file):
             atmo = arcade.load_sound(atmo_file, streaming=True)
-            self._atmo = atmo.play(volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER, loop=True)
+            self._atmo = atmo.play(
+                volume=audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER,
+                loop=True)
 
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
         self._voiceover_triggers = VoiceOverTiggers().setup(
-            voiceoverRange=map_config['voiceovers'],
+            voiceover_range=map_config['voiceovers'],
             callbacks=callbacks
         )
         self.scroll_to_player()
@@ -306,7 +320,8 @@ class Level:
             return
 
         arcade.load_sound(
-            os.path.join(root_dir, 'resources', 'sounds', 'lights', 'missle-launch-001.mp3'),
+            os.path.join(root_dir, 'resources', 'sounds', 'lights',
+                         'missle-launch-001.mp3'),
             streaming=True
         ).play(volume=volumes.volume_sound_normalized)
 
@@ -335,7 +350,8 @@ class Level:
         if not self._launching_sprite:
             return
 
-        self._launching_sprite.center_y += (LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time)
+        self._launching_sprite.center_y += (
+                    LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time)
         self._launching_sprite.angle = min(
             self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
             360
