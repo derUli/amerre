@@ -29,7 +29,9 @@ class Filmgrain(Effect):
 
         self.camera = arcade.camera.Camera2D()
 
-        self.grain = arcade.load_animated_gif(os.path.join(data.root_dir, 'resources', 'animations', 'grain.gif'))
+        self.grain = arcade.load_animated_gif(
+            os.path.join(data.root_dir, 'resources', 'animations', 'grain.gif')
+        )
         self.grain.size = arcade.get_window().get_size()
         self.grain.bottom = 0
         self.grain.left = 0
