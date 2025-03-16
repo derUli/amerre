@@ -150,7 +150,7 @@ class GameWindow(arcade.Window):
         """ Load fonts """
 
         fonts = [
-            'MarkerFelt.ttf',
+            'cruft.ttf',
             'consolamonobook.ttf'
         ]
 

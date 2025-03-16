@@ -1,7 +1,7 @@
 """ Font names """
 
-FONT_DEFAULT = 'Marker Felt'
+FONT_DEFAULT = 'Cruft'
 FONT_MONOTYPE = 'Consola Mono'
 
-FONT_SIZE_BUTTON = 16
-FONT_SIZE_LABEL = 16
+FONT_SIZE_BUTTON = 12
+FONT_SIZE_LABEL = 12

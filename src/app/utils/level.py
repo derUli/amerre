@@ -9,7 +9,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import BASE_HEIGHT
+from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH
 from app.constants.layers import (
     LAYER_PLAYER,
     LAYER_WALL,
@@ -407,9 +407,8 @@ class Level:
     def on_level_completed(self):
         """ Called when a level is completed """
 
-        w, h = arcade.get_window().get_size()
+        w, h = BASE_WIDTH, BASE_HEIGHT
 
-        w, h = w * (1 + self._camera.zoom), h * (1 + self._camera.zoom),
         # Add fade sprite to scene
         sprite = arcade.sprite.SpriteSolidColor(width=w, height=h, color=WHITE)
 

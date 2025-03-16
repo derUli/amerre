@@ -4,7 +4,7 @@ import os
 import arcade
 from arcade import SpriteList
 
-from app.constants.fonts import FONT_MONOTYPE
+from app.constants.fonts import FONT_DEFAULT
 from app.state.settingsstate import SettingsState
 
 MARGIN = 10
@@ -54,7 +54,7 @@ class Subtitle:
 
             sprite = arcade.create_text_sprite(
                 text=parts[1],
-                font_name=FONT_MONOTYPE,
+                font_name=FONT_DEFAULT,
                 font_size=font_size,
                 color=TEXT_COLOR
             )
