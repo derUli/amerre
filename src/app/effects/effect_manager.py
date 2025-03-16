@@ -24,6 +24,7 @@ class EffectManager:
             tilemap: arcade.TileMap,
             root_dir: str
     ):
+        """ Setup effects """
 
         data = EffectData(
             scene,
