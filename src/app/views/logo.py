@@ -32,7 +32,6 @@ class Logo(View):
         super().__init__()
         self._phase = None
 
-
     def setup(self, root_dir: str):
         """ Setup logo screen """
 

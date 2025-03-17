@@ -1,5 +1,4 @@
 """ Video settings """
-import os
 
 import arcade.gui
 from arcade.gui.events import UIOnClickEvent, UIOnActionEvent

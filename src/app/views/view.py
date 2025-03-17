@@ -2,6 +2,7 @@
 
 import arcade
 
+
 class View(arcade.View):
     """ View """
 

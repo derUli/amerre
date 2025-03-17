@@ -84,16 +84,11 @@ def log_hardware_info() -> None:
     logging.info(
         label_value('OpenGL version', pyglet.gl.gl_info.get_version_string()))
 
-    logging.info(
-        label_value(
-            'Display mode',
-            default_mode()
-        )
-    )
+    logging.info(label_value('Default display mode', default_mode()))
+    logging.info(label_value('Locale', locale.getlocale()))
 
     log_audio_info_audio()
 
-    logging.info(label_value('Locale', locale.getlocale()))
 
 
 def log_audio_info_audio() -> None:
