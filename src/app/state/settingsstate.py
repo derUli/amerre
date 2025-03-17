@@ -4,7 +4,6 @@ import logging
 import os
 
 import jsonpickle
-import pyglet
 
 from app.constants.settings import (
     SETTINGS_DEFAULT_SHOW_FPS, \
@@ -21,10 +20,10 @@ from app.constants.settings import (
     SETTINGS_DEFAULT_DRAW_RATE, \
     SETTINGS_DEFAULT_DEBUG, SETTINGS_DEFAULT_AUDIO_DRIVER
 )
-from app.helpers.localization import default_language
-from app.helpers.paths import settings_path
 from app.helpers.display import fullscreen_resolution, window_resolution, \
     default_rate
+from app.helpers.localization import default_language
+from app.helpers.paths import settings_path
 from app.utils.audiovolumes import AudioVolumes
 
 VERSION = 1
@@ -233,7 +232,6 @@ class SettingsState:
     @property
     def actual_draw_rate(self) -> int:
         """ Actual draw rate depending on vsync """
-
 
         # If V-Sync is enabled and the draw_rate higher than the monitor
         # refresh rate return monitor refresh rate

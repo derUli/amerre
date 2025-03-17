@@ -101,9 +101,11 @@ class GameWindow(arcade.Window):
 
         self.show_view(view().setup(root_dir))
 
-        self.setup_style()
+        self.setup_ui_styles()
 
-    def setup_style(self):
+    def setup_ui_styles(self) -> None:
+        """ Setup UI styles """
+
         for style in UIFlatButton.DEFAULT_STYLE.values():
             style.font_name = FONT_DEFAULT
             style.font_size = FONT_SIZE_BUTTON
@@ -278,4 +280,5 @@ class GameWindow(arcade.Window):
     @property
     def root_dir(self):
         """ Root directory """
+        
         return self._root_dir

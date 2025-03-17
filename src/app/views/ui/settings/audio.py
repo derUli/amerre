@@ -1,5 +1,4 @@
 """ Video settings """
-import logging
 
 import arcade.gui
 from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
@@ -146,21 +145,18 @@ class Audio(arcade.gui.UIManager):
     def on_change_volume_master(self, event: UIOnChangeEvent) -> None:
         """ master volume changed """
 
-        
         self._state.audio_volumes.volume_master = int(event.new_value)
         self._on_change(self._state)
 
     def on_change_volume_sound(self, event: UIOnChangeEvent) -> None:
         """ Sound volume changed """
 
-        
         self._state.audio_volumes.volume_sound = int(event.new_value)
         self._on_change(self._state)
 
     def on_change_volume_speech(self, event: UIOnChangeEvent) -> None:
         """ Speech volume changed """
 
-        
         self._state.audio_volumes.volume_speech = int(event.new_value)
         self._on_change(self._state)
 
@@ -179,7 +175,6 @@ class Audio(arcade.gui.UIManager):
     def on_toggle_subtitles(self, event: UIOnClickEvent) -> None:
         """ On toggle subtitles """
 
-        
         self._state.subtitle_enabled = not self._state.subtitle_enabled
         self._on_change(self._state)
         self._state.save()
@@ -188,7 +183,6 @@ class Audio(arcade.gui.UIManager):
     def on_change_driver(self, event: UIOnClickEvent) -> None:
         """ On change driver """
 
-        
         old_value = self._state.audio_driver
 
         try:

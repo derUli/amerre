@@ -1,7 +1,5 @@
 """ Pause Menu """
 
-import logging
-
 import arcade
 import arcade.gui
 from arcade.gui import UIOnActionEvent

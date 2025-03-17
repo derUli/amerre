@@ -12,7 +12,6 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING
 from app.constants.settings import (UPDATE_RATE, FIXED_RATE)
 from app.gamewindow import GameWindow
-from app.helpers.display import modes
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 from app.utils.log import log_hardware_info
@@ -139,7 +138,6 @@ class Startup:
             default=False,
             help='Show intro'
         )
-
 
         parser.add_argument(
             '--window-size',

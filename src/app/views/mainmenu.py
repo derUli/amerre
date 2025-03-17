@@ -179,7 +179,6 @@ class MainMenu(View):
                          'hover.mp3'),
         )
 
-
     def on_update(self, delta_time: float):
         """ On update """
 

@@ -64,7 +64,6 @@ class EffectManager:
         for animation in self._animations:
             animation.on_fixed_update(delta_time)
 
-
     def draw(self) -> None:
         """ Draw all effects """
 

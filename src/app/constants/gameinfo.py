@@ -1,5 +1,4 @@
 """ Version number """
-import sys
 
 VERSION = (0, 0, 1)
 VERSION_STRING = '.'.join(map(str, VERSION))
@@ -19,6 +18,7 @@ LOCALES_AVAILABLE = [
     LOCALE_GERMAN,
     LOCALE_ENGLISH
 ]
+
 
 def locales_translated() -> dict:
     """ All locales """

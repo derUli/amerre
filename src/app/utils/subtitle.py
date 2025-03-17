@@ -17,12 +17,9 @@ class Subtitle:
         self._rendered_texts = []
         self._current_text = None
 
-    def load(self, source, filename: str) -> None:
-
+    def load(self, filename: str) -> None:
+        """ Load subtitle file """
         self.clear()
-
-        if not source:
-            return
 
         filename_parts = os.path.splitext(filename)
         text_file = f"{filename_parts[0]}.txt"
@@ -82,18 +79,23 @@ class Subtitle:
 
         self._current_text = self._rendered_texts[0]
 
-    def update(self, player):
+    def update(self, player) -> None:
+        """ Update subtitle """
 
         for text in self._rendered_texts:
             if player.time >= text['time']:
                 self._current_text = text
 
-    def clear(self):
+    def clear(self) -> None:
+        """ Clear """
+
         self._texts = []
         self._rendered_texts = []
         self._current_text = None
 
-    def draw(self):
+    def draw(self) -> None:
+        """ Draw """
+
         if not self._current_text:
             return
 

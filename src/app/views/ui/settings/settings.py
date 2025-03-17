@@ -1,9 +1,7 @@
 """ Settings menu """
-import logging
 
 import arcade.gui
 
-from app.constants.ui import MARGIN
 from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
 from app.views.ui.settings.audio import Audio
@@ -70,14 +68,12 @@ class Settings(arcade.gui.UIManager):
         self._on_close(menu)
 
     def on_enable(self, refresh_particles=False):
-
         self.enable()
         self._on_close(self)
 
     def on_back(self, event, refresh_particles=False):
         """ On go back """
 
-        
         if refresh_particles:
             self._on_change(refresh_particles=True)
 

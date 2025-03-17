@@ -6,7 +6,6 @@ from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
 from app.state.settingsstate import SettingsState
 
-
 PARTICLES_SIZE_RANGE = 8
 PARTICLE_SPEED = 100
 PARTICLES_COUNT = 500
@@ -17,8 +16,8 @@ PARTICLE_COLORS = [
     (111, 186, 241, 200)
 ]
 
-
 SCENE_LAYER_PARTICLES = 'particles'
+
 
 class MenuParticles(Effect):
     def setup(self, data: EffectData) -> None:
@@ -45,7 +44,6 @@ class MenuParticles(Effect):
             if particle.right < 0:
                 particle.center_x = w + particle.width
                 particle.center_y = random.randint(0, h)
-
 
     def refresh(self) -> None:
         modifier = SettingsState.load().particles

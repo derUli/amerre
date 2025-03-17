@@ -1,8 +1,6 @@
 """ Video settings """
-import logging
 
 import arcade.gui
-import pyglet
 from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
@@ -119,8 +117,6 @@ class Video(arcade.gui.UIManager):
     def on_back(self, event: UIOnClickEvent) -> None:
         """ On go back """
 
-        
-
         compares = [
             (self._old_state.antialiasing, self._state.antialiasing),
             (self.window.fullscreen, self._state.fullscreen),
@@ -138,15 +134,12 @@ class Video(arcade.gui.UIManager):
         self._on_back(event)
 
     def _on_back(self, event: UIOnClickEvent | UIOnActionEvent) -> None:
-        
 
         self.disable()
         self._on_close()
 
     def on_toggle_fps(self, event: UIOnClickEvent) -> None:
         """ On toggle fps display """
-
-        
 
         if arcade.timings_enabled():
             arcade.disable_timings()
@@ -159,16 +152,14 @@ class Video(arcade.gui.UIManager):
         self.refresh()
 
     def on_toggle_fullscreen(self, event: UIOnClickEvent) -> None:
-
-        
+        """ On toggle fullscreen """
 
         self._state.fullscreen = not self._state.fullscreen
         self._state.save()
         self.refresh()
 
     def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
-
-        
+        """ On toggle vsync """
 
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
@@ -182,13 +173,13 @@ class Video(arcade.gui.UIManager):
     def on_change_particles(self, event: UIOnChangeEvent) -> None:
         """ master volume changed """
 
-        
         self._state.particles = float(event.new_value)
         self._state.save()
         self._on_change(refresh_particles=True)
 
     def on_change_fps_limit(self, event):
-        
+        """ On change fps limit  """
+
         current_fps = self._state.draw_rate
         draw_rates = SETTINGS_DRAW_RATES
 
@@ -215,7 +206,7 @@ class Video(arcade.gui.UIManager):
         self.refresh()
 
     def on_change_antialiasing(self, event: UIOnChangeEvent) -> None:
-        
+        """ On change antialiasing """
         index = ANTIALIASING_VALUES.index(self._state.antialiasing)
         index += 1
 
@@ -225,8 +216,9 @@ class Video(arcade.gui.UIManager):
             self._state.antialiasing = 0
 
         self._state.save()
-
         self.refresh()
 
     def refresh(self):
+        """ On refresh view """
+
         self.setup(self._on_close, self._on_change)

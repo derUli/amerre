@@ -1,5 +1,4 @@
 """ Main game class """
-import logging
 
 from arcade import FACE_LEFT, FACE_RIGHT
 

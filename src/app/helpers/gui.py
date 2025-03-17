@@ -61,7 +61,8 @@ def make_restart_to_apply_settings_alert(
     alert.on_action = on_action
     return alert
 
-def make_vertical_ui_box_layout(children:list) -> UIBoxLayout:
+
+def make_vertical_ui_box_layout(children: list) -> UIBoxLayout:
     widget_layout = UIBoxLayout(
         space_between=MARGIN * 2,
         align='center',
@@ -69,6 +70,7 @@ def make_vertical_ui_box_layout(children:list) -> UIBoxLayout:
     )
 
     return widget_layout
+
 
 def make_ui_anchor_layout(children: list) -> UIAnchorLayout:
     layout = UIAnchorLayout()

@@ -99,7 +99,7 @@ class VoiceOverTiggers:
 
         playback = sound.play(volume=audio_volumes.volume_speech_normalized)
         playback.on_player_eos = self.on_speech_completed
-        self._subtitle.load(sound.source, filename)
+        self._subtitle.load(filename)
 
         self._media = playback
 
