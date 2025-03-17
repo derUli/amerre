@@ -11,14 +11,11 @@ import arcade
 import pyglet
 
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
-from app.constants.settings import (
-    SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, UPDATE_RATE, FIXED_RATE,
-)
+from app.constants.settings import (UPDATE_RATE, FIXED_RATE)
 from app.gamewindow import GameWindow
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
-from app.utils.log import configure_logger, log_hardware_info
+from app.utils.log import log_hardware_info
 
 try:
     import sounddevice
@@ -104,16 +101,11 @@ class Startup:
         antialiasing = samples > 0
 
         # Update rate
-
-        if str(args.window_style).lower() == 'none':
-            args.window_style = None
-
         width, height = state.screen_resolution
 
         window = GameWindow(
             fullscreen=state.fullscreen,
             visible=False,
-            style=args.window_style,
             vsync=state.vsync,
             width=width,
             height=height,
@@ -166,15 +158,6 @@ class Startup:
             type=int,
             required=False,
             help='The X position of the window'
-        )
-
-        parser.add_argument(
-            '--window-style',
-            action='store',
-            type=str,
-            help='The window style',
-            choices=SETTINGS_WINDOW_STYLE_CHOICES,
-            default=SETTINGS_DEFAULT_WINDOW_STYLE
         )
 
         parser.add_argument(

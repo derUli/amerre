@@ -1,6 +1,6 @@
 """ Audio utils """
-import pyglet.media
-from pyglet import Options, media
+
+from pyglet import Options
 
 
 def audio_backends() -> list:
