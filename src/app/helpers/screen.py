@@ -14,7 +14,6 @@ def screen_resolutions() -> list:
     modes = filter(
         lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, modes)
 
-    modes = []
     if not any(modes):
         return [SETTINGS_SIZE_MINIUM]
 

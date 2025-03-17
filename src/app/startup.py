@@ -91,6 +91,18 @@ class Startup:
 
         # Update rate
         width, height = state.screen_resolution
+        print(width, height)
+
+        if not state.fullscreen and args.window_size:
+            size = args.window_size.lower()
+            window_size = size.split('x')
+            try:
+                window_size = list(map(int, window_size))
+            except ValueError as e:
+                logging.error(e)
+                return
+
+            width, height = window_size[0], window_size[1]
 
         window = GameWindow(
             fullscreen=state.fullscreen,
@@ -126,6 +138,14 @@ class Startup:
             action='store_true',
             default=False,
             help='Show intro'
+        )
+
+
+        parser.add_argument(
+            '--window-size',
+            action='store',
+            default=None,
+            help='Set the window size'
         )
 
         parser.add_argument(
