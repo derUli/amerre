@@ -53,10 +53,17 @@ class EffectManager:
 
         self._animations = animations
 
-    def update(self, delta_time: float):
+    def on_update(self, delta_time: float):
+        """ Update all effects """
+
+        for animation in self._animations:
+            animation.on_update(delta_time)
+
+    def on_fixed_update(self, delta_time: float):
         """ Update all effects """
         for animation in self._animations:
-            animation.update(delta_time)
+            animation.on_fixed_update(delta_time)
+
 
     def draw(self) -> None:
         """ Draw all effects """

@@ -14,7 +14,7 @@ class CloudAnimation(Effect):
         super().setup(data)
         self._data.options['direction'] = 1
 
-    def update(self, delta_time: float):
+    def on_update(self, delta_time: float):
         """ Update animation"""
 
         clouds = self._data.scene[LAYER_CLOUD]

@@ -31,7 +31,7 @@ class Particles(Effect):
 
         self.make_particles(particles_count)
 
-    def update(self, delta_time: float) -> None:
+    def on_update(self, delta_time: float) -> None:
         """
         Update it
         @param delta_time: float
@@ -40,9 +40,12 @@ class Particles(Effect):
         for sprite in self._data.scene[LAYER_PARTICLES]:
             sprite.center_x -= PARTICLE_SPEED * delta_time
             if sprite.right < 0:
-                sprite.center_x = self._data.tilemap.width * self._data.tilemap.tile_width
-                sprite.center_y = random.randint(PARTICLES_Y_MIN,
-                                                 PARTICLES_Y_MAX)
+                sprite.center_x = (self._data.tilemap.width *
+                                   self._data.tilemap.tile_width)
+                sprite.center_y = random.randint(
+                    PARTICLES_Y_MIN,
+                    PARTICLES_Y_MAX
+                )
 
     def draw(self) -> None:
         """ Draw effect """

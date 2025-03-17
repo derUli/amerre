@@ -156,7 +156,7 @@ class Level:
             delta_time: float
     ):
         self.update_collision_light(delta_time)
-        self._effect_manager.update(delta_time)
+        self._effect_manager.on_update(delta_time)
 
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
@@ -185,6 +185,7 @@ class Level:
 
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_fade()
+        self._effect_manager.on_fixed_update(delta_time)
 
         self._voiceover_triggers.update()
 

@@ -40,7 +40,7 @@ class Filmgrain(Effect):
 
         self.spritelist.alpha = ALPHA
 
-    def update(self, delta_time: float) -> None:
+    def on_update(self, delta_time: float) -> None:
         """
         Update it
         @param delta_time: Float

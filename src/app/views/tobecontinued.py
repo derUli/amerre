@@ -73,7 +73,7 @@ class ToBeContinued(View):
         self._scene[SCENE_LAYER_TEXT].visible = True
 
         for effect in self._effects:
-            effect.update(delta_time)
+            effect.on_update(delta_time)
 
         if self._fade_sprite:
             self._fade_sprite.visible = True

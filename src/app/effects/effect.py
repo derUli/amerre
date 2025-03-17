@@ -16,7 +16,15 @@ class Effect:
 
         self._data = data
 
-    def update(self, delta_time: float) -> None:
+    def on_update(self, delta_time: float) -> None:
+        """
+        Update it
+        @param delta_time: float
+        """
+
+        return
+
+    def on_fixed_update(self, delta_time: float) -> None:
         """
         Update it
         @param delta_time: float

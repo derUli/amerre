@@ -22,7 +22,7 @@ class Tumbleweed(Effect):
         self._data.options['delta'] = 0
         self._data.options['particles'] = SettingsState.load().particles
 
-    def update(self, delta_time: float):
+    def on_update(self, delta_time: float):
         """ Update animation"""
 
         self._data.options['delta'] += delta_time

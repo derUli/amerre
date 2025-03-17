@@ -230,7 +230,7 @@ class MainMenu(View):
             self._manager.on_update(time_delta=delta_time)
 
         for effect in self._effects:
-            effect.update(delta_time)
+            effect.on_update(delta_time)
 
         if not self._fade_sprite:
             return

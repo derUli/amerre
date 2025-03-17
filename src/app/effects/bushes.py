@@ -15,7 +15,7 @@ MIN_DISTANCE = 64
 class Bushes(Effect):
     """ Bushes effect """
 
-    def update(self, delta_time: float) -> None:
+    def on_fixed_update(self, delta_time: float) -> None:
         """
         Update it
         @param delta_time: Float

@@ -63,21 +63,13 @@ class SettingsState:
 
     @staticmethod
     def exists() -> bool:
-        """
-        Check if there is an existing settings file for the launcher
-
-        @return: bool
-        """
+        """ Check if there is an existing settings file for the launcher """
 
         return os.path.exists(settings_path())
 
     @staticmethod
     def load():
-        """
-        Loads the settings state
-
-        @return: SettingsState
-        """
+        """ Loads the settings state """
 
         try:
             return SettingsState._load()
@@ -106,7 +98,6 @@ class SettingsState:
             # I added a version number
             # If the state version from the code is newer than the stored version
             # discard the old settings state and return a new one
-
             if SettingsState().version != state.version:
                 return SettingsState()
 
