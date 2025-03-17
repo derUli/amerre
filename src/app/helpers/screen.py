@@ -11,29 +11,33 @@ def screen_resolutions() -> list:
     modes = pyglet.display.get_display().get_default_screen().get_modes()
 
     modes = filter(lambda mode: is_16_9_ratio(mode.width, mode.height), modes)
+    modes = filter(lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, modes)
+
+    if not any(modes):
+        return [SETTINGS_SIZE_MINIUM]
+
     return sorted(list(set(map(lambda mode: (mode.width, mode.height), modes))))
 
-
-def fullscreen_resolution() -> list:
+def fullscreen_resolution() -> tuple:
     """ Get the fullscreen resolution """
 
-    resolutions = list(reversed(screen_resolutions()))
+    display = pyglet.display.get_display().get_default_screen()
+    mode = display.get_mode()
 
-    if not any(resolutions):
-        return SETTINGS_SIZE_MINIUM
-
-    return resolutions[0]
+    return mode.width, mode.height
 
 
 def window_resolution() -> list:
     """ Get the window resolution """
 
-    resolutions = screen_resolutions()
+    resolutions = list(filter(
+        lambda mode: mode < fullscreen_resolution(), screen_resolutions()
+    ))
 
-    if len(resolutions) < 2:
-        resolutions = [SETTINGS_SIZE_MINIUM] + resolutions
+    if not any(resolutions):
+        return SETTINGS_SIZE_MINIUM
 
-    return resolutions[0]
+    return resolutions[-1]
 
 
 def gcd(a, b):
