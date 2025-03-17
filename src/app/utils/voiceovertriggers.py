@@ -72,8 +72,13 @@ class VoiceOverTiggers:
             if os.path.isfile(path):
                 return path
 
-        return os.path.join(root_dir, 'resources', 'speech', DEFAULT_LOCALE,
-                            voiceover)
+        return os.path.join(
+            root_dir,
+            'resources',
+            'speech',
+            DEFAULT_LOCALE,
+            voiceover
+        )
 
     def play_voiceover(
             self,
