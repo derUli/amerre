@@ -10,6 +10,7 @@ import psutil
 import pyglet
 
 from app.helpers.audio import audio_drivers
+from app.helpers.display import default_mode
 
 try:
     import sounddevice
@@ -83,8 +84,8 @@ def log_hardware_info() -> None:
 
     logging.info(
         label_value(
-            'Screen resolution',
-            pyglet.display.get_display().get_default_screen().get_mode()
+            'Display mode',
+            default_mode()
         )
     )
 

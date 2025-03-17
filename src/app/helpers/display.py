@@ -1,6 +1,7 @@
 """ Screen helper """
 
 import pyglet.display
+from pyglet.display.base import Screen, ScreenMode
 
 from app.constants.settings import SETTINGS_SIZE_MINIUM
 
@@ -8,25 +9,20 @@ from app.constants.settings import SETTINGS_SIZE_MINIUM
 def screen_resolutions() -> list:
     """ Get all screen resolutions """
 
-    modes = pyglet.display.get_display().get_default_screen().get_modes()
+    m = filter(lambda mode: is_16_9_ratio(mode.width, mode.height), modes())
+    m = filter(
+        lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, m)
 
-    modes = filter(lambda mode: is_16_9_ratio(mode.width, mode.height), modes)
-    modes = filter(
-        lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, modes)
-
-    if not any(modes):
+    if not any(m):
         return [SETTINGS_SIZE_MINIUM]
 
-    return sorted(list(set(map(lambda mode: (mode.width, mode.height), modes))))
+    return sorted(list(set(map(lambda mode: (mode.width, mode.height), m))))
 
 
 def fullscreen_resolution() -> tuple:
     """ Get the fullscreen resolution """
 
-    display = pyglet.display.get_display().get_default_screen()
-    mode = display.get_mode()
-
-    return mode.width, mode.height
+    return default_mode().width, default_mode().height
 
 
 def window_resolution() -> list:
@@ -65,3 +61,19 @@ def is_16_9_ratio(width: int, height: int) -> bool:
     """ Check if a screen resolution is 16:9 """
 
     return calculate_aspect(width, height) == (16, 9)
+
+
+def default_screen() -> Screen:
+    return pyglet.display.get_display().get_default_screen()
+
+
+def default_mode() -> ScreenMode:
+    return default_screen().get_mode()
+
+
+def modes() -> list:
+    return default_screen().get_modes()
+
+
+def default_rate() -> int:
+    return default_mode().rate

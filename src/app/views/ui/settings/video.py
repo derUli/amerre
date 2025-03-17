@@ -7,6 +7,7 @@ from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
     SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
+from app.helpers.display import default_rate
 from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
 from app.helpers.string import label_value
@@ -211,7 +212,7 @@ class Video(arcade.gui.UIManager):
         draw_rate = draw_rates[index]
 
         if draw_rate == SETTINGS_UNLIMITED_DRAW_RATE and self._state.vsync:
-            draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+            draw_rate = default_rate()
 
         self._state.draw_rate = draw_rates[index]
 

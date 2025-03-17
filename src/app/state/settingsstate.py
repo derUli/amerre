@@ -23,7 +23,8 @@ from app.constants.settings import (
 )
 from app.helpers.localization import default_language
 from app.helpers.paths import settings_path
-from app.helpers.screen import fullscreen_resolution, window_resolution
+from app.helpers.display import fullscreen_resolution, window_resolution, \
+    default_rate
 from app.utils.audiovolumes import AudioVolumes
 
 VERSION = 1
@@ -233,14 +234,11 @@ class SettingsState:
     def actual_draw_rate(self) -> int:
         """ Actual draw rate depending on vsync """
 
-        display_rate = (
-            pyglet.display.get_display().get_default_screen().get_mode().rate
-        )
 
         # If V-Sync is enabled and the draw_rate higher than the monitor
         # refresh rate return monitor refresh rate
-        if self.vsync and self.draw_rate > display_rate:
-            return display_rate
+        if self.vsync and self.draw_rate > default_rate():
+            return default_rate()
 
         return self.draw_rate
 
