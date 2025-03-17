@@ -91,7 +91,6 @@ class Startup:
 
         # Update rate
         width, height = state.screen_resolution
-        print(width, height)
 
         if not state.fullscreen and args.window_size:
             size = args.window_size.lower()
