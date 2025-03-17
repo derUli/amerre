@@ -14,7 +14,9 @@ from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
 from app.constants.ui import MARGIN, FADE_SPEED, FADE_MAX
 from app.containers.effect_data import EffectData
+from app.effects.effect_manager import EffectManager
 from app.effects.filmgrain import Filmgrain
+from app.effects.menu_particles import MenuParticles
 from app.state.settingsstate import SettingsState
 from app.views.game import Game
 from app.views.ui.settings.settings import Settings
@@ -28,18 +30,7 @@ MUSIC_FADE_SPEED = 0.005
 
 SCENE_LAYER_FADEIN = 'fadein'
 SCENE_LAYER_ICON = 'icon'
-SCENE_LAYER_PARTICLES = 'particles'
 SCENE_LAYER_TEXT = 'Text'
-
-PARTICLE_SPEED = 100
-
-PARTICLE_COLORS = [
-    (228, 255, 4, 200),
-    (210, 210, 210, 200),
-    (111, 186, 241, 200)
-]
-PARTICLES_SIZE_RANGE = 8
-PARTICLES_COUNT = 500
 
 URL_ITCH_IO = 'https://hog-games.itch.io/'
 
@@ -57,7 +48,6 @@ class MainMenu(View):
         self._text_version = None
         self._text_load = None
 
-        self._scene = None
         self._scene2 = None
         self._manager = None
         self._icon_itch_io = None
@@ -81,7 +71,6 @@ class MainMenu(View):
         self.window.set_mouse_visible(not any(self.window.controllers))
 
         # Text
-        self.setup_particles()
         self.setup_text()
         self.setup_icons(root_dir)
 
@@ -92,10 +81,14 @@ class MainMenu(View):
         self.on_update(0)
 
         self._effects = [
-            Filmgrain()
+            Filmgrain(),
+            MenuParticles()
         ]
 
-        data = EffectData(root_dir=root_dir)
+        data = EffectData(
+            root_dir=root_dir,
+            scene=self._scene
+        )
 
         for effect in self._effects:
             effect.setup(data)
@@ -188,23 +181,10 @@ class MainMenu(View):
                          'hover.mp3'),
         )
 
-    def setup_particles(self):
-        """ Setup article animation """
-
-        try:
-            self._scene[SCENE_LAYER_PARTICLES].clear()
-        except KeyError:
-            pass
-
-        state = SettingsState.load()
-        particles_count = int(PARTICLES_COUNT * state.particles)
-
-        self.make_particles(particles_count)
 
     def on_update(self, delta_time: float):
         """ On update """
 
-        self.on_update_particles(delta_time)
         self._text_start.center_x = self.window.width / 2
         self._text_start.bottom = MARGIN
 
@@ -262,17 +242,6 @@ class MainMenu(View):
 
         self._text_load.visible = self._fade_sprite.alpha >= FADE_MAX
         self._music.volume = max(self._music.volume - MUSIC_FADE_SPEED, 0)
-
-    def on_update_particles(self, delta_time: float):
-        """ Update particles """
-
-        particles = self._scene[SCENE_LAYER_PARTICLES]
-        for particle in particles:
-            particle.center_x -= PARTICLE_SPEED * delta_time
-
-            if particle.right < 0:
-                particle.center_x = self.window.width + particle.width
-                particle.center_y = random.randint(0, self.window.height)
 
     def on_draw(self):
         """ On draw"""
@@ -397,14 +366,19 @@ class MainMenu(View):
                             on_change=self.on_change_settings)
         self._manager.enable()
 
-    def on_change_settings(self, state: SettingsState = None,
-                           refresh_particles=False) -> None:
+    def on_change_settings(
+            self,
+            state: SettingsState = None,
+            refresh_particles=False
+    ) -> None:
+
         if state:
             self._music.volume = state.audio_volumes.volume_music_normalized
             self.window.audio_volumes = state.audio_volumes
 
         if refresh_particles:
-            self.on_refresh_particles()
+            for effect in self._effects:
+                effect.refresh()
 
     def on_close_settings(self, new_manager=None) -> None:
         """ On close settings"""
@@ -416,36 +390,6 @@ class MainMenu(View):
 
         self._scene[SCENE_LAYER_TEXT].visible = True
         self._scene[SCENE_LAYER_ICON].visible = True
-
-    def make_particles(self, particles_count):
-        for i in range(0, particles_count):
-            sprite = arcade.sprite.SpriteCircle(
-                color=random.choice(PARTICLE_COLORS),
-                soft=True,
-                radius=random.randint(1, PARTICLES_SIZE_RANGE)
-            )
-            sprite.center_x = random.randint(0, self.window.width)
-            sprite.center_y = random.randint(0, self.window.height)
-            self._scene.add_sprite(SCENE_LAYER_PARTICLES, sprite)
-
-    def on_refresh_particles(self):
-        modifier = SettingsState.load().particles
-        new_count = int(PARTICLES_COUNT * modifier)
-        old_count = len(self._scene[SCENE_LAYER_PARTICLES])
-        if new_count == old_count:
-            return
-
-        if new_count > old_count:
-            self.make_particles(new_count - old_count)
-            return
-
-        if new_count < old_count:
-            diff = new_count - old_count
-
-            sprites = self._scene[SCENE_LAYER_PARTICLES][diff:]
-
-            for sprite in sprites:
-                self._scene[SCENE_LAYER_PARTICLES].remove(sprite)
 
     @staticmethod
     def on_exit() -> None:
