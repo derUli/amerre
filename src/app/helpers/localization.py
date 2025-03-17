@@ -1,11 +1,12 @@
+""" Localization utils """
 import locale
 
 from app.constants.gameinfo import LOCALE_FALLBACK, \
     LOCALES_AVAILABLE
 
 
-def default_language():
-    """ Detect default langauge """
+def default_language() -> str:
+    """ Detect the default langauge """
 
     ls = list(locale.getlocale())
     ls = map(lambda s: s[:2].lower(), ls)

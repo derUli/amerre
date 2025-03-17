@@ -1,4 +1,5 @@
 """ Logging utilities """
+
 import locale
 import logging
 import os
@@ -11,6 +12,8 @@ import pyglet
 
 from app.helpers.audio import audio_drivers
 from app.helpers.display import default_mode
+from app.helpers.paths import log_path
+from app.helpers.string import label_value
 
 try:
     import sounddevice
@@ -21,11 +24,10 @@ except OSError as e:
     logging.error(e)
     sounddevice = None
 
-from app.helpers.paths import log_path
-from app.helpers.string import label_value
 
+def get_handlers() -> list:
+    """ Get log handlers """
 
-def get_handlers():
     if not os.path.exists(log_path()):
         os.makedirs(log_path())
 
@@ -59,9 +61,6 @@ def log_hardware_info() -> None:
     Log hardware info
     """
 
-    import arcade
-    window = arcade.get_window()
-
     # Log OS info
     uname = platform.uname()
     logging.info(label_value('OS', f"{uname.system} {uname.version}"))
@@ -74,6 +73,9 @@ def log_hardware_info() -> None:
     logging.info(label_value('RAM', f"{ram_size} GB"))
 
     # Renderer is the GPU
+    import arcade
+    window = arcade.get_window()
+
     logging.info(label_value('GPU VENDOR', window.ctx.info.VENDOR))
     logging.info(label_value('GPU RENDERER', window.ctx.info.RENDERER))
     logging.info(
@@ -89,6 +91,14 @@ def log_hardware_info() -> None:
         )
     )
 
+    log_audio_info_audio()
+
+    logging.info(label_value('Locale', locale.getlocale()))
+
+
+def log_audio_info_audio() -> None:
+    """ Log audio info """
+
     logging.info(label_value("Available audio drivers", audio_drivers()))
     logging.info(
         label_value("Audio driver", pyglet.media.get_audio_driver())
@@ -99,7 +109,5 @@ def log_hardware_info() -> None:
         return
 
     # Log the audio devices
-    for audio in sounddevice.query_devices():
-        logging.info(label_value('Audio', audio['name']))
-
-    logging.info(label_value('Locale', locale.getlocale()))
+    for device in sounddevice.query_devices():
+        logging.info(label_value('Audio', device['name']))

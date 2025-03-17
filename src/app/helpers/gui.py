@@ -63,6 +63,8 @@ def make_restart_to_apply_settings_alert(
 
 
 def make_vertical_ui_box_layout(children: list) -> UIBoxLayout:
+    """ Create a vertical UIBoxLayout """
+
     widget_layout = UIBoxLayout(
         space_between=MARGIN * 2,
         align='center',
@@ -73,6 +75,8 @@ def make_vertical_ui_box_layout(children: list) -> UIBoxLayout:
 
 
 def make_ui_anchor_layout(children: list) -> UIAnchorLayout:
+    """ Make an UIAnchorLayout """
+    
     layout = UIAnchorLayout()
     for child in children:
         layout.add(

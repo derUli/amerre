@@ -38,4 +38,6 @@ class Effect:
         return
 
     def refresh(self) -> None:
+        """ Refresh effect """
+
         return
