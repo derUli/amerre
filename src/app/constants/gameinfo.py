@@ -7,8 +7,8 @@ DIRECTORY_GAME_NAME_WIN = 'Amerre'
 DIRECTORY_GAME_NAME_LINUX = '.amerre'
 
 MAPS = [
-    'map01',
-    # 'map02'
+    #'map01',
+     'map02'
 ]
 
 DEFAULT_LOCALE = 'en'
