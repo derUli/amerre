@@ -36,7 +36,7 @@ class FPSCounter:
         self._fps_camera = arcade.camera.Camera2D()
         return self
 
-    def update(self) -> None:
+    def on_update(self) -> None:
         """ Update fps counter """
 
         if not arcade.timings_enabled():

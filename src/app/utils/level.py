@@ -152,18 +152,18 @@ class Level:
         logging.info(f"Scene loaded in f{time_end} seconds")
         self.player.alpha = 0
 
-    def update(
+    def on_update(
             self,
             delta_time: float
     ):
         self.update_collision_light(delta_time)
         self._effect_manager.on_update(delta_time)
 
-        self._scene.update(delta_time)
+        self._scene.on_update(delta_time)
         self._scene.update_animation(delta_time)
         self.scroll_to_player()
 
-    def fixed_update(
+    def on_fixed_update(
             self,
             delta_time: float,
             window,
@@ -188,9 +188,9 @@ class Level:
         self.update_fade()
         self._effect_manager.on_fixed_update(delta_time)
 
-        self._voiceover_triggers.update()
+        self._voiceover_triggers.on_update()
 
-        self._physics_engine.update()
+        self._physics_engine.on_update()
 
         if self._music and not self._music.playing:
             self._music.delete()

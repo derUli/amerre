@@ -261,7 +261,7 @@ class GameWindow(arcade.Window):
         """ On update """
 
         if self._fps_counter:
-            self._fps_counter.update()
+            self._fps_counter.on_update()
 
     def draw_after(self):
         """ Draw after view """
