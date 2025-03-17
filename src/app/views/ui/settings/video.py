@@ -86,7 +86,7 @@ class Video(arcade.gui.UIManager):
             antialiasing_text = "MSAA " + str(self._state.antialiasing) + "x"
 
         btn_antialiasing = make_button(
-            text=': '.join([_('Antialiasing'), antialiasing_text])
+            text=': '.join([_('Anti-aliasing'), antialiasing_text])
         )
         btn_antialiasing.on_click = self.on_change_antialiasing
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
