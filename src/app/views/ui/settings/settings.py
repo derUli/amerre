@@ -85,8 +85,8 @@ class Settings(arcade.gui.UIManager):
         """ On go back """
 
         logging.debug(event)
-
         if refresh_particles:
             self._on_change(refresh_particles=True)
 
         self.disable()
+        self._on_close()
