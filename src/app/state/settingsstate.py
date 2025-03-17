@@ -2,6 +2,7 @@ import logging
 import os
 
 import jsonpickle
+import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
@@ -202,9 +203,26 @@ class SettingsState:
         self._particles = value
 
     @property
-    def draw_rate(self) -> float:
+    def draw_rate(self) -> int:
+        """ Get the draw_rate """
         return self._draw_rate
 
     @draw_rate.setter
     def draw_rate(self, rate: int) -> None:
+        """ Set the draw_rate """
         self._draw_rate = rate
+
+    @property
+    def actual_draw_rate(self) -> int:
+        """ Actual draw rate depending on vsync """
+
+        display_rate = (
+            pyglet.display.get_display().get_default_screen().get_mode().rate
+        )
+
+        # If V-Sync is enabled and the draw_rate higher than the monitor
+        # refresh rate return monitor refresh rate
+        if self.vsync and self.draw_rate > display_rate:
+            return display_rate
+
+        return self.draw_rate
