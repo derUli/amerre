@@ -6,7 +6,7 @@ import random
 import arcade
 import pyglet
 
-from app.constants.gameinfo import DEFAULT_LOCALE
+from app.constants.gameinfo import LOCALE_FALLBACK
 from app.containers.callbacks import Callbacks
 from app.helpers.string import label_value
 from app.utils.audiovolumes import AudioVolumes
@@ -76,7 +76,7 @@ class VoiceOverTiggers:
             root_dir,
             'resources',
             'speech',
-            DEFAULT_LOCALE,
+            LOCALE_FALLBACK,
             voiceover
         )
 

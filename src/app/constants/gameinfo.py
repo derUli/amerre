@@ -11,7 +11,8 @@ MAPS = [
     # 'map02'
 ]
 
-DEFAULT_LOCALE = 'en'
+LOCALE_FALLBACK = 'en'
+LOCALES_ALL = ['de', 'en']
 
 BASE_WIDTH = 2560
 BASE_HEIGHT = 1440

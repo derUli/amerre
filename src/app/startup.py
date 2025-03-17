@@ -10,7 +10,7 @@ import sys
 import arcade
 import pyglet
 
-from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
+from app.constants.gameinfo import VERSION_STRING, LOCALE_FALLBACK
 from app.constants.settings import (UPDATE_RATE, FIXED_RATE)
 from app.gamewindow import GameWindow
 from app.helpers.string import label_value
@@ -79,17 +79,9 @@ class Startup:
         elif args.no_intro:
             show_intro = False
 
-        lang = list(locale.getlocale())
-
-        if args.language:
-            lang = [args.language]
-
-        if not any(lang):
-            lang = [DEFAULT_LOCALE]
-
-        self.setup_locale(lang)
-
         state = SettingsState.load()
+
+        self.setup_locale(state.lang)
 
         # Create settings state on first launch
         if not state.exists():
@@ -142,12 +134,6 @@ class Startup:
             action='store_true',
             default=False,
             help='Don\'t show intro'
-        )
-
-        parser.add_argument(
-            '--language',
-            help='The language',
-            type=str
         )
 
         return parser.parse_args()

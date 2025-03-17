@@ -19,6 +19,7 @@ from app.constants.settings import (
     SETTINGS_DEFAULT_DRAW_RATE, \
     SETTINGS_DEFAULT_DEBUG, SETTINGS_DEFAULT_AUDIO_DRIVER
 )
+from app.helpers.localization import default_language
 from app.helpers.paths import settings_path
 from app.helpers.screen import fullscreen_resolution, window_resolution
 from app.utils.audiovolumes import AudioVolumes
@@ -55,6 +56,8 @@ class SettingsState:
         self._subtitle_enabled = SETTINGS_DEFAULT_SUBTITLE_ENABLED
         self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
 
+        # Generel
+        self._language = default_language()
         # Other
         self._debug = SETTINGS_DEFAULT_DEBUG
 
@@ -254,20 +257,29 @@ class SettingsState:
 
         return self._debug
 
-
     @property
     def audio_driver(self) -> str:
-        # Set audio driver
+        """ Get audio driver """
 
         return self._audio_driver
 
     @audio_driver.setter
     def audio_driver(self, value: str) -> None:
+        """ Set audio driver """
         self._audio_driver = value
 
-
     @property
-    def version(self):
+    def version(self) -> int:
         """ State version"""
 
         return self._version
+
+    @property
+    def language(self) -> str:
+        """ Get language """
+        return self._language
+
+    def language(self, value: str) -> None:
+        """ Set language """
+
+        self._language = value
