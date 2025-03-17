@@ -1,9 +1,10 @@
 """ Gui helper """
 
 import arcade.gui
+from arcade.gui import UIMessageBox
 
 from app.constants.fonts import FONT_SIZE_LABEL, FONT_DEFAULT
-from app.constants.ui import BUTTON_WIDTH
+from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
 
 
 def make_label(text: str) -> arcade.gui.UILabel:
@@ -34,4 +35,15 @@ def make_slider(
         min_value=min_value,
         max_value=max_value,
         width=BUTTON_WIDTH
+    )
+
+
+def make_alert(message_text: str) -> UIMessageBox:
+    """ Make an alert """
+
+    return arcade.gui.UIMessageBox(
+        message_text=message_text,
+        buttons=(_('OK'),),
+        width=MODAL_WIDTH,
+        height=MODAL_HEIGHT
     )

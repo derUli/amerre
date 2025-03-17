@@ -2,9 +2,11 @@
 import logging
 
 import arcade.gui
-from arcade.gui.events import UIOnChangeEvent
+from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 
-from app.helpers.gui import make_label, make_button, make_slider
+from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
+from app.helpers.audio import audio_drivers
+from app.helpers.gui import make_label, make_button, make_slider, make_alert
 from app.state.settingsstate import SettingsState
 
 MARGIN = 20
@@ -18,23 +20,30 @@ class Audio(arcade.gui.UIManager):
 
         super().__init__()
         self._state = None
+        self._old_state = None
 
         self._on_close = None
         self._on_change = None
+
 
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """
 
         self.clear()
+
         self._on_close = on_close
         self._on_change = on_change
 
+
         self._state = SettingsState.load()
+
+        if not self._old_state:
+            self._old_state = SettingsState.load()
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1)
 
         btn_back = make_button(text=_('Back'))
-        btn_back.on_click = self.on_back
+        btn_back.on_click = self._on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
         label_master = make_label(text=_('Master volume'))
@@ -90,6 +99,14 @@ class Audio(arcade.gui.UIManager):
         label_subtitle_size.disabled = not self._state.subtitle_enabled
         slider_subtitle_size.disabled = not self._state.subtitle_enabled
 
+        audio_driver = self._state.audio_driver
+
+        if audio_driver == SETTINGS_DEFAULT_AUDIO_DRIVER:
+            audio_driver = _('Auto detect')
+
+        btn_audio_driver = make_button(_('Audio driver: ') + audio_driver)
+        btn_audio_driver.on_click = self.on_change_driver
+
         widgets = [
             btn_back,
             label_master,
@@ -102,7 +119,8 @@ class Audio(arcade.gui.UIManager):
             slider_music,
             btn_toggle_subtitles,
             label_subtitle_size,
-            slider_subtitle_size
+            slider_subtitle_size,
+            btn_audio_driver
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -118,11 +136,22 @@ class Audio(arcade.gui.UIManager):
 
         self.enable()
 
-    def on_back(self, event):
+    def _on_back(self, event):
         """ On go back """
 
         logging.debug(event)
 
+        if self._old_state.audio_driver == self._state.audio_driver:
+            self.on_back(event)
+            return
+
+        alert = make_alert(_('A restart is required to apply some settings.'))
+        alert.on_action = self.on_back
+        self.add(alert)
+
+
+    def on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
+        logging.debug(event)
         self._state.save()
         self.disable()
         self._on_close()
@@ -160,4 +189,30 @@ class Audio(arcade.gui.UIManager):
         self._state.subtitle_enabled = not self._state.subtitle_enabled
         self._on_change(self._state)
         self._state.save()
+        self.setup(self._on_close, self._on_change)
+
+
+    def on_change_driver(self, event):
+        old_value = self._state.audio_driver
+
+        try:
+            index = audio_drivers().index(self._state.audio_driver)
+            index += 1
+        except ValueError:
+            index = 0
+
+        try:
+            new_value = audio_drivers()[index]
+        except IndexError:
+            new_value = SETTINGS_DEFAULT_AUDIO_DRIVER
+
+        if new_value == old_value:
+            return
+
+        self._state.audio_driver = new_value
+        self._state.save()
+
+        self.refresh()
+
+    def refresh(self):
         self.setup(self._on_close, self._on_change)

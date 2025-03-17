@@ -10,7 +10,7 @@ import arcade
 import psutil
 import pyglet
 
-from app.helpers.audio import audio_backends
+from app.helpers.audio import audio_drivers
 
 try:
     import sounddevice
@@ -85,7 +85,7 @@ def log_hardware_info(window: arcade.Window) -> None:
         )
     )
 
-    logging.info(label_value("Available audio drivers", audio_backends()))
+    logging.info(label_value("Available audio drivers", audio_drivers()))
     logging.info(
         label_value("Audio driver", pyglet.media.get_audio_driver())
     )

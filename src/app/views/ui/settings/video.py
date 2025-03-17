@@ -7,8 +7,7 @@ from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
     SETTINGS_DRAW_RATES
-from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
-from app.helpers.gui import make_label, make_button, make_slider
+from app.helpers.gui import make_label, make_button, make_slider, make_alert
 from app.state.settingsstate import SettingsState
 
 
@@ -136,12 +135,9 @@ class Video(arcade.gui.UIManager):
         self.refresh()
 
         if self._state.fullscreen != arcade.get_window().fullscreen:
-            self.add(arcade.gui.UIMessageBox(
-                message_text=_('A restart is required to apply this setting.'),
-                buttons=(_('OK'),),
-                width=MODAL_WIDTH,
-                height=MODAL_HEIGHT
-            ))
+            self.add(
+                make_alert(_('A restart is required to apply this setting.'))
+            )
 
     def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
 
@@ -165,6 +161,7 @@ class Video(arcade.gui.UIManager):
         self._on_change(refresh_particles=True)
 
     def on_change_fps_limit(self, event):
+        logging.debug(event)
         current_fps = self._state.draw_rate
         draw_rates = SETTINGS_DRAW_RATES
 

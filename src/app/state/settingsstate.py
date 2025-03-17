@@ -17,13 +17,13 @@ from app.constants.settings import (
     SETTINGS_DEFAULT_ANTIALIASING, \
     SETTINGS_DEFAULT_PARTICLES,
     SETTINGS_DEFAULT_DRAW_RATE, \
-    SETTINGS_DEFAULT_DEBUG
+    SETTINGS_DEFAULT_DEBUG, SETTINGS_DEFAULT_AUDIO_DRIVER
 )
 from app.helpers.paths import settings_path
 from app.helpers.screen import fullscreen_resolution, window_resolution
 from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 3
+VERSION = 4
 
 
 class SettingsState:
@@ -43,6 +43,7 @@ class SettingsState:
         self._draw_rate = SETTINGS_DEFAULT_DRAW_RATE
 
         # Audio
+        self._audio_driver = SETTINGS_DEFAULT_AUDIO_DRIVER
         self._audio_volumes = AudioVolumes(
             volume_music=SETTINGS_DEFAULT_VOLUME_MUSIC,
             volume_sound=SETTINGS_DEFAULT_VOLUME_SOUND,
@@ -247,3 +248,14 @@ class SettingsState:
         """ Is debug mode enabled """
 
         return self._debug
+
+
+    @property
+    def audio_driver(self) -> str:
+        # Set audio driver
+
+        return self._audio_driver
+
+    @audio_driver.setter
+    def audio_driver(self, audio_driver: str) -> None:
+        self._audio_driver = audio_driver
