@@ -9,7 +9,7 @@ from arcade.gui import UIOnActionEvent
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_ESCAPE
 from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
-from app.helpers.gui import make_button
+from app.helpers.gui import make_button, make_vertical_ui_box_layout
 from app.views.ui.settings.settings import Settings
 
 
@@ -69,12 +69,12 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_exit_to_desktop()
 
-        grid = arcade.gui.UIGridLayout(column_count=1, row_count=4,
-                                       vertical_spacing=20)
-        grid.add(btn_continue, row=0)
-        grid.add(btn_settings, row=1)
-        grid.add(btn_exit_to_menu, row=2)
-        grid.add(btn_exit_to_desktop, row=3)
+        widgets = [
+            btn_continue,
+            btn_settings,
+            btn_exit_to_menu,
+            btn_exit_to_desktop
+        ]
 
         # Passing the main view into menu view as an argument.
         anchor = self._manager.add(arcade.gui.UIAnchorLayout())
@@ -82,7 +82,7 @@ class PauseMenu(arcade.View):
         anchor.add(
             anchor_x="center_x",
             anchor_y="center_y",
-            child=grid,
+            child=make_vertical_ui_box_layout(widgets),
         )
 
         self._manager.add(anchor)

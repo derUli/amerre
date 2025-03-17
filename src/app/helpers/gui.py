@@ -1,11 +1,10 @@
 """ Gui helper """
 
 import arcade.gui
-from arcade.gui import UIMessageBox
-from arcade.gui.widgets.buttons import UIFlatButton
+from arcade.gui import UIMessageBox, UIBoxLayout
 
 from app.constants.fonts import FONT_SIZE_LABEL, FONT_DEFAULT
-from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
+from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT, MARGIN
 
 
 def make_label(text: str) -> arcade.gui.UILabel:
@@ -61,3 +60,12 @@ def make_restart_to_apply_settings_alert(
     alert = make_alert(_('A restart is required to apply some settings.'))
     alert.on_action = on_action
     return alert
+
+def make_vertical_ui_box_layout(children:list) -> UIBoxLayout:
+    widget_layout = UIBoxLayout(
+        space_between=MARGIN * 2,
+        align='center',
+        children=children
+    )
+
+    return widget_layout

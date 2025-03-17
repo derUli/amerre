@@ -8,7 +8,7 @@ from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
     SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
 from app.helpers.gui import make_label, make_button, make_slider, \
-    make_restart_to_apply_settings_alert
+    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
@@ -111,15 +111,14 @@ class Video(arcade.gui.UIManager):
             slider_particles,
         ]
 
-        # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = arcade.gui.UIBoxLayout(space_between=20, align='center')
-
-        for widget in widgets:
-            widget_layout.add(widget)
 
         frame = self.add(arcade.gui.UIAnchorLayout())
 
-        frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
+        frame.add(
+            child=make_vertical_ui_box_layout(widgets),
+            anchor_x="center_x",
+            anchor_y="center_y"
+        )
 
         self.enable()
 

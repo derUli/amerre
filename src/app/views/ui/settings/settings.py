@@ -3,7 +3,8 @@ import logging
 
 import arcade.gui
 
-from app.helpers.gui import make_button
+from app.constants.ui import MARGIN
+from app.helpers.gui import make_button, make_vertical_ui_box_layout
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.language import Language
 from app.views.ui.settings.video import Video
@@ -46,15 +47,13 @@ class Settings(arcade.gui.UIManager):
             btn_language
         ]
 
-        # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = arcade.gui.UIBoxLayout(space_between=20, align='center')
-
-        for widget in widgets:
-            widget_layout.add(widget)
-
         frame = self.add(arcade.gui.UIAnchorLayout())
 
-        frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
+        frame.add(
+            child=make_vertical_ui_box_layout(widgets),
+            anchor_x="center_x",
+            anchor_y="center_y"
+        )
 
         self.enable()
 
