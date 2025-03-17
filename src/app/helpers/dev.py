@@ -13,7 +13,8 @@ def configure_pyglet():
     state = SettingsState.load()
     logging.info(label_value('Debug', state.debug))
     pyglet.options.debug_gl = state.debug
-    print(pyglet.options.audio)
+    pyglet.options.audio = ('foo',)
+
 
 def is_frozen() -> bool:
     """ Check is the app is frozen """
