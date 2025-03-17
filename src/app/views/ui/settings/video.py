@@ -144,7 +144,7 @@ class Video(arcade.gui.UIManager):
 
         self._on_back(event)
 
-    def _on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
+    def _on_back(self, event: UIOnClickEvent | UIOnActionEvent) -> None:
         logging.debug(event)
 
         self.disable()

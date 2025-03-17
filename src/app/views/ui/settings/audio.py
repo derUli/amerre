@@ -6,7 +6,7 @@ from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
 from app.helpers.audio import audio_drivers
-from app.helpers.gui import make_label, make_button, make_slider, make_alert, \
+from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
@@ -27,7 +27,6 @@ class Audio(arcade.gui.UIManager):
         self._on_close = None
         self._on_change = None
 
-
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """
 
@@ -35,7 +34,6 @@ class Audio(arcade.gui.UIManager):
 
         self._on_close = on_close
         self._on_change = on_change
-
 
         self._state = SettingsState.load()
 
@@ -152,8 +150,7 @@ class Audio(arcade.gui.UIManager):
         alert = make_restart_to_apply_settings_alert(on_action=self._on_back)
         self.add(alert)
 
-
-    def _on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
+    def _on_back(self, event: UIOnClickEvent | UIOnActionEvent) -> None:
         logging.debug(event)
         self._state.save()
         self.disable()
@@ -193,7 +190,6 @@ class Audio(arcade.gui.UIManager):
         self._on_change(self._state)
         self._state.save()
         self.setup(self._on_close, self._on_change)
-
 
     def on_change_driver(self, event):
         old_value = self._state.audio_driver

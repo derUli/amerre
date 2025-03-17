@@ -48,6 +48,7 @@ def make_alert(message_text: str) -> UIMessageBox:
         height=MODAL_HEIGHT
     )
 
+
 def make_restart_to_apply_settings_alert(
         on_action: callable
 ) -> UIMessageBox:

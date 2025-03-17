@@ -2,7 +2,6 @@
 
 import argparse
 import gettext
-import locale
 import logging
 import os
 import sys
@@ -10,7 +9,7 @@ import sys
 import arcade
 import pyglet
 
-from app.constants.gameinfo import VERSION_STRING, LOCALE_FALLBACK
+from app.constants.gameinfo import VERSION_STRING
 from app.constants.settings import (UPDATE_RATE, FIXED_RATE)
 from app.gamewindow import GameWindow
 from app.helpers.string import label_value

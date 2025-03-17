@@ -6,6 +6,7 @@
 import logging
 import os
 import sys
+
 from stopwatch import Stopwatch
 
 from app.helpers.dev import is_frozen, configure_pyglet
@@ -27,7 +28,6 @@ else:
     root_dir = os.path.dirname(os.path.abspath(__file__))
 
 from app.startup import Startup
-
 
 try:
     Startup().setup(root_dir).start()

@@ -4,9 +4,10 @@ import logging
 import os
 import platform
 import sys
+from logging.handlers import RotatingFileHandler
+
 import psutil
 import pyglet
-from logging.handlers import RotatingFileHandler
 
 from app.helpers.audio import audio_drivers
 

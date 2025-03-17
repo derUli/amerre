@@ -2,6 +2,7 @@
 
 import logging
 import sys
+
 import pyglet
 
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER

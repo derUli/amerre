@@ -4,8 +4,7 @@ import os
 import arcade.gui
 from arcade.gui.events import UIOnClickEvent, UIOnActionEvent
 
-from app.constants.gameinfo import locales_all
-
+from app.constants.gameinfo import locales_translated
 from app.helpers.gui import make_button, \
     make_restart_to_apply_settings_alert
 from app.state.settingsstate import SettingsState
@@ -33,7 +32,7 @@ class Language(arcade.gui.UIManager):
         self._on_change = on_change
         self._state = SettingsState.load()
 
-        locales = locales_all()
+        locales = locales_translated()
 
         widgets = []
         for l in locales:
@@ -41,7 +40,6 @@ class Language(arcade.gui.UIManager):
             self._btn_languages[l] = btn
             btn.on_click = self.on_change_language
             widgets += [btn]
-
 
         # Initialise a BoxLayout in which widgets can be arranged.
         widget_layout = arcade.gui.UIBoxLayout(space_between=20, align='center')
@@ -54,7 +52,6 @@ class Language(arcade.gui.UIManager):
         frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
 
         self.enable()
-
 
     def on_change_language(self, event: UIOnClickEvent):
         old_lang = os.environ['LANG']
@@ -76,7 +73,7 @@ class Language(arcade.gui.UIManager):
             make_restart_to_apply_settings_alert(on_action=self.on_back)
         )
 
-    def on_back(self, event: UIOnClickEvent| UIOnActionEvent):
+    def on_back(self, event: UIOnClickEvent | UIOnActionEvent):
         self.disable()
         self.clear()
         self._on_close()

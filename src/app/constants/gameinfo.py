@@ -1,4 +1,5 @@
 """ Version number """
+import sys
 
 VERSION = (0, 0, 1)
 VERSION_STRING = '.'.join(map(str, VERSION))
@@ -12,21 +13,21 @@ MAPS = [
 ]
 
 LOCALE_FALLBACK = 'en'
+LOCALE_GERMAN = 'de'
+LOCALE_ENGLISH = 'en'
+LOCALES_AVAILABLE = [
+    LOCALE_GERMAN,
+    LOCALE_ENGLISH
+]
 
-
-def dummy_translate(message: str) -> str:
-    return message
-
-def locales_all() -> dict:
+def locales_translated() -> dict:
     """ All locales """
 
-    if not hasattr(__name__, '_'):
-        _ = dummy_translate
-
     return {
-        'de': _('German'),
-        'en': _('English')
+        LOCALE_GERMAN: _('German'),
+        LOCALE_ENGLISH: _('English')
     }
+
 
 BASE_WIDTH = 2560
 BASE_HEIGHT = 1440

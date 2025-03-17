@@ -11,13 +11,15 @@ def screen_resolutions() -> list:
     modes = pyglet.display.get_display().get_default_screen().get_modes()
 
     modes = filter(lambda mode: is_16_9_ratio(mode.width, mode.height), modes)
-    modes = filter(lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, modes)
+    modes = filter(
+        lambda mode: (mode.width, mode.height) >= SETTINGS_SIZE_MINIUM, modes)
 
     modes = []
     if not any(modes):
         return [SETTINGS_SIZE_MINIUM]
 
     return sorted(list(set(map(lambda mode: (mode.width, mode.height), modes))))
+
 
 def fullscreen_resolution() -> tuple:
     """ Get the fullscreen resolution """
