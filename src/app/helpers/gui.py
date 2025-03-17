@@ -2,6 +2,7 @@
 
 import arcade.gui
 from arcade.gui import UIMessageBox
+from arcade.gui.widgets.buttons import UIFlatButton
 
 from app.constants.fonts import FONT_SIZE_LABEL, FONT_DEFAULT
 from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
@@ -9,18 +10,21 @@ from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
 
 def make_label(text: str) -> arcade.gui.UILabel:
     """ Make a label """
-
     return arcade.gui.UILabel(
         text=text,
         font_name=FONT_DEFAULT,
-        font_size=FONT_SIZE_LABEL
+        font_size=FONT_SIZE_LABEL,
+        text_color=arcade.gui.UIFlatButton.DEFAULT_STYLE['normal'].bg
     )
 
 
 def make_button(text: str) -> arcade.gui.UIFlatButton:
     """ Make a button """
 
-    return arcade.gui.UIFlatButton(text=text, width=BUTTON_WIDTH)
+    return arcade.gui.UIFlatButton(
+        text=text,
+        width=BUTTON_WIDTH
+    )
 
 
 def make_slider(
