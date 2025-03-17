@@ -4,18 +4,24 @@ import os
 
 import userpaths
 
-from app.constants.gameinfo import DIRECTORY_GAME_NAME_WIN
+from app.constants.gameinfo import DIRECTORY_GAME_NAME_WIN, \
+    DIRECTORY_GAME_NAME_LINUX
 
 
 def data_path() -> str:
     """ Data directory """
 
     if os.name == 'nt':
-        return str(os.path.join(userpaths.get_my_documents(), 'My Games',
-                                DIRECTORY_GAME_NAME_WIN))
-    else:
         return str(
-            os.path.join(userpaths.get_profile(), DIRECTORY_GAME_NAME_WIN))
+            os.path.join(
+                userpaths.get_my_documents(),
+                'My Games',
+                DIRECTORY_GAME_NAME_WIN
+            ))
+
+    return str(
+        os.path.join(userpaths.get_profile(), DIRECTORY_GAME_NAME_LINUX)
+    )
 
 
 def screenshot_path() -> str:

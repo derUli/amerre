@@ -61,7 +61,13 @@ def log_hardware_info() -> None:
     Log hardware info
     """
 
-    # Log OS info
+    log_hardware_info_system()
+    log_hardware_info_gpu()
+    log_hardware_info_audio()
+
+def log_hardware_info_system() -> None:
+    """ Log hardware info system """
+
     uname = platform.uname()
     logging.info(label_value('OS', f"{uname.system} {uname.version}"))
 
@@ -73,6 +79,15 @@ def log_hardware_info() -> None:
     logging.info(label_value('RAM', f"{ram_size} GB"))
 
     # Renderer is the GPU
+
+    logging.info(label_value('Locale', locale.getlocale()))
+
+def log_hardware_info_gpu() -> None:
+    """ Log GPU info """
+
+    logging.info(label_value('Default display mode', default_mode()))
+
+    # pylint: disable=import-outside-toplevel
     import arcade
     window = arcade.get_window()
 
@@ -84,14 +99,8 @@ def log_hardware_info() -> None:
     logging.info(
         label_value('OpenGL version', pyglet.gl.gl_info.get_version_string()))
 
-    logging.info(label_value('Default display mode', default_mode()))
-    logging.info(label_value('Locale', locale.getlocale()))
 
-    log_audio_info_audio()
-
-
-
-def log_audio_info_audio() -> None:
+def log_hardware_info_audio() -> None:
     """ Log audio info """
 
     logging.info(label_value("Available audio drivers", audio_drivers()))

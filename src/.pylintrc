@@ -3,5 +3,5 @@ ignore=build
 init-hook='import os, sys; sys.path.append(os.getcwd())'
 
 [PYLINT]
-disable=logging-fstring-interpolation, too-few-public-methods, unused-argument
+disable=logging-fstring-interpolation, too-few-public-methods, unused-argument, logging-not-lazy
 additional-builtins=_

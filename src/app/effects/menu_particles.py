@@ -1,3 +1,5 @@
+""" Menu background particles """
+
 import random
 
 import arcade
@@ -20,7 +22,11 @@ SCENE_LAYER_PARTICLES = 'particles'
 
 
 class MenuParticles(Effect):
+    """ Menu background particles """
+
     def setup(self, data: EffectData) -> None:
+        """ Setup effect """
+
         self._data = data
 
         try:
@@ -34,7 +40,7 @@ class MenuParticles(Effect):
         self.make(particles_count)
 
     def on_update(self, delta_time: float) -> None:
-
+        """ On update """
         w, h = arcade.get_window().get_size()
 
         particles = self._data.scene[SCENE_LAYER_PARTICLES]
@@ -46,6 +52,8 @@ class MenuParticles(Effect):
                 particle.center_y = random.randint(0, h)
 
     def refresh(self) -> None:
+        """ On refresh """
+
         modifier = SettingsState.load().particles
         new_count = int(PARTICLES_COUNT * modifier)
         old_count = len(self._data.scene[SCENE_LAYER_PARTICLES])
@@ -64,7 +72,9 @@ class MenuParticles(Effect):
             for sprite in sprites:
                 self._data.scene[SCENE_LAYER_PARTICLES].remove(sprite)
 
-    def make(self, particles_count):
+    def make(self, particles_count: int) -> None:
+        """ Make particles """
+
         for i in range(0, particles_count):
             sprite = arcade.sprite.SpriteCircle(
                 color=random.choice(PARTICLE_COLORS),

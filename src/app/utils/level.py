@@ -75,7 +75,7 @@ class Level:
             os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
         config = self.load_config()
 
-        w, h = arcade.get_window().get_size()
+        h = arcade.get_window().height
 
         zoom = h / BASE_HEIGHT
         self._camera = arcade.camera.Camera2D(zoom=zoom)
@@ -86,6 +86,7 @@ class Level:
         self.wait_for_begin()
 
         map_config = {}
+
         if map_name in config:
             map_config = config[map_name]
 
@@ -148,7 +149,7 @@ class Level:
         self._scene = arcade.Scene.from_tilemap(self.tilemap)
 
         time_end = time.time() - time_start
-        logging.info('Scene loaded in ' + str(time_end) + ' seconds')
+        logging.info(f"Scene loaded in f{time_end} seconds")
         self.player.alpha = 0
 
     def update(
@@ -194,20 +195,19 @@ class Level:
         if self._music and not self._music.playing:
             self._music.delete()
 
-    def scroll_to_player(self, camera_speed=1):
+    def scroll_to_player(self, camera_speed: float = 1.0) -> None:
         """ Scroll the window to the player. """
 
         player = self.player
 
         x, y = player.position
-
         y = max(BASE_HEIGHT / 2, y)
 
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
         )
 
-    def draw(self):
+    def draw(self) -> None:
         """ Draw level """
 
         self._camera.use()
@@ -218,7 +218,7 @@ class Level:
         self._camera_gui.use()
         self._voiceover_triggers.draw_subtitle()
 
-    def move_left(self, delta_time: float, sprint: bool = False):
+    def move_left(self, delta_time: float, sprint: bool = False) -> None:
         """ Move left """
 
         if not self._can_walk:
@@ -268,6 +268,7 @@ class Level:
 
     def jump(self):
         """ Do jump """
+
         if not self._can_walk:
             return
 
@@ -287,7 +288,7 @@ class Level:
 
         return self._scene[LAYER_PLAYER][0]
 
-    def wait_for_begin(self, dt: float = 0.0):
+    def wait_for_begin(self, delta_time: float = 0.0):
         """ Wait for begin of level """
 
         if self._physics_engine.can_jump():
@@ -421,7 +422,7 @@ class Level:
 
         self._effect_manager.refresh()
 
-    def on_level_completed(self):
+    def on_level_completed(self) -> None:
         """ Called when a level is completed """
 
         w, h = BASE_WIDTH, BASE_HEIGHT
@@ -437,7 +438,7 @@ class Level:
         self._scene.add_sprite(LAYER_FADEOUT, sprite)
         self.update_fade()
 
-    def update_fade(self):
+    def update_fade(self) -> None:
         """ Update fade """
 
         if LAYER_FADEOUT not in self._scene:
@@ -464,7 +465,9 @@ class Level:
                     ToBeContinued().setup(self._root_dir)
                 )
 
-    def load_config(self):
+    def load_config(self) -> None:
+        """ Load config """
+
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
-        with open(path) as file:
+        with open(path, mode='r') as file:
             return json.load(file)

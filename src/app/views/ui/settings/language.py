@@ -72,6 +72,7 @@ class Language(arcade.gui.UIManager):
         )
 
     def on_back(self, event: UIOnClickEvent | UIOnActionEvent):
+        """ On back """
         self.disable()
         self.clear()
         self._on_close()

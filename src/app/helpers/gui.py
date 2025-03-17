@@ -76,7 +76,7 @@ def make_vertical_ui_box_layout(children: list) -> UIBoxLayout:
 
 def make_ui_anchor_layout(children: list) -> UIAnchorLayout:
     """ Make an UIAnchorLayout """
-    
+
     layout = UIAnchorLayout()
     for child in children:
         layout.add(
