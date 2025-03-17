@@ -47,3 +47,12 @@ def make_alert(message_text: str) -> UIMessageBox:
         width=MODAL_WIDTH,
         height=MODAL_HEIGHT
     )
+
+def make_restart_to_apply_settings_alert(
+        on_action: callable
+) -> UIMessageBox:
+    """ Make an alert after changing settings """
+
+    alert = make_alert(_('A restart is required to apply some settings.'))
+    alert.on_action = on_action
+    return alert

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-17 15:52+0100\n"
+"POT-Creation-Date: 2025-03-17 16:33+0100\n"
 "PO-Revision-Date: 2024-11-05 19:44+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -26,19 +26,25 @@ msgstr "Willkommen in Amerre"
 msgid "OK"
 msgstr ""
 
-#: app/views/mainmenu.py:112
+#: app/helpers/gui.py:56
+msgid "A restart is required to apply some settings."
+msgstr ""
+"Um die geänderten Einstellungen zu übernehmen ist ein Neustart des Spiels"
+" erforderlich."
+
+#: app/views/mainmenu.py:110
 msgid "Press SPACE key to start"
 msgstr "Drücken Sie die Leertaste zum Starten"
 
-#: app/views/mainmenu.py:115
+#: app/views/mainmenu.py:113
 msgid "Press START button to start"
 msgstr "Drücken Sie START zum Starten"
 
-#: app/views/mainmenu.py:134
+#: app/views/mainmenu.py:132
 msgid "Loading..."
 msgstr "Wird geladen..."
 
-#: app/views/mainmenu.py:143
+#: app/views/mainmenu.py:141
 msgid "Version"
 msgstr "Version"
 
@@ -79,59 +85,53 @@ msgstr "Möchten Sie zurück zum Desktop?"
 msgid "To be continued"
 msgstr "Fortsetzung folgt"
 
-#: app/views/ui/settings/audio.py:45 app/views/ui/settings/settings.py:29
-#: app/views/ui/settings/video.py:41
+#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/video.py:43
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/ui/settings/audio.py:49
+#: app/views/ui/settings/audio.py:51
 msgid "Master volume"
 msgstr "Gesamtlautstärke"
 
-#: app/views/ui/settings/audio.py:57
+#: app/views/ui/settings/audio.py:59
 msgid "Sound volume"
 msgstr "Soundeffekte"
 
-#: app/views/ui/settings/audio.py:65
+#: app/views/ui/settings/audio.py:67
 msgid "Speech volume"
 msgstr "Sprache"
 
-#: app/views/ui/settings/audio.py:73
+#: app/views/ui/settings/audio.py:75
 msgid "Music volume"
 msgstr "Musik"
 
-#: app/views/ui/settings/audio.py:81
+#: app/views/ui/settings/audio.py:83
 msgid "Size of subtitles"
 msgstr "Größe der Untertitel"
 
-#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:45
-#: app/views/ui/settings/video.py:58 app/views/ui/settings/video.py:75
-#: app/views/ui/settings/video.py:83
+#: app/views/ui/settings/audio.py:91 app/views/ui/settings/video.py:47
+#: app/views/ui/settings/video.py:61 app/views/ui/settings/video.py:79
+#: app/views/ui/settings/video.py:87
 msgid "Off"
 msgstr "Aus"
 
-#: app/views/ui/settings/audio.py:91 app/views/ui/settings/video.py:47
-#: app/views/ui/settings/video.py:60 app/views/ui/settings/video.py:77
+#: app/views/ui/settings/audio.py:93 app/views/ui/settings/video.py:49
+#: app/views/ui/settings/video.py:63 app/views/ui/settings/video.py:81
 msgid "On"
 msgstr "An"
 
-#: app/views/ui/settings/audio.py:94
+#: app/views/ui/settings/audio.py:96
 msgid "Subtitles"
 msgstr "Untertitel"
 
-#: app/views/ui/settings/audio.py:105
-msgid "Auto detect"
-msgstr ""
-
 #: app/views/ui/settings/audio.py:107
-msgid "Audio driver: "
-msgstr ""
+msgid "Auto detect"
+msgstr "Automatisch"
 
-#: app/views/ui/settings/audio.py:148 app/views/ui/settings/video.py:136
-msgid "A restart is required to apply some settings."
-msgstr ""
-"Um die geänderten Einstellungen zu übernehmen ist ein Neustart des Spiels"
-" erforderlich."
+#: app/views/ui/settings/audio.py:110
+msgid "Audio driver"
+msgstr "Audiotreiber"
 
 #: app/views/ui/settings/settings.py:32
 msgid "Video"
@@ -141,31 +141,34 @@ msgstr "Video"
 msgid "Audio"
 msgstr "Audio"
 
-#: app/views/ui/settings/video.py:50
+#: app/views/ui/settings/video.py:52
 msgid "Fullscreen"
 msgstr "Vollbild"
 
-#: app/views/ui/settings/video.py:63
+#: app/views/ui/settings/video.py:66
 msgid "V-Sync"
 msgstr "V-Sync"
 
-#: app/views/ui/settings/video.py:69
+#: app/views/ui/settings/video.py:73
 msgid "Unlimited"
 msgstr "Unbegrenzt"
 
-#: app/views/ui/settings/video.py:72
+#: app/views/ui/settings/video.py:76
 msgid "FPS Limit"
 msgstr "FPS Limit"
 
-#: app/views/ui/settings/video.py:79
+#: app/views/ui/settings/video.py:83
 msgid "Show FPS"
 msgstr "FPS anzeigen"
 
-#: app/views/ui/settings/video.py:89
+#: app/views/ui/settings/video.py:93
 msgid "Anti-aliasing"
 msgstr "Antialiasing"
 
-#: app/views/ui/settings/video.py:94
+#: app/views/ui/settings/video.py:98
 msgid "Particles amount"
 msgstr "Partikelmenge"
+
+#~ msgid "Audio driver: "
+#~ msgstr ""
 

@@ -7,7 +7,9 @@ from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
     SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
-from app.helpers.gui import make_label, make_button, make_slider, make_alert
+from app.helpers.gui import make_label, make_button, make_slider, \
+    make_restart_to_apply_settings_alert
+from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
 
@@ -47,7 +49,8 @@ class Video(arcade.gui.UIManager):
             fullscreen_text = _('On')
 
         btn_toggle_fullscreen = make_button(
-            text=': '.join([_('Fullscreen'), fullscreen_text]))
+            text=label_value(_('Fullscreen'), fullscreen_text)
+        )
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
 
         # Currently disabled because it's buggy
@@ -60,7 +63,8 @@ class Video(arcade.gui.UIManager):
             vsync_text = _('On')
 
         btn_toggle_vsync = make_button(
-            text=': '.join([_('V-Sync'), vsync_text]))
+            text=label_value(_('V-Sync'), vsync_text)
+        )
         btn_toggle_vsync.on_click = self.on_toggle_vsync
         grid.add(btn_toggle_vsync, col_num=2, row_num=0)
 
@@ -69,14 +73,14 @@ class Video(arcade.gui.UIManager):
             draw_rate_text = _('Unlimited')
 
         btn_fps_limit = make_button(
-            text=': '.join([_('FPS Limit'), str(draw_rate_text)]))
+            text=label_value(_('FPS Limit'), str(draw_rate_text)))
         btn_fps_limit.on_click = self.on_change_fps_limit
 
         fps_text = _('Off')
         if arcade.timings_enabled():
             fps_text = _('On')
 
-        btn_toggle_fps = make_button(text=': '.join([_('Show FPS'), fps_text]))
+        btn_toggle_fps = make_button(text=label_value(_('Show FPS'), fps_text))
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
@@ -86,7 +90,7 @@ class Video(arcade.gui.UIManager):
             antialiasing_text = "MSAA " + str(self._state.antialiasing) + "x"
 
         btn_antialiasing = make_button(
-            text=': '.join([_('Anti-aliasing'), antialiasing_text])
+            text=label_value(_('Anti-aliasing'), antialiasing_text)
         )
         btn_antialiasing.on_click = self.on_change_antialiasing
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
@@ -132,10 +136,9 @@ class Video(arcade.gui.UIManager):
         for compare in compares:
             old_value, new_value = compare
             if old_value != new_value:
-                alert = make_alert(
-                _('A restart is required to apply some settings.')
+                alert = make_restart_to_apply_settings_alert(
+                    on_action=self._on_back
                 )
-                alert.on_action = self._on_back
                 self.add(alert)
                 return
 

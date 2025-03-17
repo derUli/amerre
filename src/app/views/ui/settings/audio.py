@@ -6,7 +6,9 @@ from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
 from app.helpers.audio import audio_drivers
-from app.helpers.gui import make_label, make_button, make_slider, make_alert
+from app.helpers.gui import make_label, make_button, make_slider, make_alert, \
+    make_restart_to_apply_settings_alert
+from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
 MARGIN = 20
@@ -91,7 +93,7 @@ class Audio(arcade.gui.UIManager):
             subtitles_text = _('On')
 
         btn_toggle_subtitles = make_button(
-            text=': '.join([_('Subtitles'), subtitles_text])
+            text=label_value(_('Subtitles'), subtitles_text),
         )
 
         btn_toggle_subtitles.on_click = self.on_toggle_subtitles
@@ -104,7 +106,9 @@ class Audio(arcade.gui.UIManager):
         if audio_driver == SETTINGS_DEFAULT_AUDIO_DRIVER:
             audio_driver = _('Auto detect')
 
-        btn_audio_driver = make_button(_('Audio driver: ') + audio_driver)
+        btn_audio_driver = make_button(
+            label_value(_('Audio driver'), audio_driver)
+        )
         btn_audio_driver.on_click = self.on_change_driver
 
         widgets = [
@@ -145,8 +149,7 @@ class Audio(arcade.gui.UIManager):
             self._on_back(event)
             return
 
-        alert = make_alert(_('A restart is required to apply some settings.'))
-        alert.on_action = self._on_back
+        alert = make_restart_to_apply_settings_alert(on_action=self._on_back)
         self.add(alert)
 
 

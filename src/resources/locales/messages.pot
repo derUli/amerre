@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-17 15:52+0100\n"
+"POT-Creation-Date: 2025-03-17 16:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,19 +25,23 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: app/views/mainmenu.py:112
+#: app/helpers/gui.py:56
+msgid "A restart is required to apply some settings."
+msgstr ""
+
+#: app/views/mainmenu.py:110
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:115
+#: app/views/mainmenu.py:113
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:134
+#: app/views/mainmenu.py:132
 msgid "Loading..."
 msgstr ""
 
-#: app/views/mainmenu.py:143
+#: app/views/mainmenu.py:141
 msgid "Version"
 msgstr ""
 
@@ -78,56 +82,52 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:45 app/views/ui/settings/settings.py:29
-#: app/views/ui/settings/video.py:41
+#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/video.py:43
 msgid "Back"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:49
+#: app/views/ui/settings/audio.py:51
 msgid "Master volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:57
+#: app/views/ui/settings/audio.py:59
 msgid "Sound volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:65
+#: app/views/ui/settings/audio.py:67
 msgid "Speech volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:73
+#: app/views/ui/settings/audio.py:75
 msgid "Music volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:81
+#: app/views/ui/settings/audio.py:83
 msgid "Size of subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:89 app/views/ui/settings/video.py:45
-#: app/views/ui/settings/video.py:58 app/views/ui/settings/video.py:75
-#: app/views/ui/settings/video.py:83
+#: app/views/ui/settings/audio.py:91 app/views/ui/settings/video.py:47
+#: app/views/ui/settings/video.py:61 app/views/ui/settings/video.py:79
+#: app/views/ui/settings/video.py:87
 msgid "Off"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:91 app/views/ui/settings/video.py:47
-#: app/views/ui/settings/video.py:60 app/views/ui/settings/video.py:77
+#: app/views/ui/settings/audio.py:93 app/views/ui/settings/video.py:49
+#: app/views/ui/settings/video.py:63 app/views/ui/settings/video.py:81
 msgid "On"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:94
+#: app/views/ui/settings/audio.py:96
 msgid "Subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:105
+#: app/views/ui/settings/audio.py:107
 msgid "Auto detect"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:107
-msgid "Audio driver: "
-msgstr ""
-
-#: app/views/ui/settings/audio.py:148 app/views/ui/settings/video.py:136
-msgid "A restart is required to apply some settings."
+#: app/views/ui/settings/audio.py:110
+msgid "Audio driver"
 msgstr ""
 
 #: app/views/ui/settings/settings.py:32
@@ -138,31 +138,31 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: app/views/ui/settings/video.py:50
+#: app/views/ui/settings/video.py:52
 msgid "Fullscreen"
 msgstr ""
 
-#: app/views/ui/settings/video.py:63
+#: app/views/ui/settings/video.py:66
 msgid "V-Sync"
 msgstr ""
 
-#: app/views/ui/settings/video.py:69
+#: app/views/ui/settings/video.py:73
 msgid "Unlimited"
 msgstr ""
 
-#: app/views/ui/settings/video.py:72
+#: app/views/ui/settings/video.py:76
 msgid "FPS Limit"
 msgstr ""
 
-#: app/views/ui/settings/video.py:79
+#: app/views/ui/settings/video.py:83
 msgid "Show FPS"
 msgstr ""
 
-#: app/views/ui/settings/video.py:89
+#: app/views/ui/settings/video.py:93
 msgid "Anti-aliasing"
 msgstr ""
 
-#: app/views/ui/settings/video.py:94
+#: app/views/ui/settings/video.py:98
 msgid "Particles amount"
 msgstr ""
 
