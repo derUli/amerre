@@ -5,6 +5,7 @@ import random
 import arcade
 import pyglet
 
+from app.constants.ui import FADE_SPEED, FADE_MAX
 from app.views.mainmenu import MainMenu
 from app.views.view import View
 
@@ -15,8 +16,6 @@ PHASE_FADE_IN = 1
 PHASE_WAIT = 2
 PHASE_FADE_OUT = 3
 PHASE_NEXT = 4
-
-FADE_SPEED = 2
 
 LOGO_LENGTH = 3
 
@@ -87,13 +86,16 @@ class Logo(View):
                                                LOGO_LENGTH)
 
         if self._phase == PHASE_FADE_OUT:
-            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
-                                          255)
-            if self._fade_sprite.alpha >= 255:
+            self._fade_sprite.alpha = min(
+                self._fade_sprite.alpha + FADE_SPEED,
+                FADE_MAX
+            )
+            if self._fade_sprite.alpha >= FADE_MAX:
                 self._phase = PHASE_NEXT
 
     def on_draw(self):
         """ On draw """
+
         self.clear()
         self._scene.draw()
 

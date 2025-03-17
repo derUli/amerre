@@ -5,16 +5,15 @@ import arcade
 from app.constants.fonts import FONT_DEFAULT
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_CONFIRM
+from app.constants.ui import FADE_SPEED, FADE_MAX, FADE_MIN
 from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.views.view import View
 
 FONT_SIZE = 60
-FADE_SPEED = 1
-FADE_MAX = 255
 SCENE_LAYER_TEXT = 'Text'
 SCENE_LAYER_FADE = 'Fade'
-BACKGROUND_COLOR = (58, 158, 236, 255)
+BACKGROUND_COLOR = (58, 158, 236, FADE_MAX)
 
 
 class ToBeContinued(View):
@@ -89,8 +88,10 @@ class ToBeContinued(View):
             from app.views.mainmenu import MainMenu
             self.window.show_view(MainMenu().setup(self._root_dir))
 
-        self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
-                                      FADE_MAX)
+        self._fade_sprite.alpha = min(
+            self._fade_sprite.alpha + FADE_SPEED,
+            FADE_MAX
+        )
 
     def on_draw(self):
         """ On draw """
@@ -119,6 +120,6 @@ class ToBeContinued(View):
             color=BACKGROUND_COLOR
         )
         self._fade_sprite.visible = False
-        self._fade_sprite.alpha = 0
+        self._fade_sprite.alpha = FADE_MIN
 
         self._scene.add_sprite(SCENE_LAYER_FADE, self._fade_sprite)

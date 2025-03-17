@@ -12,7 +12,7 @@ from app.constants.gameinfo import VERSION_STRING, MAPS
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
-from app.constants.ui import MARGIN
+from app.constants.ui import MARGIN, FADE_SPEED, FADE_MAX
 from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.state.settingsstate import SettingsState
@@ -24,8 +24,6 @@ BACKGROUND_COLOR = (58, 158, 236, 255)
 FONT_SIZE = 15
 FONT_SIZE_TITLE = 50
 
-FADE_SPEED = 2
-FADE_MAX = 255
 MUSIC_FADE_SPEED = 0.005
 
 SCENE_LAYER_FADEIN = 'fadein'
@@ -257,9 +255,12 @@ class MainMenu(View):
             return
 
         # On fading in
-        self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
+        self._fade_sprite.alpha = min(
+            self._fade_sprite.alpha + FADE_SPEED,
+            FADE_MAX
+        )
 
-        self._text_load.visible = self._fade_sprite.alpha >= 255
+        self._text_load.visible = self._fade_sprite.alpha >= FADE_MAX
         self._music.volume = max(self._music.volume - MUSIC_FADE_SPEED, 0)
 
     def on_update_particles(self, delta_time: float):
