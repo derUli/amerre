@@ -5,6 +5,7 @@ import os
 
 import jsonpickle
 
+from app.constants.gameinfo import DEFAULT_ENCODING
 from app.constants.settings import (
     SETTINGS_DEFAULT_SHOW_FPS, \
     SETTINGS_DEFAULT_VSYNC, \
@@ -92,7 +93,7 @@ class SettingsState:
         @return: SettingsState
         """
 
-        with open(settings_path(), 'r') as f:
+        with open(settings_path(), 'r', encoding=DEFAULT_ENCODING) as f:
             state = jsonpickle.decode(f.read())
 
             # jsonpickle don't calls __init__()
@@ -112,7 +113,7 @@ class SettingsState:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        with open(settings_path(), 'w') as f:
+        with open(settings_path(), 'w', encoding=DEFAULT_ENCODING) as f:
             f.write(jsonpickle.encode(self, unpicklable=True))
 
     @property

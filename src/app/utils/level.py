@@ -9,7 +9,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH
+from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH, DEFAULT_ENCODING
 from app.constants.layers import (
     LAYER_PLAYER,
     LAYER_WALL,
@@ -54,7 +54,7 @@ class Level:
         """ Constructor"""
 
         self._scene = None
-        self.tilemap = None
+        self._tilemap = None
         self._camera = None
         self._camera_gui = None
         self._physics_engine = None
@@ -126,7 +126,7 @@ class Level:
         self._effect_manager.setup(
             map_config,
             self._scene,
-            self.tilemap,
+            self._tilemap,
             root_dir
         )
 
@@ -145,8 +145,8 @@ class Level:
 
         time_start = time.time()
 
-        self.tilemap = arcade.load_tilemap(path)
-        self._scene = arcade.Scene.from_tilemap(self.tilemap)
+        self._tilemap = arcade.load_tilemap(path)
+        self._scene = arcade.Scene.from_tilemap(self._tilemap)
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
@@ -363,7 +363,7 @@ class Level:
         if self._launching_sprite.angle >= 360:
             self._launching_sprite.angle = 0
 
-        map_height = self.tilemap.height * self.tilemap.tile_height
+        map_height = self._tilemap.height * self._tilemap.tile_height
 
         if self._launching_sprite.bottom > map_height:
             self._launching_sprite.remove_from_sprite_lists()
@@ -470,5 +470,5 @@ class Level:
         """ Load config """
 
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
-        with open(path, mode='r') as file:
+        with open(path, mode='r', encoding = DEFAULT_ENCODING) as file:
             return json.load(file)

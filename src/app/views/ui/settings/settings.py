@@ -1,6 +1,7 @@
 """ Settings menu """
 
 import arcade.gui
+from arcade.gui import UIOnClickEvent
 
 from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
@@ -49,25 +50,33 @@ class Settings(arcade.gui.UIManager):
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
         self.enable()
 
-    def on_video(self, event):
+    def on_video(self, event: UIOnClickEvent) -> None:
+        """ On click "Video" """
+
         self.disable()
         menu = Video()
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-    def on_audio(self, event):
+    def on_audio(self, event: UIOnClickEvent) -> None:
+        """ On click "Audio" """
+
         self.disable()
         menu = Audio()
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-    def on_language(self, event):
+    def on_language(self, event: UIOnClickEvent) -> None:
+        """ On click "Language" """
+
         self.disable()
         menu = Language()
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-    def on_enable(self, refresh_particles=False):
+    def on_enable(self, refresh_particles: bool = False):
+        """ On enable settings """
+        
         self.enable()
         self._on_close(self)
 

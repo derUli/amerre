@@ -368,7 +368,7 @@ class MainMenu(View):
             state: SettingsState = None,
             refresh_particles=False
     ) -> None:
-
+        """ On change settings """
         if state:
             self._music.volume = state.audio_volumes.volume_music_normalized
             self.window.audio_volumes = state.audio_volumes

@@ -133,7 +133,10 @@ class PauseMenu(arcade.View):
             return
 
         self.previous_view.unsetup()
+
+        # pylint: disable=import-outside-toplevel
         from app.views.mainmenu import MainMenu
+
         start_screen = MainMenu()
         start_screen.setup(self._root_dir)
         self.window.show_view(start_screen)
@@ -186,4 +189,4 @@ class PauseMenu(arcade.View):
     def on_change_settings(self, refresh_particles=False):
         """ On change settings """
 
-        pass
+        return

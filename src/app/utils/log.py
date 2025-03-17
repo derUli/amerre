@@ -65,6 +65,7 @@ def log_hardware_info() -> None:
     log_hardware_info_gpu()
     log_hardware_info_audio()
 
+
 def log_hardware_info_system() -> None:
     """ Log hardware info system """
 
@@ -81,6 +82,7 @@ def log_hardware_info_system() -> None:
     # Renderer is the GPU
 
     logging.info(label_value('Locale', locale.getlocale()))
+
 
 def log_hardware_info_gpu() -> None:
     """ Log GPU info """

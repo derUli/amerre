@@ -31,3 +31,5 @@ def locales_translated() -> dict:
 
 BASE_WIDTH = 2560
 BASE_HEIGHT = 1440
+
+DEFAULT_ENCODING = 'utf-8'

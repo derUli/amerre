@@ -1,5 +1,5 @@
 """ Particles """
-
+import logging
 import random
 
 import arcade.sprite
@@ -59,6 +59,7 @@ class Particles(Effect):
         width = self._data.tilemap.width * self._data.tilemap.tile_width
 
         for i in range(0, particles_count):
+            logging.debug(f"Make particle {i}")
             r, g, b = PARTICLES_COLOR
             a = random.randint(80, 180)
             color = r, g, b, a

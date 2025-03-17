@@ -76,8 +76,6 @@ class Logo(View):
 
         self._phase = PHASE_FADE_IN
 
-        return
-
     def on_update(self, delta_time: float):
 
         if self._phase == PHASE_NEXT:
