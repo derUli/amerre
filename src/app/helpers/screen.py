@@ -28,12 +28,12 @@ def fullscreen_resolution() -> list:
 def window_resolution() -> list:
     """ Get the window resolution """
 
-    resolutions = list(reversed(screen_resolutions()))
+    resolutions = screen_resolutions()
 
     if len(resolutions) < 2:
-        return SETTINGS_SIZE_MINIUM
+        resolutions = [SETTINGS_SIZE_MINIUM] + resolutions
 
-    return resolutions[1]
+    return resolutions[0]
 
 
 def gcd(a, b):

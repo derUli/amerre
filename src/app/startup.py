@@ -103,6 +103,8 @@ class Startup:
         # Update rate
         width, height = state.screen_resolution
 
+        print(width, height)
+
         window = GameWindow(
             fullscreen=state.fullscreen,
             visible=False,
