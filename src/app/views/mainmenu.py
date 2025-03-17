@@ -1,7 +1,6 @@
 """ The main menu """
 
 import os
-import random
 import webbrowser
 
 import arcade
@@ -14,7 +13,6 @@ from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
 from app.constants.ui import MARGIN, FADE_SPEED, FADE_MAX
 from app.containers.effect_data import EffectData
-from app.effects.effect_manager import EffectManager
 from app.effects.filmgrain import Filmgrain
 from app.effects.menu_particles import MenuParticles
 from app.state.settingsstate import SettingsState
