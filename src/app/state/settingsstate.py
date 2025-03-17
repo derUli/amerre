@@ -202,9 +202,14 @@ class SettingsState:
 
     @property
     def antialiasing(self) -> int:
-        """ Antialiasing """
+        """ Get antialiasing """
 
         return self._antialiasing
+
+    @antialiasing.setter
+    def antialiasing(self, value: int) -> None:
+        """ Set antialiasing """
+        self._antialiasing = value
 
     @property
     def particles(self) -> float:
@@ -224,9 +229,9 @@ class SettingsState:
         return self._draw_rate
 
     @draw_rate.setter
-    def draw_rate(self, rate: int) -> None:
+    def draw_rate(self, value: int) -> None:
         """ Set the draw_rate """
-        self._draw_rate = rate
+        self._draw_rate = value
 
     @property
     def actual_draw_rate(self) -> int:
@@ -257,5 +262,5 @@ class SettingsState:
         return self._audio_driver
 
     @audio_driver.setter
-    def audio_driver(self, audio_driver: str) -> None:
-        self._audio_driver = audio_driver
+    def audio_driver(self, value: str) -> None:
+        self._audio_driver = value

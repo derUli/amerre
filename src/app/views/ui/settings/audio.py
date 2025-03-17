@@ -43,7 +43,7 @@ class Audio(arcade.gui.UIManager):
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1)
 
         btn_back = make_button(text=_('Back'))
-        btn_back.on_click = self._on_back
+        btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
         label_master = make_label(text=_('Master volume'))
@@ -136,21 +136,21 @@ class Audio(arcade.gui.UIManager):
 
         self.enable()
 
-    def _on_back(self, event):
+    def on_back(self, event):
         """ On go back """
 
         logging.debug(event)
 
         if self._old_state.audio_driver == self._state.audio_driver:
-            self.on_back(event)
+            self._on_back(event)
             return
 
         alert = make_alert(_('A restart is required to apply some settings.'))
-        alert.on_action = self.on_back
+        alert.on_action = self._on_back
         self.add(alert)
 
 
-    def on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
+    def _on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
         logging.debug(event)
         self._state.save()
         self.disable()

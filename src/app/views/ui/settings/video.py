@@ -3,10 +3,10 @@ import logging
 
 import arcade.gui
 import pyglet
-from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent
+from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
-    SETTINGS_DRAW_RATES
+    SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
 from app.helpers.gui import make_label, make_button, make_slider, make_alert
 from app.state.settingsstate import SettingsState
 
@@ -19,6 +19,7 @@ class Video(arcade.gui.UIManager):
 
         super().__init__()
         self._state = None
+        self._old_state = None
         self._on_close = None
         self._on_change = None
 
@@ -30,6 +31,9 @@ class Video(arcade.gui.UIManager):
         self._on_close = on_close
         self._on_change = on_change
         self._state = SettingsState.load()
+
+        if not self._old_state:
+            self._old_state = SettingsState.load()
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1,
                                        vertical_spacing=20)
@@ -76,6 +80,17 @@ class Video(arcade.gui.UIManager):
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
+        antialiasing_text = _('Off')
+
+        if self._state.antialiasing:
+            antialiasing_text = "MSAA " + str(self._state.antialiasing) + "x"
+
+        btn_antialiasing = make_button(
+            text=': '.join([_('Antialiasing'), antialiasing_text])
+        )
+        btn_antialiasing.on_click = self.on_change_antialiasing
+        grid.add(btn_toggle_fps, col_num=3, row_num=0)
+
         label_particles = make_label(text=_('Particles amount'))
         slider_particles = make_slider(value=self._state.particles,
                                        min_value=0.1, max_value=1.0)
@@ -87,6 +102,7 @@ class Video(arcade.gui.UIManager):
             btn_toggle_vsync,
             btn_fps_limit,
             btn_toggle_fps,
+            btn_antialiasing,
             label_particles,
             slider_particles,
         ]
@@ -106,6 +122,26 @@ class Video(arcade.gui.UIManager):
     def on_back(self, event: UIOnClickEvent) -> None:
         """ On go back """
 
+        logging.debug(event)
+
+        compares = [
+            (self._old_state.antialiasing, self._state.antialiasing),
+            (self.window.fullscreen, self._state.fullscreen),
+        ]
+
+        for compare in compares:
+            old_value, new_value = compare
+            if old_value != new_value:
+                alert = make_alert(
+                _('A restart is required to apply some settings.')
+                )
+                alert.on_action = self._on_back
+                self.add(alert)
+                return
+
+        self._on_back(event)
+
+    def _on_back(self, event: UIOnClickEvent| UIOnActionEvent) -> None:
         logging.debug(event)
 
         self.disable()
@@ -133,11 +169,6 @@ class Video(arcade.gui.UIManager):
         self._state.fullscreen = not self._state.fullscreen
         self._state.save()
         self.refresh()
-
-        if self._state.fullscreen != arcade.get_window().fullscreen:
-            self.add(
-                make_alert(_('A restart is required to apply this setting.'))
-            )
 
     def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
 
@@ -183,6 +214,19 @@ class Video(arcade.gui.UIManager):
         self._state.draw_rate = draw_rates[index]
 
         self.window.set_draw_rate(1.0 / draw_rate)
+
+        self._state.save()
+        self.refresh()
+
+    def on_change_antialiasing(self, event: UIOnChangeEvent) -> None:
+        logging.debug(event)
+        index = ANTIALIASING_VALUES.index(self._state.antialiasing)
+        index += 1
+
+        try:
+            self._state.antialiasing = ANTIALIASING_VALUES[index]
+        except IndexError:
+            self._state.antialiasing = 0
 
         self._state.save()
 
