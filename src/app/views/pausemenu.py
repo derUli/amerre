@@ -8,12 +8,9 @@ from arcade.gui import UIOnActionEvent
 
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_ESCAPE
-from app.constants.ui import BUTTON_WIDTH
+from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
 from app.helpers.gui import make_button
 from app.views.ui.settings.settings import Settings
-
-MODAL_WIDTH = 300
-MODAL_HEIGHT = 200
 
 
 class PauseMenu(arcade.View):

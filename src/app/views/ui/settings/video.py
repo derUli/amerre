@@ -3,9 +3,10 @@ import logging
 
 import arcade.gui
 import pyglet
+from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent
 
 from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
-from app.constants.ui import BUTTON_WIDTH
+from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
 from app.helpers.gui import make_label, make_button, make_slider
 from app.state.settingsstate import SettingsState
 
@@ -37,14 +38,14 @@ class Video(arcade.gui.UIManager):
         grid.add(btn_back, col_num=0, row_num=0)
 
         fullscreen_text = _('Off')
-        if arcade.get_window().fullscreen:
+        if self._state.fullscreen:
             fullscreen_text = _('On')
 
         btn_toggle_fullscreen = make_button(text=': '.join([_('Fullscreen'), fullscreen_text]))
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
 
         # Currently disabled because it's buggy
-        btn_toggle_fullscreen.disabled = True
+        #btn_toggle_fullscreen.disabled = True
 
         grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
 
@@ -97,7 +98,7 @@ class Video(arcade.gui.UIManager):
 
         self.enable()
 
-    def on_back(self, event):
+    def on_back(self, event: UIOnClickEvent) -> None:
         """ On go back """
 
         logging.debug(event)
@@ -105,7 +106,8 @@ class Video(arcade.gui.UIManager):
         self.disable()
         self._on_close()
 
-    def on_toggle_fps(self, event):
+    def on_toggle_fps(self, event: UIOnClickEvent) -> None:
+        """ On toggle fps display """
 
         logging.debug(event)
 
@@ -119,23 +121,24 @@ class Video(arcade.gui.UIManager):
 
         self.refresh()
 
-    def on_toggle_fullscreen(self, event):
+    def on_toggle_fullscreen(self, event: UIOnClickEvent) -> None:
 
         logging.debug(event)
 
-        self._state.fullscreen = not arcade.get_window().fullscreen
+        self._state.fullscreen = not self._state.fullscreen
         self._state.save()
-
-        w, h = self._state.screen_resolution
-
-        arcade.get_window().set_fullscreen(not arcade.get_window().fullscreen, width=w, height=h)
-
-        if not self._state.fullscreen:
-            arcade.get_window().set_size(w, h)
-
         self.refresh()
 
-    def on_toggle_vsync(self, event):
+        if self._state.fullscreen != arcade.get_window().fullscreen:
+            self.add(arcade.gui.UIMessageBox(
+                message_text=_('A restart is required to apply this setting.'),
+                buttons=(_('OK'),),
+                width=MODAL_WIDTH,
+                height=MODAL_HEIGHT
+            ))
+
+
+    def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
 
         logging.debug(event)
 
@@ -154,7 +157,7 @@ class Video(arcade.gui.UIManager):
 
         self.refresh()
 
-    def on_change_particles(self, event, ):
+    def on_change_particles(self, event: UIOnChangeEvent) -> None:
         """ master volume changed """
 
         logging.debug(event)
