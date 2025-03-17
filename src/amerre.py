@@ -27,6 +27,7 @@ if is_frozen():
 else:
     root_dir = os.path.dirname(os.path.abspath(__file__))
 
+# pylint: disable=wrong-import-position
 from app.startup import Startup
 
 try:
