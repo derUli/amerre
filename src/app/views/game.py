@@ -149,9 +149,12 @@ class Game(View):
     def on_pause(self) -> None:
         """ On pause game """
 
+        # pylint: disable=import-outside-toplevel
         from app.views.pausemenu import PauseMenu
+
         menu = PauseMenu(previous_view=self)
         menu.setup(root_dir=self._root_dir)
+        
         self.window.show_view(menu)
         self._level.on_pause()
 

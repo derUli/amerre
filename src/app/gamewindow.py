@@ -1,4 +1,4 @@
-# pylint: disable=W0223
+# pylint: disable=abstract-method, too-many-arguments, too-many-positional-arguments
 
 """ The Game window """
 
@@ -40,7 +40,6 @@ class GameWindow(arcade.Window):
             antialiasing: bool = True,
             samples: int = 4,
             fixed_rate: float = 1 / 60
-
     ):
         """ Constructor """
         self._root_dir = None
