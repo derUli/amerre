@@ -13,12 +13,12 @@ import pyglet
 from app.constants.gameinfo import VERSION_STRING, DEFAULT_LOCALE
 from app.constants.settings import (
     SETTINGS_WINDOW_STYLE_CHOICES,
-    SETTINGS_DEFAULT_WINDOW_STYLE, UPDATE_RATE, FIXED_RATE, SETTINGS_UNLIMITED_DRAW_RATE,
+    SETTINGS_DEFAULT_WINDOW_STYLE, UPDATE_RATE, FIXED_RATE,
 )
 from app.gamewindow import GameWindow
+from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 from app.utils.log import configure_logger, log_hardware_info
-from app.helpers.string import label_value
 
 try:
     import sounddevice

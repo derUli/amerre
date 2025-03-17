@@ -41,7 +41,8 @@ class Particles(Effect):
             sprite.center_x -= PARTICLE_SPEED * delta_time
             if sprite.right < 0:
                 sprite.center_x = self._data.tilemap.width * self._data.tilemap.tile_width
-                sprite.center_y = random.randint(PARTICLES_Y_MIN, PARTICLES_Y_MAX)
+                sprite.center_y = random.randint(PARTICLES_Y_MIN,
+                                                 PARTICLES_Y_MAX)
 
     def draw(self) -> None:
         """ Draw effect """

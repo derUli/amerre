@@ -31,7 +31,8 @@ class Logo(View):
         self.window.set_mouse_visible(False)
         arcade.set_background_color(arcade.color.WHITE)
 
-        logo_file = os.path.join(self._root_dir, 'resources', 'images', 'ui', 'hog-games.png')
+        logo_file = os.path.join(self._root_dir, 'resources', 'images', 'ui',
+                                 'hog-games.png')
         logo = arcade.sprite.Sprite(path_or_texture=logo_file, x=0, y=0)
 
         self._scene.add_sprite(SCENE_LAYER_LOGO, logo)
@@ -64,7 +65,8 @@ class Logo(View):
         """ On update """
 
         if self._phase == PHASE_FADE_IN:
-            self._fade_sprite.alpha = max(self._fade_sprite.alpha - FADE_SPEED, 0)
+            self._fade_sprite.alpha = max(self._fade_sprite.alpha - FADE_SPEED,
+                                          0)
 
             if self._fade_sprite.alpha <= 0:
                 sound_number = random.randint(1, 5)
@@ -76,14 +78,17 @@ class Logo(View):
                     f'{sound_number:03d}.mp3'
                 )
                 sound = arcade.load_sound(file, streaming=True)
-                sound.play(volume=self.window.audio_volumes.volume_sound_normalized)
+                sound.play(
+                    volume=self.window.audio_volumes.volume_sound_normalized)
 
                 self._phase = PHASE_WAIT
 
-                pyglet.clock.schedule_interval(self.fade_to_main_menu, LOGO_LENGTH)
+                pyglet.clock.schedule_interval(self.fade_to_main_menu,
+                                               LOGO_LENGTH)
 
         if self._phase == PHASE_FADE_OUT:
-            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, 255)
+            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
+                                          255)
             if self._fade_sprite.alpha >= 255:
                 self._phase = PHASE_NEXT
 

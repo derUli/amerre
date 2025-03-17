@@ -48,7 +48,8 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self._manager.disable()
             self._manager2 = Settings()
-            self._manager2.setup(self.on_close_settings, self.on_change_settings)
+            self._manager2.setup(self.on_close_settings,
+                                 self.on_change_settings)
 
         btn_exit_to_menu = make_button(text=_('Back to Menu'))
 
@@ -68,7 +69,8 @@ class PauseMenu(arcade.View):
             logging.debug(event)
             self.on_exit_to_desktop()
 
-        grid = arcade.gui.UIGridLayout(column_count=1, row_count=4, vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(column_count=1, row_count=4,
+                                       vertical_spacing=20)
         grid.add(btn_continue, row=0)
         grid.add(btn_settings, row=1)
         grid.add(btn_exit_to_menu, row=2)

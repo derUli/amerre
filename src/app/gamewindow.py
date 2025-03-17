@@ -9,13 +9,14 @@ import time
 import arcade
 import pyglet
 from arcade.gui import UIFlatButton
+
 from app.constants.fonts import FONT_DEFAULT, FONT_SIZE_BUTTON
 from app.constants.input.keyboard import KEY_SCREENSHOT
+from app.helpers.paths import screenshot_path
+from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.fpscounter import FPSCounter
-from app.helpers.paths import screenshot_path
-from app.helpers.string import label_value
 from app.views.logo import Logo
 from app.views.mainmenu import MainMenu
 
@@ -234,7 +235,8 @@ class GameWindow(arcade.Window):
         if not os.path.exists(screenshot_path()):
             os.makedirs(screenshot_path())
 
-        filename = os.path.join(screenshot_path(), time.strftime("%Y%m%d-%H%M%S") + '.jpg')
+        filename = os.path.join(screenshot_path(),
+                                time.strftime("%Y%m%d-%H%M%S") + '.jpg')
 
         start = time.time()
         image = arcade.get_image().convert('RGB')
@@ -244,7 +246,8 @@ class GameWindow(arcade.Window):
         logging.info(f"Screenshot saved as {filename} in {end} seconds")
 
         sound = arcade.load_sound(
-            os.path.join(self._root_dir, 'resources', 'sounds', 'common', 'screenshot.mp3')
+            os.path.join(self._root_dir, 'resources', 'sounds', 'common',
+                         'screenshot.mp3')
         )
         sound.play(volume=self._audio_volumes.volume_sound_normalized)
 

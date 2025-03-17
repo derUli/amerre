@@ -18,8 +18,8 @@ from app.constants.input.keyboard import (
     KEY_ESCAPE,
     KEY_SKIP_LEVEL
 )
-from app.state.settingsstate import SettingsState
 from app.helpers.dev import is_frozen
+from app.state.settingsstate import SettingsState
 from app.utils.level import Level
 from app.views.view import View
 

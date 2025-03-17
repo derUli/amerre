@@ -106,7 +106,8 @@ class Audio(arcade.gui.UIManager):
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = arcade.gui.UIBoxLayout(align='center', space_between=MARGIN)
+        widget_layout = arcade.gui.UIBoxLayout(align='center',
+                                               space_between=MARGIN)
 
         for widget in widgets:
             widget_layout.add(widget)

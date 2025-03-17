@@ -151,21 +151,24 @@ class MainMenu(View):
         """ Setup menu icons """
 
         self._icon_itch_io = arcade.sprite.Sprite(
-            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui', 'itch-io.jpg'),
+            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui',
+                                         'itch-io.jpg'),
             x=0,
             y=0
         )
         self._scene.add_sprite(SCENE_LAYER_ICON, self._icon_itch_io)
 
         self._icon_exit = arcade.sprite.Sprite(
-            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui', 'exit.jpg'),
+            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui',
+                                         'exit.jpg'),
             x=0,
             y=0
         )
         self._scene.add_sprite(SCENE_LAYER_ICON, self._icon_exit)
 
         self._icon_settings = arcade.sprite.Sprite(
-            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui', 'settings.png'),
+            path_or_texture=os.path.join(root_dir, 'resources', 'images', 'ui',
+                                         'settings.png'),
             x=0,
             y=0
         )
@@ -178,13 +181,15 @@ class MainMenu(View):
             os.path.join(root_dir, 'resources', 'music', 'DeepSpace.mp3'),
             streaming=True
         )
-        self._music = music.play(loop=True, volume=self.window.audio_volumes.volume_music_normalized)
+        self._music = music.play(loop=True,
+                                 volume=self.window.audio_volumes.volume_music_normalized)
 
     def setup_sounds(self, root_dir: str):
         """ Setup sounds """
 
         self._sound_hover = arcade.load_sound(
-            os.path.join(root_dir, 'resources', 'sounds', 'common', 'hover.mp3'),
+            os.path.join(root_dir, 'resources', 'sounds', 'common',
+                         'hover.mp3'),
         )
 
     def setup_particles(self):
@@ -328,7 +333,8 @@ class MainMenu(View):
         ]
         for sprite in sprites:
             if sprite.collides_with_point((x, y)):
-                self._sound_hover.play(volume=self.window.audio_volumes.volume_sound_normalized)
+                self._sound_hover.play(
+                    volume=self.window.audio_volumes.volume_sound_normalized)
 
                 self._last_hover = sprite
                 self._last_hover.scale = 1.03
@@ -388,10 +394,12 @@ class MainMenu(View):
         self._scene[SCENE_LAYER_TEXT].visible = False
         self._scene[SCENE_LAYER_ICON].visible = False
         self._manager = Settings()
-        self._manager.setup(on_close=self.on_close_settings, on_change=self.on_change_settings)
+        self._manager.setup(on_close=self.on_close_settings,
+                            on_change=self.on_change_settings)
         self._manager.enable()
 
-    def on_change_settings(self, state: SettingsState = None, refresh_particles=False) -> None:
+    def on_change_settings(self, state: SettingsState = None,
+                           refresh_particles=False) -> None:
         if state:
             self._music.volume = state.audio_volumes.volume_music_normalized
             self.window.audio_volumes = state.audio_volumes

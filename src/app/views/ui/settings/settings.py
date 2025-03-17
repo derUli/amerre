@@ -2,6 +2,7 @@
 import logging
 
 import arcade.gui
+
 from app.helpers.gui import make_button
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.video import Video

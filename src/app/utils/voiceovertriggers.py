@@ -7,9 +7,9 @@ import arcade
 import pyglet
 
 from app.constants.gameinfo import DEFAULT_LOCALE
-from app.utils.audiovolumes import AudioVolumes
 from app.containers.callbacks import Callbacks
 from app.helpers.string import label_value
+from app.utils.audiovolumes import AudioVolumes
 from app.utils.subtitle import Subtitle
 
 VOICEOVER_DEFAULT = 'text00.mp3'
@@ -67,11 +67,13 @@ class VoiceOverTiggers:
         """ Get path to voiceover """
 
         for l in languages:
-            path = os.path.join(root_dir, 'resources', 'speech', l[0], voiceover)
+            path = os.path.join(root_dir, 'resources', 'speech', l[0],
+                                voiceover)
             if os.path.isfile(path):
                 return path
 
-        return os.path.join(root_dir, 'resources', 'speech', DEFAULT_LOCALE, voiceover)
+        return os.path.join(root_dir, 'resources', 'speech', DEFAULT_LOCALE,
+                            voiceover)
 
     def play_voiceover(
             self,
@@ -85,7 +87,8 @@ class VoiceOverTiggers:
 
         logging.info(label_value('Play speech', voiceover))
 
-        languages = list(map(lambda x: x.split('_'), os.environ['LANG'].split(':')))
+        languages = list(
+            map(lambda x: x.split('_'), os.environ['LANG'].split(':')))
         filename = self.voiceover_path(root_dir, languages, voiceover)
         sound = arcade.load_sound(filename, streaming=True)
 

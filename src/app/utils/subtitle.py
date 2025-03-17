@@ -60,7 +60,8 @@ class Subtitle:
             )
 
             if sprite.width > w:
-                logging.warning(f"Subtitle sprite width {sprite.width} is too large; {text}")
+                logging.warning(
+                    f"Subtitle sprite width {sprite.width} is too large; {text}")
 
             sprite.center_x = w / 2
             sprite.bottom = MARGIN

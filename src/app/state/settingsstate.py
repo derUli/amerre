@@ -4,16 +4,20 @@ import os
 import jsonpickle
 import pyglet
 
-from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, SETTINGS_DEFAULT_VSYNC, \
+from app.constants.settings import SETTINGS_DEFAULT_SHOW_FPS, \
+    SETTINGS_DEFAULT_VSYNC, \
     SETTINGS_DEFAULT_FULLSCREEN, SETTINGS_DEFAULT_VOLUME_MUSIC, \
-    SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, SETTINGS_DEFAULT_VOLUME_SPEECH, \
-    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, SETTINGS_DEFAULT_ANTIALIASING, \
-    SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_DRAW_RATE
-from app.utils.audiovolumes import AudioVolumes
+    SETTINGS_DEFAULT_VOLUME_SOUND, SETTINGS_DEFAULT_VOLUME_MASTER, \
+    SETTINGS_DEFAULT_VOLUME_SPEECH, \
+    SETTINGS_DEFAULT_SUBTITLE_SIZE, SETTINGS_DEFAULT_SUBTITLE_ENABLED, \
+    SETTINGS_DEFAULT_ANTIALIASING, \
+    SETTINGS_DEFAULT_PARTICLES, SETTINGS_DEFAULT_DRAW_RATE, \
+    SETTINGS_DEFAULT_DEBUG
 from app.helpers.paths import settings_path
 from app.helpers.screen import fullscreen_resolution, window_resolution
+from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 1
+VERSION = 2
 
 
 class SettingsState:
@@ -39,8 +43,13 @@ class SettingsState:
             volume_master=SETTINGS_DEFAULT_VOLUME_MASTER,
             volume_speech=SETTINGS_DEFAULT_VOLUME_SPEECH
         )
+
+        # Subtitles
         self._subtitle_enabled = SETTINGS_DEFAULT_SUBTITLE_ENABLED
         self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
+
+        # Other
+        self._debug = SETTINGS_DEFAULT_DEBUG
 
     @staticmethod
     def exists() -> bool:
@@ -226,3 +235,9 @@ class SettingsState:
             return display_rate
 
         return self.draw_rate
+
+    @property
+    def debug(self) -> bool:
+        """ Is debug mode enabled """
+
+        return self._debug

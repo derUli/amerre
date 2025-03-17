@@ -30,7 +30,8 @@ class Bushes(Effect):
         player = self._data.scene[LAYER_PLAYER][0]
 
         for sprite in sprites:
-            if arcade.get_distance_between_sprites(sprite, player) < MIN_DISTANCE:
+            if arcade.get_distance_between_sprites(sprite,
+                                                   player) < MIN_DISTANCE:
                 collides = True
                 break
 

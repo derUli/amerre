@@ -44,6 +44,7 @@ def gcd(a, b):
 
     return a if b == 0 else gcd(b, a % b)
 
+
 def calculate_aspect(width: int, height: int) -> tuple[int, int]:
     """ Calculate aspect ratio of a screen resolution """
 

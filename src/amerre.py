@@ -10,9 +10,11 @@ import sys
 import pyglet
 from stopwatch import Stopwatch
 
-from app.helpers.dev import is_frozen
+from app.helpers.dev import is_frozen, configure_pyglet
 
-pyglet.options['debug_gl'] = False
+pyglet.options.debug_options = False
+
+configure_pyglet()
 
 if is_frozen():
     root_dir = os.path.dirname(os.path.abspath(sys.executable))

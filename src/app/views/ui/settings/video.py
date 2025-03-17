@@ -5,8 +5,9 @@ import arcade.gui
 import pyglet
 from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent
 
-from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, SETTINGS_DRAW_RATES
-from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT
+from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
+    SETTINGS_DRAW_RATES
+from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
 from app.helpers.gui import make_label, make_button, make_slider
 from app.state.settingsstate import SettingsState
 
@@ -31,7 +32,8 @@ class Video(arcade.gui.UIManager):
         self._on_change = on_change
         self._state = SettingsState.load()
 
-        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1, vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1,
+                                       vertical_spacing=20)
 
         btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back
@@ -41,11 +43,12 @@ class Video(arcade.gui.UIManager):
         if self._state.fullscreen:
             fullscreen_text = _('On')
 
-        btn_toggle_fullscreen = make_button(text=': '.join([_('Fullscreen'), fullscreen_text]))
+        btn_toggle_fullscreen = make_button(
+            text=': '.join([_('Fullscreen'), fullscreen_text]))
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
 
         # Currently disabled because it's buggy
-        #btn_toggle_fullscreen.disabled = True
+        # btn_toggle_fullscreen.disabled = True
 
         grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
 
@@ -53,7 +56,8 @@ class Video(arcade.gui.UIManager):
         if arcade.get_window().vsync:
             vsync_text = _('On')
 
-        btn_toggle_vsync = make_button(text=': '.join([_('V-Sync'), vsync_text]))
+        btn_toggle_vsync = make_button(
+            text=': '.join([_('V-Sync'), vsync_text]))
         btn_toggle_vsync.on_click = self.on_toggle_vsync
         grid.add(btn_toggle_vsync, col_num=2, row_num=0)
 
@@ -61,7 +65,8 @@ class Video(arcade.gui.UIManager):
         if draw_rate_text == SETTINGS_UNLIMITED_DRAW_RATE:
             draw_rate_text = _('Unlimited')
 
-        btn_fps_limit = make_button(text=': '.join([_('FPS Limit'), str(draw_rate_text)]))
+        btn_fps_limit = make_button(
+            text=': '.join([_('FPS Limit'), str(draw_rate_text)]))
         btn_fps_limit.on_click = self.on_change_fps_limit
 
         fps_text = _('Off')
@@ -73,7 +78,8 @@ class Video(arcade.gui.UIManager):
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 
         label_particles = make_label(text=_('Particles amount'))
-        slider_particles = make_slider(value=self._state.particles, min_value=0.1, max_value=1.0)
+        slider_particles = make_slider(value=self._state.particles,
+                                       min_value=0.1, max_value=1.0)
         slider_particles.on_change = self.on_change_particles
 
         widgets = [
@@ -136,7 +142,6 @@ class Video(arcade.gui.UIManager):
                 width=MODAL_WIDTH,
                 height=MODAL_HEIGHT
             ))
-
 
     def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
 

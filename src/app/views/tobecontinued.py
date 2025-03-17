@@ -86,7 +86,8 @@ class ToBeContinued(View):
                 from app.views.mainmenu import MainMenu
                 self.window.show_view(MainMenu().setup(self._root_dir))
 
-            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED, FADE_MAX)
+            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
+                                          FADE_MAX)
 
     def on_draw(self):
         """ On draw """
