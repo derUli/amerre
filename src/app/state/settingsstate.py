@@ -23,7 +23,7 @@ from app.helpers.paths import settings_path
 from app.helpers.screen import fullscreen_resolution, window_resolution
 from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 4
+VERSION = 1
 
 
 class SettingsState:
@@ -104,7 +104,7 @@ class SettingsState:
             # If the state version from the code is newer than the stored version
             # discard the old settings state and return a new one
 
-            if SettingsState()._version != state._version:
+            if SettingsState().version != state.version:
                 return SettingsState()
 
             return state
@@ -264,3 +264,10 @@ class SettingsState:
     @audio_driver.setter
     def audio_driver(self, value: str) -> None:
         self._audio_driver = value
+
+
+    @property
+    def version(self):
+        """ State version"""
+
+        return self._version

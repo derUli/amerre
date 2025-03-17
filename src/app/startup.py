@@ -103,11 +103,9 @@ class Startup:
         # Update rate
         width, height = state.screen_resolution
 
-        print(width, height)
-
         window = GameWindow(
             fullscreen=state.fullscreen,
-            visible=False,
+            visible=True,
             vsync=state.vsync,
             width=width,
             height=height,
@@ -118,18 +116,6 @@ class Startup:
             update_rate=1.0 / UPDATE_RATE,
             fixed_rate=1.0 / FIXED_RATE
         )
-
-        # Set window location based on arguments
-        x, y = window.get_location()
-
-        if args.x is not None:
-            x = args.x
-
-        if args.y is not None:
-            y = args.y
-
-        window.set_location(x, y)
-        window.set_visible(True)
 
         log_hardware_info()
 
@@ -145,22 +131,6 @@ class Startup:
         """ Get args """
 
         parser = argparse.ArgumentParser()
-
-        parser.add_argument(
-            '-x',
-            action='store',
-            type=int,
-            required=False,
-            help='The X position of the window'
-        )
-
-        parser.add_argument(
-            '-y',
-            action='store',
-            type=int,
-            required=False,
-            help='The X position of the window'
-        )
 
         parser.add_argument(
             '--intro',
