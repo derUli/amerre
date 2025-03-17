@@ -71,8 +71,6 @@ class MainMenu(View):
 
         self._effects = []
 
-        self._first_resized = False
-
     def setup(self, root_dir: str):
         """ Setup the start screen """
 
