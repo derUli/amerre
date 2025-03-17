@@ -4,11 +4,9 @@ import logging
 import os
 import platform
 import sys
-from logging.handlers import RotatingFileHandler
-
-import arcade
 import psutil
 import pyglet
+from logging.handlers import RotatingFileHandler
 
 from app.helpers.audio import audio_drivers
 
@@ -54,10 +52,14 @@ def configure_logger(log_level: int | str = logging.INFO) -> None:
     )
 
 
-def log_hardware_info(window: arcade.Window) -> None:
+def log_hardware_info() -> None:
     """
     Log hardware info
     """
+
+    import arcade
+    window = arcade.get_window()
+
     # Log OS info
     uname = platform.uname()
     logging.info(label_value('OS', f"{uname.system} {uname.version}"))

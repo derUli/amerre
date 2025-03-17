@@ -129,7 +129,7 @@ class Startup:
         window.set_location(x, y)
         window.set_visible(True)
 
-        log_hardware_info(window)
+        log_hardware_info()
 
         window.setup(
             self._root_dir,

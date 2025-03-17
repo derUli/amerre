@@ -6,18 +6,19 @@
 import logging
 import os
 import sys
-
-import pyglet
 from stopwatch import Stopwatch
 
+from app.helpers.dev import is_frozen, configure_pyglet
 from app.utils.log import configure_logger
 
-stopwatch = Stopwatch()  # Start a stopwatch
+# Start a stopwatch
+stopwatch = Stopwatch()
 stopwatch.start()
 
-from app.helpers.dev import is_frozen, configure_pyglet
-
+# Configure logger
 configure_logger()
+
+# Configure pyglet
 configure_pyglet()
 
 if is_frozen():

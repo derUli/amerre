@@ -1,3 +1,5 @@
+""" UI constants """
+
 BUTTON_WIDTH = 250
 
 MODAL_WIDTH = 300
