@@ -44,7 +44,6 @@ class Startup:
         """ Setup game startup """
 
         self._root_dir = root_dir
-        configure_logger()
 
         return self
 

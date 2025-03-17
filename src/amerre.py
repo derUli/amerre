@@ -10,10 +10,14 @@ import sys
 import pyglet
 from stopwatch import Stopwatch
 
+from app.utils.log import configure_logger
+
+stopwatch = Stopwatch()  # Start a stopwatch
+stopwatch.start()
+
 from app.helpers.dev import is_frozen, configure_pyglet
 
-pyglet.options.debug_options = False
-
+configure_logger()
 configure_pyglet()
 
 if is_frozen():
@@ -23,8 +27,6 @@ else:
 
 from app.startup import Startup
 
-stopwatch = Stopwatch()  # Start a stopwatch
-stopwatch.start()
 
 try:
     Startup().setup(root_dir).start()
