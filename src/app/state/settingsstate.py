@@ -1,3 +1,5 @@
+""" Settings state """
+
 import logging
 import os
 
@@ -257,6 +259,7 @@ class SettingsState:
     @audio_driver.setter
     def audio_driver(self, value: str) -> None:
         """ Set audio driver """
+
         self._audio_driver = value
 
     @property
@@ -268,6 +271,7 @@ class SettingsState:
     @property
     def language(self) -> str:
         """ Get language """
+
         return self._language
 
     @language.setter
