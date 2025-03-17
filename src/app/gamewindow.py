@@ -99,7 +99,10 @@ class GameWindow(arcade.Window):
         if state.show_fps:
             arcade.enable_timings()
 
-        self.show_view(view().setup(root_dir))
+        view = view()
+        view.setup(root_dir)
+
+        self.show_view(view)
 
         self.setup_ui_styles()
 
@@ -280,5 +283,5 @@ class GameWindow(arcade.Window):
     @property
     def root_dir(self):
         """ Root directory """
-        
+
         return self._root_dir

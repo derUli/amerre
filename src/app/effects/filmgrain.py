@@ -7,7 +7,7 @@ import arcade
 from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
 
-ALPHA = 20
+ALPHA = 18
 
 
 class Filmgrain(Effect):

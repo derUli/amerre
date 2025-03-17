@@ -1,4 +1,5 @@
-""" Logo splash screen"""
+""" Logo splash screen """
+
 import os
 import random
 
@@ -6,6 +7,8 @@ import arcade
 import pyglet
 
 from app.constants.ui import FADE_SPEED, FADE_MAX
+from app.containers.effect_data import EffectData
+from app.effects.filmgrain import Filmgrain
 from app.views.mainmenu import MainMenu
 from app.views.view import View
 
@@ -23,8 +26,29 @@ LOGO_LENGTH = 3
 class Logo(View):
     """ Logo splash screen"""
 
+    def __init__(self):
+        """ Constructor """
+
+        super().__init__()
+        self._phase = None
+
+
     def setup(self, root_dir: str):
         """ Setup logo screen """
+
+        super().setup(root_dir)
+
+        self._effects = [
+            Filmgrain()
+        ]
+
+        data = EffectData(
+            root_dir=root_dir,
+            scene=self._scene
+        )
+
+        for effect in self._effects:
+            effect.setup(data)
 
         super().setup(root_dir)
         self.window.set_mouse_visible(False)
@@ -32,11 +56,14 @@ class Logo(View):
 
         logo_file = os.path.join(self._root_dir, 'resources', 'images', 'ui',
                                  'hog-games.png')
-        logo = arcade.sprite.Sprite(path_or_texture=logo_file, x=0, y=0)
+        logo = arcade.sprite.Sprite(
+            path_or_texture=logo_file,
+            center_x=0,
+            center_y=0
+        )
 
         self._scene.add_sprite(SCENE_LAYER_LOGO, logo)
 
-        self._phase = None
         self._fade_sprite = arcade.sprite.SpriteSolidColor(
             width=self.window.width,
             height=self.window.height + 2,
@@ -50,7 +77,7 @@ class Logo(View):
 
         self._phase = PHASE_FADE_IN
 
-        return self
+        return
 
     def on_update(self, delta_time: float):
 
@@ -59,6 +86,9 @@ class Logo(View):
 
         self._scene[SCENE_LAYER_LOGO][0].center_x = self.window.width / 2
         self._scene[SCENE_LAYER_LOGO][0].center_y = self.window.height / 2
+
+        for effect in self._effects:
+            effect.on_update(delta_time)
 
     def on_fixed_update(self, delta_time: float):
         """ On update """
@@ -98,6 +128,9 @@ class Logo(View):
 
         self.clear()
         self._scene.draw()
+
+        for effect in self._effects:
+            effect.draw()
 
         self.window.draw_after()
 

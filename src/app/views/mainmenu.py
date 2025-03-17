@@ -79,8 +79,8 @@ class MainMenu(View):
         self.on_update(0)
 
         self._effects = [
-            Filmgrain(),
-            MenuParticles()
+            MenuParticles(),
+            Filmgrain()
         ]
 
         data = EffectData(

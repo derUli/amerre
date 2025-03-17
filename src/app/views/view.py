@@ -2,7 +2,6 @@
 
 import arcade
 
-
 class View(arcade.View):
     """ View """
 
@@ -13,6 +12,7 @@ class View(arcade.View):
 
         self._root_dir = None
         self._scene = None
+        self._effects = []
         self._fade_sprite = None
         self._phase = None
         self._music = None
