@@ -44,12 +44,13 @@ class Startup:
 
         return self
 
-    def setup_locale(self, lang) -> None:
+    def setup_locale(self, lang: list) -> None:
         """ setup locale """
 
         locale_path = os.path.join(self._root_dir, 'resources', 'locales')
-        os.environ['LANG'] = lang[0]
-        logging.info(label_value('Language', lang[0]))
+
+        os.environ['LANG'] = ':'.join(lang)
+        logging.info(label_value('Language', os.environ['LANG']))
         gettext.install('messages', locale_path)
 
     @staticmethod
@@ -60,12 +61,9 @@ class Startup:
         logging.info(label_value('Python version', sys.version))
         logging.info(label_value('Arcade version', arcade.version.VERSION))
         logging.info(label_value('Pyglet version', pyglet.version))
-        try:
-            gil = sys._is_gil_enabled()
-        except AttributeError:
-            gil = None
-
-        logging.info(label_value('GIL', gil))
+        logging.info(
+            label_value('GIL', getattr(sys, '_is_gil_enabled', 'Unknown'))
+        )
 
     def start(self) -> None:
         """ Start game """
