@@ -10,7 +10,7 @@ from app.effects.filmgrain import Filmgrain
 from app.views.view import View
 
 FONT_SIZE = 60
-FADE_SPEED = 4
+FADE_SPEED = 1
 FADE_MAX = 255
 SCENE_LAYER_TEXT = 'Text'
 SCENE_LAYER_FADE = 'Fade'
@@ -28,7 +28,6 @@ class ToBeContinued(View):
         self._text_completed = None
         self._fade_sprite = None
         self.window = None
-        self._fade_sprite = None
         self.background_color = arcade.csscolor.WHITE
 
         self._effects = []
@@ -77,17 +76,21 @@ class ToBeContinued(View):
         for effect in self._effects:
             effect.update(delta_time)
 
-        if SCENE_LAYER_FADE in self._scene:
+        if self._fade_sprite:
             self._fade_sprite.visible = True
             self._fade_sprite.center_x = w / 2
             self._fade_sprite.center_y = h / 2
 
-            if self._fade_sprite.alpha >= FADE_MAX:
-                from app.views.mainmenu import MainMenu
-                self.window.show_view(MainMenu().setup(self._root_dir))
+    def on_fixed_update(self, delta_time: float):
+        if not self._fade_sprite:
+            return
 
-            self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
-                                          FADE_MAX)
+        if self._fade_sprite.alpha >= FADE_MAX:
+            from app.views.mainmenu import MainMenu
+            self.window.show_view(MainMenu().setup(self._root_dir))
+
+        self._fade_sprite.alpha = min(self._fade_sprite.alpha + FADE_SPEED,
+                                      FADE_MAX)
 
     def on_draw(self):
         """ On draw """
