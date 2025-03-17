@@ -131,10 +131,10 @@ class VoiceOverTiggers:
 
         return self._media
 
-    def update(self):
+    def on_update(self):
         """ Update voice over trigger """
 
         if not self._media:
             return
 
-        self._subtitle.update(self._media)
+        self._subtitle.on_update(self._media)

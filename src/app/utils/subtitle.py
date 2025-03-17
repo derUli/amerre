@@ -79,7 +79,7 @@ class Subtitle:
 
         self._current_text = self._rendered_texts[0]
 
-    def update(self, player) -> None:
+    def on_update(self, player) -> None:
         """ Update subtitle """
 
         for text in self._rendered_texts:

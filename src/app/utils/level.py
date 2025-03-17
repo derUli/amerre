@@ -159,7 +159,7 @@ class Level:
         self.update_collision_light(delta_time)
         self._effect_manager.on_update(delta_time)
 
-        self._scene.on_update(delta_time)
+        self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
         self.scroll_to_player()
 
@@ -190,7 +190,7 @@ class Level:
 
         self._voiceover_triggers.on_update()
 
-        self._physics_engine.on_update()
+        self._physics_engine.update()
 
         if self._music and not self._music.playing:
             self._music.delete()

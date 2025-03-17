@@ -25,7 +25,9 @@ class PauseMenu(arcade.View):
         self._manager2 = None
         self._root_dir = None
 
-    def setup(self, root_dir):
+    def setup(self, root_dir: str) -> None:
+        """ Setup pause menu """
+
         self._root_dir = root_dir
         self.window.set_mouse_visible(True)
 
@@ -172,6 +174,8 @@ class PauseMenu(arcade.View):
             self.on_continue()
 
     def on_close_settings(self, new_manager=None, on_change=None):
+        """ On close settings """
+
         self._manager2.disable()
         self._manager2 = new_manager
         if new_manager:
@@ -180,4 +184,6 @@ class PauseMenu(arcade.View):
         self._manager.enable()
 
     def on_change_settings(self, refresh_particles=False):
+        """ On change settings """
+
         pass
