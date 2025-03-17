@@ -113,8 +113,11 @@ class Startup:
 
         draw_rate = state.draw_rate
 
-        if state.vsync and draw_rate == SETTINGS_UNLIMITED_DRAW_RATE:
-            draw_rate = pyglet.display.get_display().get_default_screen().get_mode().rate
+        display_rate = (pyglet.display.get_display().get_default_screen()
+                        .get_mode().rate)
+
+        if state.vsync and draw_rate > display_rate:
+            draw_rate = display_rate
 
         window = GameWindow(
             fullscreen=state.fullscreen,
