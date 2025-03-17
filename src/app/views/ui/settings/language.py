@@ -34,7 +34,13 @@ class Language(arcade.gui.UIManager):
 
         locales = locales_translated()
 
-        widgets = []
+        btn_back = make_button(text=_('Back'))
+        btn_back.on_click = self.on_back
+
+        widgets = [
+            btn_back
+        ]
+
         for l in locales:
             btn = make_button(locales[l])
             self._btn_languages[l] = btn
