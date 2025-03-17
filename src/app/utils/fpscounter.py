@@ -6,12 +6,12 @@ import time
 import arcade
 
 from app.constants.fonts import FONT_MONOTYPE
+from app.constants.ui import MARGIN
 from app.state.settingsstate import SettingsState
 
 FONT_SIZE_FPS = 14
 FONT_COLOR_FPS = arcade.csscolor.WHITE
 MAX_FPS_COUNT = 5000
-MARGIN = 10
 UPDATE_INTERVAL = 1
 
 

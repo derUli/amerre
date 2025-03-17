@@ -5,9 +5,8 @@ import arcade
 from arcade import SpriteList
 
 from app.constants.fonts import FONT_DEFAULT
+from app.constants.ui import MARGIN
 from app.state.settingsstate import SettingsState
-
-MARGIN = 10
 
 TEXT_COLOR = arcade.csscolor.WHITE
 

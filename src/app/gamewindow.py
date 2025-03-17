@@ -66,7 +66,6 @@ class GameWindow(arcade.Window):
             antialiasing=antialiasing,
             samples=samples,
             gc_mode='auto',
-            gl_api='gles',
             fixed_rate=fixed_rate
         )
 

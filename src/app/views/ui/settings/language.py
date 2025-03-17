@@ -43,6 +43,8 @@ class Language(arcade.gui.UIManager):
 
         for l in locales:
             btn = make_button(locales[l])
+            btn.disabled = self._state.language == l
+
             self._btn_languages[l] = btn
             btn.on_click = self.on_change_language
             widgets += [btn]
@@ -70,10 +72,6 @@ class Language(arcade.gui.UIManager):
 
         self._state.language = new_lang
         self._state.save()
-
-        if old_lang == new_lang:
-            self.on_back(event)
-            return
 
         self.add(
             make_restart_to_apply_settings_alert(on_action=self.on_back)

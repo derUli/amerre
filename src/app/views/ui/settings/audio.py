@@ -5,13 +5,13 @@ import arcade.gui
 from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
+from app.constants.ui import MARGIN
 from app.helpers.audio import audio_drivers
 from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
-MARGIN = 20
 
 
 class Audio(arcade.gui.UIManager):
@@ -126,8 +126,10 @@ class Audio(arcade.gui.UIManager):
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = arcade.gui.UIBoxLayout(align='center',
-                                               space_between=MARGIN)
+        widget_layout = arcade.gui.UIBoxLayout(
+            align='center',
+            space_between=MARGIN
+        )
 
         for widget in widgets:
             widget_layout.add(widget)

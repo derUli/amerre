@@ -12,6 +12,7 @@ from app.constants.gameinfo import VERSION_STRING, MAPS
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
+from app.constants.ui import MARGIN
 from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.state.settingsstate import SettingsState
@@ -26,7 +27,6 @@ FONT_SIZE_TITLE = 50
 FADE_SPEED = 2
 FADE_MAX = 255
 MUSIC_FADE_SPEED = 0.005
-MARGIN = 10
 
 SCENE_LAYER_FADEIN = 'fadein'
 SCENE_LAYER_ICON = 'icon'
