@@ -353,7 +353,8 @@ class Level:
             return
 
         self._launching_sprite.center_y += (
-                LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time)
+                LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
+        )
         self._launching_sprite.angle = min(
             self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
             360
