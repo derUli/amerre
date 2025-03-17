@@ -12,10 +12,21 @@ MAPS = [
 ]
 
 LOCALE_FALLBACK = 'en'
-LOCALES_ALL = {
-    'de': 'Deutsch',
-    'en': 'English'
-}
+
+
+def dummy_translate(message: str) -> str:
+    return message
+
+def locales_all() -> dict:
+    """ All locales """
+
+    if not hasattr(__name__, '_'):
+        _ = dummy_translate
+
+    return {
+        'de': _('German'),
+        'en': _('English')
+    }
 
 BASE_WIDTH = 2560
 BASE_HEIGHT = 1440

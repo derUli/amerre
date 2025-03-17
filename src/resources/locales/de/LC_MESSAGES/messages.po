@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-17 16:33+0100\n"
+"POT-Creation-Date: 2025-03-17 17:07+0100\n"
 "PO-Revision-Date: 2024-11-05 19:44+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -21,6 +21,14 @@ msgstr ""
 #: app/gamewindow.py:57
 msgid "Welcome to Amerre"
 msgstr "Willkommen in Amerre"
+
+#: app/constants/gameinfo.py:27
+msgid "German"
+msgstr "Deutsch"
+
+#: app/constants/gameinfo.py:28
+msgid "English"
+msgstr "Englisch"
 
 #: app/helpers/gui.py:46
 msgid "OK"
@@ -85,7 +93,7 @@ msgstr "Möchten Sie zurück zum Desktop?"
 msgid "To be continued"
 msgstr "Fortsetzung folgt"
 
-#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:30
 #: app/views/ui/settings/video.py:43
 msgid "Back"
 msgstr "Zurück"
@@ -133,13 +141,17 @@ msgstr "Automatisch"
 msgid "Audio driver"
 msgstr "Audiotreiber"
 
-#: app/views/ui/settings/settings.py:32
+#: app/views/ui/settings/settings.py:33
 msgid "Video"
 msgstr "Video"
 
-#: app/views/ui/settings/settings.py:35
+#: app/views/ui/settings/settings.py:36
 msgid "Audio"
 msgstr "Audio"
+
+#: app/views/ui/settings/settings.py:39
+msgid "Language"
+msgstr "Sprache"
 
 #: app/views/ui/settings/video.py:52
 msgid "Fullscreen"

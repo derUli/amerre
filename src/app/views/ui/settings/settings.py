@@ -43,7 +43,7 @@ class Settings(arcade.gui.UIManager):
             btn_back,
             btn_video,
             btn_audio,
-            btn_language,
+            btn_language
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.

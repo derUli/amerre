@@ -1,6 +1,6 @@
 import locale
 
-from app.constants.gameinfo import LOCALES_ALL, LOCALE_FALLBACK
+from app.constants.gameinfo import locales_all, LOCALE_FALLBACK
 
 
 def default_language():
@@ -8,7 +8,7 @@ def default_language():
 
     ls = list(locale.getlocale())
     ls = map(lambda s: s[:2].lower(), ls)
-    ls = list(filter(lambda s: s in LOCALES_ALL.keys(), ls))
+    ls = list(filter(lambda s: s in locales_all().keys(), ls))
 
     if not any(ls):
         return LOCALE_FALLBACK

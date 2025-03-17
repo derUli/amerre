@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-17 16:33+0100\n"
+"POT-Creation-Date: 2025-03-17 17:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 
 #: app/gamewindow.py:57
 msgid "Welcome to Amerre"
+msgstr ""
+
+#: app/constants/gameinfo.py:27
+msgid "German"
+msgstr ""
+
+#: app/constants/gameinfo.py:28
+msgid "English"
 msgstr ""
 
 #: app/helpers/gui.py:46
@@ -82,7 +90,7 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:29
+#: app/views/ui/settings/audio.py:47 app/views/ui/settings/settings.py:30
 #: app/views/ui/settings/video.py:43
 msgid "Back"
 msgstr ""
@@ -130,12 +138,16 @@ msgstr ""
 msgid "Audio driver"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:32
+#: app/views/ui/settings/settings.py:33
 msgid "Video"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:35
+#: app/views/ui/settings/settings.py:36
 msgid "Audio"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:39
+msgid "Language"
 msgstr ""
 
 #: app/views/ui/settings/video.py:52

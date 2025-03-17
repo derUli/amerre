@@ -1,17 +1,13 @@
 """ Video settings """
-import logging
 import os
 
 import arcade.gui
-import pyglet
-from arcade.gui.events import UIOnClickEvent, UIOnChangeEvent, UIOnActionEvent
+from arcade.gui.events import UIOnClickEvent, UIOnActionEvent
 
-from app.constants.gameinfo import LOCALES_ALL
-from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
-    SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
-from app.helpers.gui import make_label, make_button, make_slider, \
+from app.constants.gameinfo import locales_all
+
+from app.helpers.gui import make_button, \
     make_restart_to_apply_settings_alert
-from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
 
@@ -23,7 +19,6 @@ class Language(arcade.gui.UIManager):
 
         super().__init__()
         self._state = None
-        self._old_state = None
         self._on_close = None
         self._on_change = None
         self._btn_languages = {}
@@ -33,22 +28,16 @@ class Language(arcade.gui.UIManager):
 
         self.disable()
         self.clear()
+        self._btn_languages = {}
         self._on_close = on_close
         self._on_change = on_change
         self._state = SettingsState.load()
 
-        if not self._old_state:
-            self._old_state = SettingsState.load()
-
-        grid = arcade.gui.UIGridLayout(
-            column_count=len(LOCALES_ALL),
-            row_count=1,
-            vertical_spacing=20
-        )
+        locales = locales_all()
 
         widgets = []
-        for l in LOCALES_ALL:
-            btn = make_button(LOCALES_ALL[l])
+        for l in locales:
+            btn = make_button(locales[l])
             self._btn_languages[l] = btn
             btn.on_click = self.on_change_language
             widgets += [btn]
@@ -73,16 +62,21 @@ class Language(arcade.gui.UIManager):
 
         for key in self._btn_languages:
             if event.source == self._btn_languages[key]:
-                new_lang = self._btn_languages[key]
+                new_lang = key
                 break
+
+        self._state.language = new_lang
+        self._state.save()
 
         if old_lang == new_lang:
             self.on_back(event)
             return
 
         self.add(
-            make_restart_to_apply_settings_alert(on_action=self.on_change_language)
+            make_restart_to_apply_settings_alert(on_action=self.on_back)
         )
 
     def on_back(self, event: UIOnClickEvent| UIOnActionEvent):
+        self.disable()
+        self.clear()
         self._on_close()
