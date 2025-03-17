@@ -8,7 +8,7 @@ def default_language():
 
     ls = list(locale.getlocale())
     ls = map(lambda s: s[:2].lower(), ls)
-    ls = list(filter(lambda s: s in LOCALES_ALL, ls))
+    ls = list(filter(lambda s: s in LOCALES_ALL.keys(), ls))
 
     if not any(ls):
         return LOCALE_FALLBACK

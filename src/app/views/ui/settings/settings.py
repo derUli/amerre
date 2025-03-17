@@ -5,6 +5,7 @@ import arcade.gui
 
 from app.helpers.gui import make_button
 from app.views.ui.settings.audio import Audio
+from app.views.ui.settings.language import Language
 from app.views.ui.settings.video import Video
 
 
@@ -35,10 +36,14 @@ class Settings(arcade.gui.UIManager):
         btn_audio = make_button(text=_('Audio'))
         btn_audio.on_click = self.on_audio
 
+        btn_language = make_button(text=_('Language'))
+        btn_language.on_click = self.on_language
+
         widgets = [
             btn_back,
             btn_video,
-            btn_audio
+            btn_audio,
+            btn_language,
         ]
 
         # Initialise a BoxLayout in which widgets can be arranged.
@@ -65,6 +70,12 @@ class Settings(arcade.gui.UIManager):
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
+    def on_language(self, event):
+        self.disable()
+        menu = Language()
+        menu.setup(self.on_enable, self._on_change)
+        self._on_close(menu)
+
     def on_enable(self, refresh_particles=False):
 
         self.enable()
@@ -79,4 +90,3 @@ class Settings(arcade.gui.UIManager):
             self._on_change(refresh_particles=True)
 
         self.disable()
-        self._on_close()
