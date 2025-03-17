@@ -64,16 +64,24 @@ def is_16_9_ratio(width: int, height: int) -> bool:
 
 
 def default_screen() -> Screen:
+    """ Get default screen """
+
     return pyglet.display.get_display().get_default_screen()
 
 
 def default_mode() -> ScreenMode:
+    """ Get default mode """
+
     return default_screen().get_mode()
 
 
 def modes() -> list:
+    """ Get all screen modes """
+
     return default_screen().get_modes()
 
 
 def default_rate() -> int:
+    """ Get default refresh rate """
+
     return default_mode().rate

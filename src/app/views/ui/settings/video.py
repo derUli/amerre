@@ -9,7 +9,8 @@ from app.constants.settings import SETTINGS_UNLIMITED_DRAW_RATE, \
     SETTINGS_DRAW_RATES, ANTIALIASING_VALUES
 from app.helpers.display import default_rate
 from app.helpers.gui import make_label, make_button, make_slider, \
-    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
+    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
+    make_ui_anchor_layout
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
@@ -112,21 +113,13 @@ class Video(arcade.gui.UIManager):
             slider_particles,
         ]
 
-
-        frame = self.add(arcade.gui.UIAnchorLayout())
-
-        frame.add(
-            child=make_vertical_ui_box_layout(widgets),
-            anchor_x="center_x",
-            anchor_y="center_y"
-        )
-
+        self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
         self.enable()
 
     def on_back(self, event: UIOnClickEvent) -> None:
         """ On go back """
 
-        logging.debug(event)
+        
 
         compares = [
             (self._old_state.antialiasing, self._state.antialiasing),
@@ -145,7 +138,7 @@ class Video(arcade.gui.UIManager):
         self._on_back(event)
 
     def _on_back(self, event: UIOnClickEvent | UIOnActionEvent) -> None:
-        logging.debug(event)
+        
 
         self.disable()
         self._on_close()
@@ -153,7 +146,7 @@ class Video(arcade.gui.UIManager):
     def on_toggle_fps(self, event: UIOnClickEvent) -> None:
         """ On toggle fps display """
 
-        logging.debug(event)
+        
 
         if arcade.timings_enabled():
             arcade.disable_timings()
@@ -167,7 +160,7 @@ class Video(arcade.gui.UIManager):
 
     def on_toggle_fullscreen(self, event: UIOnClickEvent) -> None:
 
-        logging.debug(event)
+        
 
         self._state.fullscreen = not self._state.fullscreen
         self._state.save()
@@ -175,7 +168,7 @@ class Video(arcade.gui.UIManager):
 
     def on_toggle_vsync(self, event: UIOnClickEvent) -> None:
 
-        logging.debug(event)
+        
 
         arcade.get_window().set_vsync(not arcade.get_window().vsync)
 
@@ -189,13 +182,13 @@ class Video(arcade.gui.UIManager):
     def on_change_particles(self, event: UIOnChangeEvent) -> None:
         """ master volume changed """
 
-        logging.debug(event)
+        
         self._state.particles = float(event.new_value)
         self._state.save()
         self._on_change(refresh_particles=True)
 
     def on_change_fps_limit(self, event):
-        logging.debug(event)
+        
         current_fps = self._state.draw_rate
         draw_rates = SETTINGS_DRAW_RATES
 
@@ -222,7 +215,7 @@ class Video(arcade.gui.UIManager):
         self.refresh()
 
     def on_change_antialiasing(self, event: UIOnChangeEvent) -> None:
-        logging.debug(event)
+        
         index = ANTIALIASING_VALUES.index(self._state.antialiasing)
         index += 1
 

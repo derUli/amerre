@@ -1,7 +1,7 @@
 """ Gui helper """
 
 import arcade.gui
-from arcade.gui import UIMessageBox, UIBoxLayout
+from arcade.gui import UIMessageBox, UIBoxLayout, UIAnchorLayout
 
 from app.constants.fonts import FONT_SIZE_LABEL, FONT_DEFAULT
 from app.constants.ui import BUTTON_WIDTH, MODAL_WIDTH, MODAL_HEIGHT, MARGIN
@@ -69,3 +69,14 @@ def make_vertical_ui_box_layout(children:list) -> UIBoxLayout:
     )
 
     return widget_layout
+
+def make_ui_anchor_layout(children: list) -> UIAnchorLayout:
+    layout = UIAnchorLayout()
+    for child in children:
+        layout.add(
+            child,
+            anchor_x='center',
+            anchor_y='center'
+        )
+
+    return layout

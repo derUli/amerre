@@ -9,7 +9,8 @@ from arcade.gui import UIOnActionEvent
 from app.constants.input.controllers import KEY_START
 from app.constants.input.keyboard import KEY_ESCAPE
 from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
-from app.helpers.gui import make_button, make_vertical_ui_box_layout
+from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
+    make_ui_anchor_layout
 from app.views.ui.settings.settings import Settings
 
 
@@ -36,7 +37,6 @@ class PauseMenu(arcade.View):
         def on_click_btn_continue(event):
             """ Continue button clicked """
 
-            logging.debug(event)
             self.on_continue()
 
         btn_settings = make_button(text=_('Settings'))
@@ -45,7 +45,6 @@ class PauseMenu(arcade.View):
         def on_click_settings(event):
             """ settings button clicked """
 
-            logging.debug(event)
             self._manager.disable()
             self._manager2 = Settings()
             self._manager2.setup(self.on_close_settings,
@@ -57,7 +56,6 @@ class PauseMenu(arcade.View):
         def on_click_btn_exit_to_menu(event):
             """ Exit button clicked """
 
-            logging.debug(event)
             self.on_exit_to_menu()
 
         btn_exit_to_desktop = make_button(text=_('Exit to desktop'))
@@ -66,7 +64,6 @@ class PauseMenu(arcade.View):
         def on_click_btn_exit_to_desktop(event):
             """ Exit button clicked """
 
-            logging.debug(event)
             self.on_exit_to_desktop()
 
         widgets = [
@@ -77,15 +74,10 @@ class PauseMenu(arcade.View):
         ]
 
         # Passing the main view into menu view as an argument.
-        anchor = self._manager.add(arcade.gui.UIAnchorLayout())
-
-        anchor.add(
-            anchor_x="center_x",
-            anchor_y="center_y",
-            child=make_vertical_ui_box_layout(widgets),
+        self._manager.add(
+            make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)])
         )
 
-        self._manager.add(anchor)
         self._manager.enable()
 
     def on_hide_view(self) -> None:

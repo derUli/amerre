@@ -4,7 +4,8 @@ import logging
 import arcade.gui
 
 from app.constants.ui import MARGIN
-from app.helpers.gui import make_button, make_vertical_ui_box_layout
+from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
+    make_ui_anchor_layout
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.language import Language
 from app.views.ui.settings.video import Video
@@ -47,14 +48,7 @@ class Settings(arcade.gui.UIManager):
             btn_language
         ]
 
-        frame = self.add(arcade.gui.UIAnchorLayout())
-
-        frame.add(
-            child=make_vertical_ui_box_layout(widgets),
-            anchor_x="center_x",
-            anchor_y="center_y"
-        )
-
+        self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
         self.enable()
 
     def on_video(self, event):
@@ -83,7 +77,7 @@ class Settings(arcade.gui.UIManager):
     def on_back(self, event, refresh_particles=False):
         """ On go back """
 
-        logging.debug(event)
+        
         if refresh_particles:
             self._on_change(refresh_particles=True)
 

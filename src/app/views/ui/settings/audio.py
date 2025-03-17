@@ -7,7 +7,8 @@ from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
 from app.helpers.audio import audio_drivers
 from app.helpers.gui import make_label, make_button, make_slider, \
-    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
+    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
+    make_ui_anchor_layout
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
@@ -123,20 +124,12 @@ class Audio(arcade.gui.UIManager):
             btn_audio_driver
         ]
 
-        frame = self.add(arcade.gui.UIAnchorLayout())
-
-        frame.add(
-            child=make_vertical_ui_box_layout(widgets),
-            anchor_x="center_x",
-            anchor_y="center_y"
-        )
+        self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
 
         self.enable()
 
     def on_back(self, event):
         """ On go back """
-
-        logging.debug(event)
 
         if self._old_state.audio_driver == self._state.audio_driver:
             self._on_back(event)
@@ -146,7 +139,6 @@ class Audio(arcade.gui.UIManager):
         self.add(alert)
 
     def _on_back(self, event: UIOnClickEvent | UIOnActionEvent) -> None:
-        logging.debug(event)
         self._state.save()
         self.disable()
         self._on_close()
@@ -154,21 +146,21 @@ class Audio(arcade.gui.UIManager):
     def on_change_volume_master(self, event: UIOnChangeEvent) -> None:
         """ master volume changed """
 
-        logging.debug(event)
+        
         self._state.audio_volumes.volume_master = int(event.new_value)
         self._on_change(self._state)
 
     def on_change_volume_sound(self, event: UIOnChangeEvent) -> None:
         """ Sound volume changed """
 
-        logging.debug(event)
+        
         self._state.audio_volumes.volume_sound = int(event.new_value)
         self._on_change(self._state)
 
     def on_change_volume_speech(self, event: UIOnChangeEvent) -> None:
         """ Speech volume changed """
 
-        logging.debug(event)
+        
         self._state.audio_volumes.volume_speech = int(event.new_value)
         self._on_change(self._state)
 
@@ -187,7 +179,7 @@ class Audio(arcade.gui.UIManager):
     def on_toggle_subtitles(self, event: UIOnClickEvent) -> None:
         """ On toggle subtitles """
 
-        logging.debug(event)
+        
         self._state.subtitle_enabled = not self._state.subtitle_enabled
         self._on_change(self._state)
         self._state.save()
@@ -196,7 +188,7 @@ class Audio(arcade.gui.UIManager):
     def on_change_driver(self, event: UIOnClickEvent) -> None:
         """ On change driver """
 
-        logging.debug(event)
+        
         old_value = self._state.audio_driver
 
         try:

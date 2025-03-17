@@ -6,7 +6,8 @@ from arcade.gui.events import UIOnClickEvent, UIOnActionEvent
 
 from app.constants.gameinfo import locales_translated
 from app.helpers.gui import make_button, \
-    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
+    make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
+    make_ui_anchor_layout
 from app.state.settingsstate import SettingsState
 
 
@@ -50,12 +51,7 @@ class Language(arcade.gui.UIManager):
             widgets += [btn]
 
         # Initialise a BoxLayout in which widgets can be arranged.
-        widget_layout = make_vertical_ui_box_layout(widgets)
-
-
-        frame = self.add(arcade.gui.UIAnchorLayout())
-
-        frame.add(child=widget_layout, anchor_x="center_x", anchor_y="center_y")
+        self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
 
         self.enable()
 
