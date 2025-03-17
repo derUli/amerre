@@ -5,13 +5,11 @@ import arcade.gui
 from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
 
 from app.constants.settings import SETTINGS_DEFAULT_AUDIO_DRIVER
-from app.constants.ui import MARGIN
 from app.helpers.audio import audio_drivers
 from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
-
 
 
 class Audio(arcade.gui.UIManager):
@@ -174,21 +172,31 @@ class Audio(arcade.gui.UIManager):
         self._state.audio_volumes.volume_speech = int(event.new_value)
         self._on_change(self._state)
 
-    def on_change_volume_music(self, event):
+    def on_change_volume_music(self, event: UIOnChangeEvent) -> None:
+        """ On change music volume """
+
         self._state.audio_volumes.volume_music = int(event.new_value)
         self._on_change(self._state)
 
-    def on_change_subtitle_size(self, event):
+    def on_change_subtitle_size(self, event: UIOnChangeEvent) -> None:
+        """ On change subtitle size """
+
         self._state.subtitle_size = int(event.new_value)
         self._on_change(self._state)
 
-    def on_toggle_subtitles(self, event):
+    def on_toggle_subtitles(self, event: UIOnClickEvent) -> None:
+        """ On toggle subtitles """
+
+        logging.debug(event)
         self._state.subtitle_enabled = not self._state.subtitle_enabled
         self._on_change(self._state)
         self._state.save()
         self.setup(self._on_close, self._on_change)
 
-    def on_change_driver(self, event):
+    def on_change_driver(self, event: UIOnClickEvent) -> None:
+        """ On change driver """
+
+        logging.debug(event)
         old_value = self._state.audio_driver
 
         try:
@@ -210,5 +218,7 @@ class Audio(arcade.gui.UIManager):
 
         self.refresh()
 
-    def refresh(self):
+    def refresh(self) -> None:
+        """ On refresh view  """
+
         self.setup(self._on_close, self._on_change)
