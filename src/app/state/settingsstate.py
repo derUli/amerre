@@ -279,6 +279,7 @@ class SettingsState:
         """ Get language """
         return self._language
 
+    @language.setter
     def language(self, value: str) -> None:
         """ Set language """
 

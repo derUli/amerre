@@ -44,12 +44,12 @@ class Startup:
 
         return self
 
-    def setup_locale(self, lang: list) -> None:
+    def setup_locale(self, lang: str) -> None:
         """ setup locale """
 
         locale_path = os.path.join(self._root_dir, 'resources', 'locales')
 
-        os.environ['LANG'] = ':'.join(lang)
+        os.environ['LANG'] = lang
         logging.info(label_value('Language', os.environ['LANG']))
         gettext.install('messages', locale_path)
 
@@ -81,7 +81,7 @@ class Startup:
 
         state = SettingsState.load()
 
-        self.setup_locale(state.lang)
+        self.setup_locale(state.language)
 
         # Create settings state on first launch
         if not state.exists():
