@@ -32,6 +32,7 @@ class VoiceOverTiggers:
         self._subtitle = Subtitle()
         self.launching_sprite = None
         self._tilemap = None
+        self._missile_sound = None
 
     def setup(self, voiceover_range: list, callbacks: Callbacks, tilemap: arcade.TileMap):
         """ Setup """
@@ -168,3 +169,12 @@ class VoiceOverTiggers:
         if self.launching_sprite.bottom > map_height:
             self.launching_sprite.remove_from_sprite_lists()
             self.launching_sprite = None
+
+
+    @property
+    def missile_sound(self) -> arcade.Sound | None:
+        return self._missile_sound
+
+    @missile_sound.setter
+    def missile_sound(self, value: arcade.Sound|None) -> None:
+        self._missile_sound = value

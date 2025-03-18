@@ -66,7 +66,6 @@ class Level:
         self._root_dir = None
         self._effect_manager = None
         self._rumble = 0
-        self._missile_sound = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
@@ -162,7 +161,7 @@ class Level:
         self._voiceover_triggers.update_collision_light(delta_time)
         self._effect_manager.on_update(delta_time)
 
-        if self._missile_sound and not self._missile_sound.playing:
+        if self._voiceover_triggers.missile_sound and not self._voiceover_triggers.missile_sound.playing:
             self._rumble = 0
 
         self._scene.update(delta_time)
@@ -328,7 +327,7 @@ class Level:
         if not found:
             return
 
-        self._missile_sound = arcade.load_sound(
+        self._voiceover_triggers.missile_sound = arcade.load_sound(
             os.path.join(root_dir, 'resources', 'sounds', 'lights',
                          'missle-launch-001.mp3'),
             streaming=True
