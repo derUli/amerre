@@ -41,10 +41,13 @@ LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
 LIGHT_LAUNCHING_ROTATING_SPEED = 500
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
+LIGHT_LAUNCHING_RUMBLE = 100
+
 VOLUME_MUSIC_MODIFIER = 0.3
 VOLUME_ATMO_MODIFIER = 0.1
 
 WHITE = arcade.csscolor.WHITE
+
 
 
 class Level:
@@ -65,6 +68,8 @@ class Level:
         self._atmo = None
         self._root_dir = None
         self._effect_manager = None
+        self._rumble = 0
+        self._missile_sound = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
@@ -158,6 +163,9 @@ class Level:
     ):
         self.update_collision_light(delta_time)
         self._effect_manager.on_update(delta_time)
+
+        if self._missile_sound and not self._missile_sound.playing:
+            self._rumble = 0
 
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
@@ -315,13 +323,14 @@ class Level:
                     ) < LIGHT_COLLISION_CHECK_THRESHOLD:
                         logging.info(f'Collided with {layer}')
                         self._launching_sprite = sprite
+                        self._rumble = LIGHT_LAUNCHING_RUMBLE
                         found = layer
                         break
 
         if not found:
             return
 
-        arcade.load_sound(
+        self._missile_sound = arcade.load_sound(
             os.path.join(root_dir, 'resources', 'sounds', 'lights',
                          'missle-launch-001.mp3'),
             streaming=True
@@ -343,7 +352,7 @@ class Level:
             root_dir,
             voiceover,
             volumes,
-            self._music
+            self._music,
         )
 
     def update_collision_light(self, delta_time: float):
@@ -472,3 +481,9 @@ class Level:
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
         with open(path, mode='r', encoding = DEFAULT_ENCODING) as file:
             return json.load(file)
+
+
+    @property
+    def rumble(self) -> int:
+        return self._rumble
+

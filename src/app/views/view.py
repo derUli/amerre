@@ -22,3 +22,10 @@ class View(arcade.View):
         """ Setup view """
         self._root_dir = root_dir
         self._scene = arcade.scene.Scene()
+
+    def rumble(self, strength: int) -> None:
+        for controller in self.window.controllers:
+            if strength > 0:
+                controller.rumble_play_strong(strength)
+            else:
+                controller.rumble_stop_strong()

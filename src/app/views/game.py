@@ -66,6 +66,8 @@ class Game(View):
             sprint=self._sprint
         )
 
+        self.rumble(self._level.rumble)
+
         if self._jump:
             self._jump = False
 
