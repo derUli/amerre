@@ -72,20 +72,14 @@ class VoiceOverTiggers:
             self._music = None
 
     @staticmethod
-    def voiceover_path(root_dir: str, languages: list, voiceover: str) -> str:
+    def voiceover_path(root_dir: str, language: str, voiceover: str) -> str:
         """ Get path to voiceover """
-
-        for l in languages:
-            path = os.path.join(root_dir, 'resources', 'speech', l[0],
-                                voiceover)
-            if os.path.isfile(path):
-                return path
 
         return os.path.join(
             root_dir,
             'resources',
             'speech',
-            LOCALE_FALLBACK,
+            language,
             voiceover
         )
 
@@ -102,9 +96,7 @@ class VoiceOverTiggers:
 
         logging.info(label_value('Play speech', voiceover))
 
-        languages = list(
-            map(lambda x: x.split('_'), os.environ['LANG'].split(':')))
-        filename = self.voiceover_path(root_dir, languages, voiceover)
+        filename = self.voiceover_path(root_dir, os.environ['LANG'], voiceover)
         sound = arcade.load_sound(filename, streaming=True)
 
         playback = sound.play(volume=audio_volumes.volume_speech_normalized)
@@ -174,6 +166,10 @@ class VoiceOverTiggers:
             self.launching_sprite = None
 
     def check_for_collision(self, player, scene, root_dir, volumes, music) -> Sprite|None:
+
+        if self.launching_sprite or self.playing:
+            return None
+
         found_sprite = None
         found_layer = None
         for layer in LAYERS_VOICEOVER:
