@@ -5,8 +5,10 @@ import random
 
 import arcade
 import pyglet
+from arcade import Sprite
 
 from app.constants.gameinfo import LOCALE_FALLBACK
+from app.constants.layers import LAYERS_VOICEOVER, LAYER_FIRST_VOICEOVER
 from app.containers.callbacks import Callbacks
 from app.helpers.string import label_value
 from app.utils.audiovolumes import AudioVolumes
@@ -17,6 +19,7 @@ MULTIPLIER_MUSIC = 0.66
 
 LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
 LIGHT_LAUNCHING_ROTATING_SPEED = 500
+LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
 class VoiceOverTiggers:
     """ Voice over trigger handling """
@@ -170,6 +173,53 @@ class VoiceOverTiggers:
             self.launching_sprite.remove_from_sprite_lists()
             self.launching_sprite = None
 
+    def check_for_collision(self, player, scene, root_dir, volumes, music) -> Sprite|None:
+        found_sprite = None
+        found_layer = None
+        for layer in LAYERS_VOICEOVER:
+            if layer in scene:
+                for sprite in scene[layer]:
+                    if arcade.get_distance_between_sprites(
+                            player,
+                            sprite
+                    ) < LIGHT_COLLISION_CHECK_THRESHOLD:
+                        found_sprite = sprite
+                        found_layer = layer
+                        break
+
+        if not found_sprite:
+            return None
+
+        logging.info(f'Collided with {found_layer}')
+
+        self.launching_sprite = found_sprite
+        self.missile_sound = arcade.load_sound(
+            os.path.join(root_dir, 'resources', 'sounds',
+                         'lights',
+                         'missle-launch-001.mp3'),
+            streaming=True
+        ).play(volume=volumes.volume_sound_normalized)
+
+        self.playing = True
+
+        voiceover = self.pop(
+            first=found_layer == LAYER_FIRST_VOICEOVER
+        )
+
+        if not voiceover:
+            logging.error('No voiceovers left')
+            return None
+
+        pyglet.clock.schedule_once(
+            self.play_voiceover,
+            2,
+            root_dir,
+            voiceover,
+            volumes,
+            music,
+        )
+
+        return found_sprite
 
     @property
     def missile_sound(self) -> arcade.Sound | None:

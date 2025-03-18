@@ -37,8 +37,6 @@ GRAVITY_DEFAULT = 0.8
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
 
-LIGHT_COLLISION_CHECK_THRESHOLD = 100
-
 LIGHT_LAUNCHING_RUMBLE = 100
 
 VOLUME_MUSIC_MODIFIER = 0.3
@@ -309,48 +307,18 @@ class Level:
         if self._voiceover_triggers.launching_sprite or self._voiceover_triggers.playing:
             return
 
-        found = None
-
-        for layer in LAYERS_VOICEOVER:
-            if layer in self._scene:
-                for sprite in self._scene[layer]:
-                    if arcade.get_distance_between_sprites(
-                            self.player,
-                            sprite
-                    ) < LIGHT_COLLISION_CHECK_THRESHOLD:
-                        logging.info(f'Collided with {layer}')
-                        self._voiceover_triggers.launching_sprite = sprite
-                        self._rumble = LIGHT_LAUNCHING_RUMBLE
-                        found = layer
-                        break
+        found = self._voiceover_triggers.check_for_collision(
+            self.player,
+            self._scene,
+            root_dir,
+            volumes,
+            self._music,
+        )
 
         if not found:
             return
 
-        self._voiceover_triggers.missile_sound = arcade.load_sound(
-            os.path.join(root_dir, 'resources', 'sounds', 'lights',
-                         'missle-launch-001.mp3'),
-            streaming=True
-        ).play(volume=volumes.volume_sound_normalized)
-
-        self._voiceover_triggers.playing = True
-
-        voiceover = self._voiceover_triggers.pop(
-            first=found == LAYER_FIRST_VOICEOVER
-        )
-
-        if not voiceover:
-            logging.error('No voiceovers left')
-            return
-
-        pyglet.clock.schedule_once(
-            self._voiceover_triggers.play_voiceover,
-            2,
-            root_dir,
-            voiceover,
-            volumes,
-            self._music,
-        )
+        self._rumble = LIGHT_LAUNCHING_RUMBLE
 
     def unsetup(self):
         """ On exit stop and delete sounds """
