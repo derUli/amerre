@@ -37,8 +37,6 @@ GRAVITY_DEFAULT = 0.8
 ALPHA_SPEED = 2
 ALPHA_MAX = 255
 
-LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
-LIGHT_LAUNCHING_ROTATING_SPEED = 500
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
 
 LIGHT_LAUNCHING_RUMBLE = 100
@@ -122,7 +120,8 @@ class Level:
         callbacks = Callbacks(on_level_completed=self.on_level_completed)
         self._voiceover_triggers = VoiceOverTiggers().setup(
             voiceover_range=map_config['voiceovers'],
-            callbacks=callbacks
+            callbacks=callbacks,
+            tilemap=self._tilemap
         )
         self.scroll_to_player()
 
@@ -160,7 +159,7 @@ class Level:
             self,
             delta_time: float
     ):
-        self.update_collision_light(delta_time)
+        self._voiceover_triggers.update_collision_light(delta_time)
         self._effect_manager.on_update(delta_time)
 
         if self._missile_sound and not self._missile_sound.playing:
@@ -353,29 +352,6 @@ class Level:
             volumes,
             self._music,
         )
-
-    def update_collision_light(self, delta_time: float):
-        """ Update voiceover light """
-
-        if not self._voiceover_triggers.launching_sprite:
-            return
-
-        self._voiceover_triggers.launching_sprite.center_y += (
-                LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
-        )
-        self._voiceover_triggers.launching_sprite.angle = min(
-            self._voiceover_triggers.launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
-            360
-        )
-
-        if self._voiceover_triggers.launching_sprite.angle >= 360:
-            self._voiceover_triggers.launching_sprite.angle = 0
-
-        map_height = self._tilemap.height * self._tilemap.tile_height
-
-        if self._voiceover_triggers.launching_sprite.bottom > map_height:
-            self._voiceover_triggers.launching_sprite.remove_from_sprite_lists()
-            self._voiceover_triggers.launching_sprite = None
 
     def unsetup(self):
         """ On exit stop and delete sounds """

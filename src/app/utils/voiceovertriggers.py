@@ -15,6 +15,8 @@ from app.utils.subtitle import Subtitle
 VOICEOVER_DEFAULT = 'text00.mp3'
 MULTIPLIER_MUSIC = 0.66
 
+LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
+LIGHT_LAUNCHING_ROTATING_SPEED = 500
 
 class VoiceOverTiggers:
     """ Voice over trigger handling """
@@ -29,11 +31,13 @@ class VoiceOverTiggers:
         self._initial_volume = 0
         self._subtitle = Subtitle()
         self.launching_sprite = None
+        self._tilemap = None
 
-    def setup(self, voiceover_range: list, callbacks: Callbacks):
+    def setup(self, voiceover_range: list, callbacks: Callbacks, tilemap: arcade.TileMap):
         """ Setup """
 
         self._callbacks = callbacks
+        self._tilemap = tilemap
 
         voiceovers = []
 
@@ -87,7 +91,8 @@ class VoiceOverTiggers:
             root_dir: str,
             voiceover: str,
             audio_volumes: AudioVolumes,
-            music: pyglet.media.player.Player
+            music: pyglet.media.player.Player,
+            
     ):
         """ Play voiceover """
 
@@ -139,3 +144,27 @@ class VoiceOverTiggers:
             return
 
         self._subtitle.on_update(self._media)
+
+
+    def update_collision_light(self, delta_time: float):
+        """ Update voiceover light """
+
+        if not self.launching_sprite:
+            return
+
+        self.launching_sprite.center_y += (
+                LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
+        )
+        self.launching_sprite.angle = min(
+            self.launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
+            360
+        )
+
+        if self.launching_sprite.angle >= 360:
+            self.launching_sprite.angle = 0
+
+        map_height = self._tilemap.height * self._tilemap.tile_height
+
+        if self.launching_sprite.bottom > map_height:
+            self.launching_sprite.remove_from_sprite_lists()
+            self.launching_sprite = None
