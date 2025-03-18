@@ -807,7 +807,7 @@
 </data>
  </layer>
  <objectgroup id="6" name="Player">
-  <object id="2" gid="3" x="10956" y="209.243" width="200" height="200"/>
+  <object id="2" gid="3" x="10956" y="209.243" width="192" height="192"/>
  </objectgroup>
  <layer id="21" name="Bush" width="560" height="53">
   <data encoding="csv">
