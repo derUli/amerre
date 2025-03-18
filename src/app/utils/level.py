@@ -137,7 +137,6 @@ class Level:
             walls=self._scene[LAYER_WALL],
             gravity_constant=GRAVITY_SLOWMO
         )
-        # self._physics_engine.enable_multi_jump(2)
 
     def load_tilemap(self, path):
         """ Load tilemap """
