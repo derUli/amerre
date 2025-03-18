@@ -62,7 +62,6 @@ class Level:
         self._camera_gui = None
         self._physics_engine = None
         self._can_walk = False
-        self._launching_sprite = None
         self._voiceover_triggers = None
         self._music = None
         self._atmo = None
@@ -309,7 +308,7 @@ class Level:
     def check_collision_lights(self, root_dir: str, volumes: AudioVolumes):
         """ Check for collisions with lights """
 
-        if self._launching_sprite or self._voiceover_triggers.playing:
+        if self._voiceover_triggers.launching_sprite or self._voiceover_triggers.playing:
             return
 
         found = None
@@ -322,7 +321,7 @@ class Level:
                             sprite
                     ) < LIGHT_COLLISION_CHECK_THRESHOLD:
                         logging.info(f'Collided with {layer}')
-                        self._launching_sprite = sprite
+                        self._voiceover_triggers.launching_sprite = sprite
                         self._rumble = LIGHT_LAUNCHING_RUMBLE
                         found = layer
                         break
@@ -358,25 +357,25 @@ class Level:
     def update_collision_light(self, delta_time: float):
         """ Update voiceover light """
 
-        if not self._launching_sprite:
+        if not self._voiceover_triggers.launching_sprite:
             return
 
-        self._launching_sprite.center_y += (
+        self._voiceover_triggers.launching_sprite.center_y += (
                 LIGHT_LAUNCHING_MOVEMENT_SPEED * delta_time
         )
-        self._launching_sprite.angle = min(
-            self._launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
+        self._voiceover_triggers.launching_sprite.angle = min(
+            self._voiceover_triggers.launching_sprite.angle + LIGHT_LAUNCHING_ROTATING_SPEED * delta_time,
             360
         )
 
-        if self._launching_sprite.angle >= 360:
-            self._launching_sprite.angle = 0
+        if self._voiceover_triggers.launching_sprite.angle >= 360:
+            self._voiceover_triggers.launching_sprite.angle = 0
 
         map_height = self._tilemap.height * self._tilemap.tile_height
 
-        if self._launching_sprite.bottom > map_height:
-            self._launching_sprite.remove_from_sprite_lists()
-            self._launching_sprite = None
+        if self._voiceover_triggers.launching_sprite.bottom > map_height:
+            self._voiceover_triggers.launching_sprite.remove_from_sprite_lists()
+            self._voiceover_triggers.launching_sprite = None
 
     def unsetup(self):
         """ On exit stop and delete sounds """

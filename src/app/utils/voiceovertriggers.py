@@ -28,6 +28,7 @@ class VoiceOverTiggers:
         self._music = None
         self._initial_volume = 0
         self._subtitle = Subtitle()
+        self.launching_sprite = None
 
     def setup(self, voiceover_range: list, callbacks: Callbacks):
         """ Setup """
