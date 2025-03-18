@@ -425,4 +425,3 @@ class Level:
     @property
     def rumble(self) -> int:
         return self._rumble
-

@@ -19,7 +19,8 @@ from app.constants.settings import (
     SETTINGS_DEFAULT_ANTIALIASING, \
     SETTINGS_DEFAULT_PARTICLES,
     SETTINGS_DEFAULT_DRAW_RATE, \
-    SETTINGS_DEFAULT_DEBUG, SETTINGS_DEFAULT_AUDIO_DRIVER
+    SETTINGS_DEFAULT_DEBUG, SETTINGS_DEFAULT_AUDIO_DRIVER,
+    SETTINGS_DEFAULT_RUMBLE
 )
 from app.helpers.display import fullscreen_resolution, window_resolution, \
     default_rate
@@ -27,7 +28,7 @@ from app.helpers.localization import default_language
 from app.helpers.paths import settings_path
 from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 1
+VERSION = 2
 
 
 class SettingsState:
@@ -59,8 +60,10 @@ class SettingsState:
         self._subtitle_enabled = SETTINGS_DEFAULT_SUBTITLE_ENABLED
         self._subtitle_size = SETTINGS_DEFAULT_SUBTITLE_SIZE
 
-        # Generel
+        # General
         self._language = default_language()
+        self._rumble = SETTINGS_DEFAULT_RUMBLE
+
         # Other
         self._debug = SETTINGS_DEFAULT_DEBUG
 
@@ -276,3 +279,11 @@ class SettingsState:
         """ Set language """
 
         self._language = value
+
+    @property
+    def rumble(self) -> bool:
+        return self._rumble
+
+    @rumble.setter
+    def rumble(self, value: bool) -> None:
+        self._rumble = value

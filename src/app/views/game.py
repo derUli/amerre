@@ -36,6 +36,7 @@ class Game(View):
         self._move_horizontal = None
         self._jump = False
         self._sprint = False
+        self._state = None
 
     def setup(self, root_dir: str):
         """ Setup game"""
@@ -45,6 +46,7 @@ class Game(View):
 
         self._level = Level()
         self.window.set_mouse_visible(False)
+        self._state = SettingsState().load()
 
     def setup_level(self, map_name: str):
         """ Setup level """
@@ -66,7 +68,8 @@ class Game(View):
             sprint=self._sprint
         )
 
-        self.rumble(self._level.rumble)
+        if self._state.rumble:
+            self.rumble(self._level.rumble * int(self._state.rumble))
 
         if self._jump:
             self._jump = False
@@ -163,8 +166,8 @@ class Game(View):
     def on_continue(self) -> None:
         """ On continue """
 
-        state = SettingsState.load()
-        self.window.audio_volumes = state.audio_volumes
+        self._state = SettingsState.load()
+        self.window.audio_volumes = self._state.audio_volumes
         self._level.on_continue()
 
     def unsetup(self) -> None:
