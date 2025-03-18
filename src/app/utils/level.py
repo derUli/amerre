@@ -137,6 +137,7 @@ class Level:
             walls=self._scene[LAYER_WALL],
             gravity_constant=GRAVITY_SLOWMO
         )
+        # self._physics_engine.enable_multi_jump(2)
 
     def load_tilemap(self, path):
         """ Load tilemap """
@@ -202,7 +203,8 @@ class Level:
         player = self.player
 
         x, y = player.position
-        y = max(BASE_HEIGHT / 2, y)
+
+
 
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
