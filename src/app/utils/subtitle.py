@@ -1,3 +1,5 @@
+""" Subtitle """
+
 import logging
 import os
 
@@ -12,13 +14,17 @@ TEXT_COLOR = arcade.csscolor.WHITE
 
 
 class Subtitle:
+    """ Subtitle """
+
     def __init__(self):
+        """ Constructor """
         self._texts = []
         self._rendered_texts = []
         self._current_text = None
 
     def load(self, filename: str) -> None:
         """ Load subtitle file """
+
         self.clear()
 
         filename_parts = os.path.splitext(filename)
@@ -40,7 +46,7 @@ class Subtitle:
 
         self._rendered_texts = []
 
-        w, h = arcade.get_window().get_size()
+        w = arcade.get_window().width
 
         for text in self._texts:
 
