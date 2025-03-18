@@ -1,4 +1,4 @@
-""" Video settings """
+""" Audio settings """
 
 import arcade.gui
 from arcade.gui.events import UIOnChangeEvent, UIOnClickEvent, UIOnActionEvent
@@ -8,12 +8,13 @@ from app.helpers.audio import audio_drivers
 from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
+from app.helpers.localization import bool_to_on_off
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
 
 class Audio(arcade.gui.UIManager):
-    """ Settings settings """
+    """ Audio settings menu """
 
     def __init__(self):
         """ Constructor """
@@ -84,13 +85,11 @@ class Audio(arcade.gui.UIManager):
         )
         slider_subtitle_size.on_change = self.on_change_subtitle_size
 
-        subtitles_text = _('Off')
-        if self._state.subtitle_enabled:
-            subtitles_text = _('On')
-
         btn_toggle_subtitles = make_button(
-            text=label_value(_('Subtitles'), subtitles_text),
-        )
+            text=label_value(
+                _('Subtitles'),
+                bool_to_on_off(self._state.subtitle_enabled)
+            ))
 
         btn_toggle_subtitles.on_click = self.on_toggle_subtitles
 

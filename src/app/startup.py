@@ -16,6 +16,7 @@ from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 from app.utils.log import log_hardware_info
 
+
 class Startup:
     """ Game startup """
 

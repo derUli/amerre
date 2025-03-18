@@ -9,12 +9,13 @@ from app.helpers.display import default_rate
 from app.helpers.gui import make_label, make_button, make_slider, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
+from app.helpers.localization import bool_to_on_off
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
 
 
 class Video(arcade.gui.UIManager):
-    """ Settings settings """
+    """ Video settings menu """
 
     def __init__(self):
         """ Constructor """
@@ -44,13 +45,10 @@ class Video(arcade.gui.UIManager):
         btn_back.on_click = self.on_back
         grid.add(btn_back, col_num=0, row_num=0)
 
-        fullscreen_text = _('Off')
-        if self._state.fullscreen:
-            fullscreen_text = _('On')
-
         btn_toggle_fullscreen = make_button(
-            text=label_value(_('Fullscreen'), fullscreen_text)
-        )
+            text=label_value(_('Fullscreen'),
+                             bool_to_on_off(self._state.fullscreen)
+                             ))
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
 
         # Currently disabled because it's buggy
@@ -58,12 +56,11 @@ class Video(arcade.gui.UIManager):
 
         grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
 
-        vsync_text = _('Off')
-        if arcade.get_window().vsync:
-            vsync_text = _('On')
-
         btn_toggle_vsync = make_button(
-            text=label_value(_('V-Sync'), vsync_text)
+            text=label_value(
+                _('V-Sync'),
+                bool_to_on_off(arcade.get_window().vsync)
+            )
         )
         btn_toggle_vsync.on_click = self.on_toggle_vsync
         grid.add(btn_toggle_vsync, col_num=2, row_num=0)
@@ -76,11 +73,13 @@ class Video(arcade.gui.UIManager):
             text=label_value(_('FPS Limit'), str(draw_rate_text)))
         btn_fps_limit.on_click = self.on_change_fps_limit
 
-        fps_text = _('Off')
-        if arcade.timings_enabled():
-            fps_text = _('On')
-
-        btn_toggle_fps = make_button(text=label_value(_('Show FPS'), fps_text))
+        btn_toggle_fps = make_button(
+            text=label_value(
+                _('Show FPS'),
+                bool_to_on_off(arcade.timings_enabled()
+                               )
+            )
+        )
         btn_toggle_fps.on_click = self.on_toggle_fps
         grid.add(btn_toggle_fps, col_num=3, row_num=0)
 

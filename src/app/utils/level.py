@@ -13,8 +13,7 @@ from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH, DEFAULT_ENCODING
 from app.constants.layers import (
     LAYER_PLAYER,
     LAYER_WALL,
-    LAYERS_VOICEOVER,
-    LAYER_FIRST_VOICEOVER, LAYER_FADEOUT
+    LAYER_FADEOUT
 )
 from app.constants.player import (
     PLAYER_MOVE_SPEED,
@@ -43,7 +42,6 @@ VOLUME_MUSIC_MODIFIER = 0.3
 VOLUME_ATMO_MODIFIER = 0.1
 
 WHITE = arcade.csscolor.WHITE
-
 
 
 class Level:
@@ -418,9 +416,8 @@ class Level:
         """ Load config """
 
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
-        with open(path, mode='r', encoding = DEFAULT_ENCODING) as file:
+        with open(path, mode='r', encoding=DEFAULT_ENCODING) as file:
             return json.load(file)
-
 
     @property
     def rumble(self) -> int:

@@ -16,3 +16,10 @@ def default_language() -> str:
         return LOCALE_FALLBACK
 
     return ls[0]
+
+
+def bool_to_on_off(value: bool) -> str:
+    if value:
+        return _('On')
+
+    return _('Off')

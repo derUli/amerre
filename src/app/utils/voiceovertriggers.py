@@ -7,7 +7,6 @@ import arcade
 import pyglet
 from arcade import Sprite
 
-from app.constants.gameinfo import LOCALE_FALLBACK
 from app.constants.layers import LAYERS_VOICEOVER, LAYER_FIRST_VOICEOVER
 from app.containers.callbacks import Callbacks
 from app.helpers.string import label_value
@@ -20,6 +19,7 @@ MULTIPLIER_MUSIC = 0.66
 LIGHT_LAUNCHING_MOVEMENT_SPEED = 1000
 LIGHT_LAUNCHING_ROTATING_SPEED = 500
 LIGHT_COLLISION_CHECK_THRESHOLD = 100
+
 
 class VoiceOverTiggers:
     """ Voice over trigger handling """
@@ -37,7 +37,8 @@ class VoiceOverTiggers:
         self._tilemap = None
         self._missile_sound = None
 
-    def setup(self, voiceover_range: list, callbacks: Callbacks, tilemap: arcade.TileMap):
+    def setup(self, voiceover_range: list, callbacks: Callbacks,
+              tilemap: arcade.TileMap):
         """ Setup """
 
         self._callbacks = callbacks
@@ -90,7 +91,7 @@ class VoiceOverTiggers:
             voiceover: str,
             audio_volumes: AudioVolumes,
             music: pyglet.media.player.Player,
-            
+
     ):
         """ Play voiceover """
 
@@ -141,7 +142,6 @@ class VoiceOverTiggers:
 
         self._subtitle.on_update(self._media)
 
-
     def update_collision_light(self, delta_time: float):
         """ Update voiceover light """
 
@@ -165,7 +165,8 @@ class VoiceOverTiggers:
             self.launching_sprite.remove_from_sprite_lists()
             self.launching_sprite = None
 
-    def check_for_collision(self, player, scene, root_dir, volumes, music) -> Sprite|None:
+    def check_for_collision(self, player, scene, root_dir, volumes,
+                            music) -> Sprite | None:
 
         if self.launching_sprite or self.playing:
             return None
@@ -220,5 +221,5 @@ class VoiceOverTiggers:
         return self._missile_sound
 
     @missile_sound.setter
-    def missile_sound(self, value: arcade.Sound|None) -> None:
+    def missile_sound(self, value: arcade.Sound | None) -> None:
         self._missile_sound = value
