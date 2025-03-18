@@ -202,9 +202,7 @@ class VoiceOverTiggers:
 
         self.playing = True
 
-        voiceover = self.pop(
-            first=found_layer == LAYER_FIRST_VOICEOVER
-        )
+        voiceover = self.pop(first=found_layer == LAYER_FIRST_VOICEOVER)
 
         if not voiceover:
             logging.error('No voiceovers left')
