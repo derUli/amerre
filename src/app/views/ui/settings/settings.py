@@ -8,19 +8,12 @@ from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
 from app.views.ui.settings.general import General
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.language import Language
+from app.views.ui.settings.settingsui import SettingsUi
 from app.views.ui.settings.video import Video
 
 
-class Settings(arcade.gui.UIManager):
+class Settings(SettingsUi):
     """ Settings menu """
-
-    def __init__(self):
-        """ Constructor """
-
-        super().__init__()
-
-        self._on_close = None
-        self._on_change = None
 
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """

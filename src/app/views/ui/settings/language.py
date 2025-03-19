@@ -8,18 +8,17 @@ from app.helpers.gui import make_button, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
 from app.state.settingsstate import SettingsState
+from app.views.ui.settings.settingsui import SettingsUi
 
 
-class Language(arcade.gui.UIManager):
+class Language(SettingsUi):
     """ Settings settings """
 
     def __init__(self):
         """ Constructor """
 
         super().__init__()
-        self._state = None
-        self._on_close = None
-        self._on_change = None
+
         self._btn_languages = {}
 
     def setup(self, on_close, on_change) -> None:

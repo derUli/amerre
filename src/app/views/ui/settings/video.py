@@ -12,19 +12,11 @@ from app.helpers.gui import make_label, make_button, make_slider, \
 from app.helpers.localization import bool_to_on_off
 from app.helpers.string import label_value
 from app.state.settingsstate import SettingsState
+from app.views.ui.settings.settingsui import SettingsUi
 
 
-class Video(arcade.gui.UIManager):
+class Video(SettingsUi):
     """ Video settings menu """
-
-    def __init__(self):
-        """ Constructor """
-
-        super().__init__()
-        self._state = None
-        self._old_state = None
-        self._on_close = None
-        self._on_change = None
 
     def setup(self, on_close, on_change) -> None:
         """ Setup settings """
