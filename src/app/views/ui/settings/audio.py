@@ -20,9 +20,9 @@ class Audio(arcade.gui.UIManager):
         """ Constructor """
 
         super().__init__()
+
         self._state = None
         self._old_state = None
-
         self._on_close = None
         self._on_change = None
 

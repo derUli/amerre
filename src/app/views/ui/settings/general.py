@@ -70,14 +70,19 @@ class General(arcade.gui.UIManager):
 
     def on_back(self, event: UIOnClickEvent | UIOnActionEvent):
         """ On back """
+
         self.disable()
         self.clear()
         self._on_close()
 
-    def refresh(self):
+    def refresh(self) -> None:
+        """ On refresh """
+
         self.setup(self._on_close, self._on_change)
 
-    def on_toggle_vibration(self, event: UIOnClickEvent):
+    def on_toggle_vibration(self, event: UIOnClickEvent) -> None:
+
+        """ On toggle vibration """
         self._state.rumble = not self._state.rumble
         self._state.save()
         self.refresh()
