@@ -18,17 +18,10 @@ from app.views.ui.settings.settingsui import SettingsUi
 class Video(SettingsUi):
     """ Video settings menu """
 
-    def setup(self, on_close, on_change) -> None:
+    def setup(self, on_close: callable, on_change: callable) -> None:
         """ Setup settings """
 
-        self.disable()
-        self.clear()
-        self._on_close = on_close
-        self._on_change = on_change
-        self._state = SettingsState.load()
-
-        if not self._old_state:
-            self._old_state = SettingsState.load()
+        super().setup(on_close, on_change)
 
         grid = arcade.gui.UIGridLayout(column_count=3, row_count=1,
                                        vertical_spacing=20)

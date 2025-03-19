@@ -15,12 +15,10 @@ from app.views.ui.settings.video import Video
 class Settings(SettingsUi):
     """ Settings menu """
 
-    def setup(self, on_close, on_change) -> None:
+    def setup(self, on_close: callable, on_change: callable) -> None:
         """ Setup settings """
 
-        self.clear()
-        self._on_close = on_close
-        self._on_change = on_change
+        super().setup(on_close, on_change)
 
         btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back

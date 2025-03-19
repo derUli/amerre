@@ -22,15 +22,12 @@ class General(SettingsUi):
 
         self._btn_languages = {}
 
-    def setup(self, on_close, on_change) -> None:
+    def setup(self, on_close: callable, on_change: callable) -> None:
         """ Setup settings """
 
-        self.disable()
-        self.clear()
+        super().setup(on_close, on_change)
+
         self._btn_languages = {}
-        self._on_close = on_close
-        self._on_change = on_change
-        self._state = SettingsState.load()
 
         btn_vibration = make_button(
             text=label_value(
