@@ -204,8 +204,6 @@ class Level:
 
         x, y = player.position
 
-
-
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
         )

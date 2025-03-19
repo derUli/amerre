@@ -82,7 +82,6 @@ class EffectManager:
         for animation in self._animations:
             animation.refresh()
 
-
     @property
     def vhs(self) -> Vhs:
         return self._vhs

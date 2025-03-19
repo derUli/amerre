@@ -1,12 +1,11 @@
 """ Settings menu """
 
-import arcade.gui
 from arcade.gui import UIOnClickEvent
 
 from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
-from app.views.ui.settings.general import General
 from app.views.ui.settings.audio import Audio
+from app.views.ui.settings.general import General
 from app.views.ui.settings.language import Language
 from app.views.ui.settings.settingsui import SettingsUi
 from app.views.ui.settings.video import Video

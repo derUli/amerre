@@ -1,6 +1,5 @@
 """ General settings """
 
-import arcade.gui
 from arcade.gui.events import UIOnClickEvent, UIOnActionEvent
 
 from app.helpers.gui import make_button, \
@@ -8,7 +7,6 @@ from app.helpers.gui import make_button, \
     make_ui_anchor_layout
 from app.helpers.localization import bool_to_on_off
 from app.helpers.string import label_value
-from app.state.settingsstate import SettingsState
 from app.views.ui.settings.settingsui import SettingsUi
 
 

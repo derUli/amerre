@@ -12,7 +12,6 @@ class SettingsUi(arcade.gui.UIManager):
         self._on_close = None
         self._on_change = None
 
-
     def setup(self, on_close: callable, on_change: callable) -> None:
         self._on_close = on_close
         self._on_change = on_change

@@ -11,6 +11,7 @@ ALPHA_MIN = 0
 ALPHA_SPEED = 1
 ALPHA_MAX = 18
 
+
 class Vhs(Effect):
     """ VHS effect """
 

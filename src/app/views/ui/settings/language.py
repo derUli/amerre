@@ -1,13 +1,11 @@
 """ Video settings """
 
-import arcade.gui
 from arcade.gui.events import UIOnClickEvent, UIOnActionEvent
 
 from app.constants.gameinfo import locales_translated
 from app.helpers.gui import make_button, \
     make_restart_to_apply_settings_alert, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
-from app.state.settingsstate import SettingsState
 from app.views.ui.settings.settingsui import SettingsUi
 
 
