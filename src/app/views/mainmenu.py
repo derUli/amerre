@@ -15,6 +15,7 @@ from app.constants.ui import MARGIN, FADE_SPEED, FADE_MAX
 from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.effects.menu_particles import MenuParticles
+from app.effects.vhs import Vhs
 from app.state.settingsstate import SettingsState
 from app.views.game import Game
 from app.views.ui.settings.settings import Settings

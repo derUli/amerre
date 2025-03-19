@@ -8,6 +8,7 @@ from app.effects.cloudanimation import CloudAnimation
 from app.effects.filmgrain import Filmgrain
 from app.effects.particles import Particles
 from app.effects.tumbleweed import Tumbleweed
+from app.effects.vhs import Vhs
 
 
 class EffectManager:
@@ -15,7 +16,9 @@ class EffectManager:
 
     def __init__(self):
         """ Constructor """
+
         self._animations = []
+        self._vhs = None
 
     def setup(
             self,
@@ -41,9 +44,12 @@ class EffectManager:
         if 'tumbleweed' in map_config and map_config['tumbleweed']:
             animations += [Tumbleweed()]
 
+        self._vhs = Vhs()
+
         animations += [
             CloudAnimation(),
             Bushes(),
+            self._vhs,
             Filmgrain()
         ]
         self._animations = animations
@@ -75,3 +81,8 @@ class EffectManager:
 
         for animation in self._animations:
             animation.refresh()
+
+
+    @property
+    def vhs(self) -> Vhs:
+        return self._vhs

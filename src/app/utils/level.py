@@ -155,6 +155,7 @@ class Level:
             delta_time: float
     ):
         self._voiceover_triggers.update_collision_light(delta_time)
+        self._effect_manager.vhs.enabled = self._voiceover_triggers.media is not None
         self._effect_manager.on_update(delta_time)
 
         if self._voiceover_triggers.missile_sound and not self._voiceover_triggers.missile_sound.playing:

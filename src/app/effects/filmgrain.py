@@ -18,27 +18,27 @@ class Filmgrain(Effect):
 
         super().__init__()
 
-        self.camera = None
-        self.grain = None
-        self.spritelist = None
+        self._camera = None
+        self._grain = None
+        self._spritelist = None
 
     def setup(self, data: EffectData) -> None:
         """ Setup animation """
 
         super().setup(data)
 
-        self.camera = arcade.camera.Camera2D()
+        self._camera = arcade.camera.Camera2D()
 
-        self.grain = arcade.load_animated_gif(
+        self._grain = arcade.load_animated_gif(
             os.path.join(data.root_dir, 'resources', 'animations', 'grain.gif')
         )
-        self.grain.size = arcade.get_window().get_size()
-        self.grain.bottom = 0
-        self.grain.left = 0
-        self.spritelist = arcade.sprite_list.SpriteList()
-        self.spritelist.append(self.grain)
+        self._grain.size = arcade.get_window().get_size()
+        self._grain.bottom = 0
+        self._grain.left = 0
+        self._spritelist = arcade.sprite_list.SpriteList()
+        self._spritelist.append(self._grain)
 
-        self.spritelist.alpha = ALPHA
+        self._spritelist.alpha = ALPHA
 
     def on_update(self, delta_time: float) -> None:
         """
@@ -46,10 +46,10 @@ class Filmgrain(Effect):
         @param delta_time: Float
         """
 
-        self.grain.update_animation(delta_time=delta_time)
+        self._grain.update_animation(delta_time=delta_time)
 
     def draw(self) -> None:
         """ Draw it """
 
-        self.camera.use()
-        self.spritelist.draw()
+        self._camera.use()
+        self._spritelist.draw()
