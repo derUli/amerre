@@ -53,13 +53,16 @@ class Game(View):
 
         self._level.setup(self._root_dir, map_name, self.window.audio_volumes)
 
-    def on_update(self, delta_time: float):
+    def on_update(self, delta_time: float) -> None:
+        """ On update """
+
         self._level.on_update(
             delta_time=delta_time
         )
 
     def on_fixed_update(self, delta_time: float):
         """ On level update """
+
         self._level.on_fixed_update(
             delta_time=delta_time,
             window=self.window,
