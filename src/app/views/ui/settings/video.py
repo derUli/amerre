@@ -22,8 +22,11 @@ class Video(SettingsUi):
 
         super().setup(on_close, on_change)
 
-        grid = arcade.gui.UIGridLayout(column_count=3, row_count=1,
-                                       vertical_spacing=20)
+        grid = arcade.gui.UIGridLayout(
+            column_count=3,
+            row_count=1,
+            vertical_spacing=20
+        )
 
         btn_back = make_button(text=_('Back'))
         btn_back.on_click = self.on_back
@@ -34,9 +37,6 @@ class Video(SettingsUi):
                              bool_to_on_off(self._state.fullscreen)
                              ))
         btn_toggle_fullscreen.on_click = self.on_toggle_fullscreen
-
-        # Currently disabled because it's buggy
-        # btn_toggle_fullscreen.disabled = True
 
         grid.add(btn_toggle_fullscreen, col_num=1, row_num=0)
 

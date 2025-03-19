@@ -39,8 +39,8 @@ class General(SettingsUi):
         btn_back.on_click = self.on_back
 
         widgets = [
-            btn_vibration,
-            btn_back
+            btn_back,
+            btn_vibration
         ]
         # Initialise a BoxLayout in which widgets can be arranged.
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
