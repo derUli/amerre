@@ -677,7 +677,7 @@
  <objectgroup id="16" name="RandomVoiceOver">
   <object id="7" gid="78" x="7617.31" y="1596.91" width="128" height="128"/>
   <object id="9" gid="78" x="19321.6" y="921.091" width="128" height="128"/>
-  <object id="15" gid="78" x="20533.3" y="2187.33" width="128" height="128"/>
+  <object id="15" gid="78" x="20530.6" y="2116.66" width="128" height="128"/>
   <object id="17" gid="78" x="4175.15" y="1746.79" width="128" height="128"/>
   <object id="25" gid="78" x="2121.88" y="2402.73" width="128" height="128"/>
   <object id="26" gid="78" x="27454" y="2272" width="128" height="128"/>

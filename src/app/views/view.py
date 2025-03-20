@@ -2,6 +2,7 @@
 
 import arcade
 
+from app.constants.settings import FIXED_RATE
 from app.state.settingsstate import SettingsState
 
 
@@ -34,6 +35,6 @@ class View(arcade.View):
 
         for controller in self.window.controllers:
             if strength > 0:
-                controller.rumble_play_strong(strength)
+                controller.rumble_play_strong(strength, 1 / FIXED_RATE)
             else:
                 controller.rumble_stop_strong()
