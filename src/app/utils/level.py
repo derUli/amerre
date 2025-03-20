@@ -208,11 +208,8 @@ class Level:
     def scroll_to_player(self, camera_speed: float = 1.0) -> None:
         """ Scroll the window to the player. """
 
-
-        x, y = self._player.sprite.position
-
         self._camera.position = arcade.math.lerp_2d(
-            self._camera.position, (x, y), camera_speed
+            self._camera.position, self._player.position, camera_speed
         )
 
     def draw(self) -> None:
@@ -408,10 +405,10 @@ class Level:
 
             if sprite.alpha >= ALPHA_MAX:
                 self.unsetup()
+                view = ToBeContinued()
+                view.setup(self._root_dir)
 
-                arcade.get_window().show_view(
-                    ToBeContinued().setup(self._root_dir)
-                )
+                arcade.get_window().show_view(view)
 
     def load_config(self) -> None:
         """ Load config """

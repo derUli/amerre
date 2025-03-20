@@ -12,7 +12,5 @@ class Player(Entity):
 
         # Reset the player to the initial position if he falls out of the map
         if self.sprite.bottom < 0:
-            logging.error(
-                'Player falling out of map. Restoring initial position.'
-            )
+            logging.error('Player out bounds')
             self.reset_initial_position()

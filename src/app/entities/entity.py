@@ -1,4 +1,5 @@
 """ Entity base class """
+import logging
 
 import arcade.sprite
 
