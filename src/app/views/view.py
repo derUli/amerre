@@ -32,7 +32,7 @@ class View(arcade.View):
     def rumble(self, strength: int) -> None:
         """ Rumble controller """
 
-        strength = strength * int (self._state.rumble)
+        strength = strength * int(self._state.rumble)
 
         for controller in self.window.controllers:
             if strength > 0:

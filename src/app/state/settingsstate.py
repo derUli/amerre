@@ -282,8 +282,11 @@ class SettingsState:
 
     @property
     def rumble(self) -> bool:
+        """ Get rumble """
+
         return self._rumble
 
     @rumble.setter
     def rumble(self, value: bool) -> None:
+        """ Set rumble """
         self._rumble = value

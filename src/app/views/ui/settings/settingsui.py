@@ -1,10 +1,16 @@
+""" Settings UI base """
+
 import arcade.gui
 
 from app.state.settingsstate import SettingsState
 
 
 class SettingsUi(arcade.gui.UIManager):
+    """ Settings UI base """
+
     def __init__(self):
+        """ Constructor """
+
         super().__init__()
 
         self._state = None

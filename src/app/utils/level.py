@@ -150,10 +150,9 @@ class Level:
         logging.info(f"Scene loaded in f{time_end} seconds")
         self.player.alpha = 0
 
-    def on_update(
-            self,
-            delta_time: float
-    ):
+    def on_update(self, delta_time: float) -> None:
+        """ On update"""
+
         self._voiceover_triggers.update_collision_light(delta_time)
         self._effect_manager.vhs.enabled = self._voiceover_triggers.media is not None
         self._effect_manager.on_update(delta_time)
@@ -172,8 +171,8 @@ class Level:
             move_horizontal: int = None,
             jump: bool = False,
             sprint: bool = False
-    ):
-        """ Update """
+    ) -> None:
+        """ On fixed update """
 
         if jump:
             self.jump()
@@ -421,4 +420,6 @@ class Level:
 
     @property
     def rumble(self) -> int:
+        """ Get rumble """
+
         return self._rumble

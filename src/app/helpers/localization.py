@@ -19,6 +19,8 @@ def default_language() -> str:
 
 
 def bool_to_on_off(value: bool) -> str:
+    """ boolean to translated string """
+    
     if value:
         return _('On')
 
