@@ -11,9 +11,8 @@ from arcade import FACE_RIGHT, FACE_LEFT
 
 from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH, DEFAULT_ENCODING
 from app.constants.layers import (
-    LAYER_PLAYER,
     LAYER_WALL,
-    LAYER_FADEOUT
+    LAYER_FADEOUT, LAYER_PLAYER
 )
 from app.constants.player import (
     PLAYER_MOVE_SPEED,
@@ -25,6 +24,7 @@ from app.constants.player import (
 )
 from app.containers.callbacks import Callbacks
 from app.effects.effect_manager import EffectManager
+from app.entities.player import Player
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.voiceovertriggers import VoiceOverTiggers
@@ -62,7 +62,7 @@ class Level:
         self._root_dir = None
         self._effect_manager = None
         self._rumble = 0
-        self._initial_pos = (0, 0)
+        self._player = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
@@ -121,8 +121,6 @@ class Level:
         )
         self.scroll_to_player()
 
-        self._initial_pos = self.player.position
-
         self._effect_manager = EffectManager()
         self._effect_manager.setup(
             map_config,
@@ -135,11 +133,13 @@ class Level:
         """ Setup physics engine """
 
         self._physics_engine = arcade.PhysicsEnginePlatformer(
-            self.player,
+            self._player.sprite,
             ladders=None,
             walls=self._scene[LAYER_WALL],
             gravity_constant=GRAVITY_SLOWMO
         )
+
+        self._player.setup_physics_engine(self._physics_engine)
 
     def load_tilemap(self, path):
         """ Load tilemap """
@@ -148,10 +148,12 @@ class Level:
 
         self._tilemap = arcade.load_tilemap(path)
         self._scene = arcade.Scene.from_tilemap(self._tilemap)
+        self._player = Player()
+        self._player.setup(self._scene[LAYER_PLAYER][0], self._root_dir)
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
-        self.player.alpha = 0
+        self._player.sprite.alpha = 0
 
     def on_update(self, delta_time: float) -> None:
         """ On update"""
@@ -171,8 +173,7 @@ class Level:
         self.scroll_to_player()
 
         # Respawn on level start if the player falls through the map
-        if self.player.bottom < arcade.get_window().height * -1:
-            self.player.position = self._initial_pos
+        self._player.on_update(delta_time=delta_time)
 
     def on_fixed_update(
             self,
@@ -193,7 +194,7 @@ class Level:
         else:
             self.move_stop()
 
-        self.player.alpha = min(self.player.alpha + ALPHA_SPEED, 255)
+        self._player.sprite.alpha = min(self._player.sprite.alpha + ALPHA_SPEED, 255)
 
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_fade()
@@ -209,12 +210,8 @@ class Level:
     def scroll_to_player(self, camera_speed: float = 1.0) -> None:
         """ Scroll the window to the player. """
 
-        player = self.player
-
-        x, y = player.position
-
         self._camera.position = arcade.math.lerp_2d(
-            self._camera.position, (x, y), camera_speed
+            self._camera.position, self._player.position, camera_speed
         )
 
     def draw(self) -> None:
@@ -242,11 +239,11 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self.player.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
-        self.player.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.sprite.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.sprite.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self.player.angle <= 0:
-            self.player.angle = 360 - abs(self.player.angle)
+        if self._player.sprite.angle <= 0:
+            self._player.sprite.angle = 360 - abs(self._player.sprite.angle)
 
     def move_right(self, delta_time: float, sprint: bool = False):
         """ Move right """
@@ -262,11 +259,11 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self.player.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
-        self.player.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.sprite.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.sprite.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self.player.angle > 360:
-            self.player.angle = self.player.angle - 360
+        if self._player.sprite.angle > 360:
+            self._player.sprite.angle = self._player.sprite.angle - 360
 
     def move_stop(self):
         """ Stop walking """
@@ -274,7 +271,7 @@ class Level:
         if not self._can_walk:
             return
 
-        self.player.change_x = 0
+        self._player.sprite.change_x = 0
 
     def jump(self):
         """ Do jump """
@@ -287,16 +284,12 @@ class Level:
 
         speed = PLAYER_JUMP_SPEED
 
+        self._player.jump_sound()
+
         if self._voiceover_triggers.playing:
             speed *= MODIFIER_SPEECH
 
         self._physics_engine.jump(speed)
-
-    @property
-    def player(self):
-        """ The player sprite """
-
-        return self._scene[LAYER_PLAYER][0]
 
     def wait_for_begin(self, delta_time: float = 0.0):
         """ Wait for begin of level """
@@ -312,7 +305,7 @@ class Level:
         """ Check for collisions with lights """
 
         found = self._voiceover_triggers.check_for_collision(
-            self.player,
+            self._player.sprite,
             self._scene,
             root_dir,
             volumes,
@@ -377,6 +370,7 @@ class Level:
                 sound.play()
 
         self._effect_manager.refresh()
+        self._player.refresh()
 
     def on_level_completed(self) -> None:
         """ Called when a level is completed """
@@ -416,10 +410,10 @@ class Level:
 
             if sprite.alpha >= ALPHA_MAX:
                 self.unsetup()
+                view = ToBeContinued()
+                view.setup(self._root_dir)
 
-                arcade.get_window().show_view(
-                    ToBeContinued().setup(self._root_dir)
-                )
+                arcade.get_window().show_view(view)
 
     def load_config(self) -> None:
         """ Load config """
