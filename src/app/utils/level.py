@@ -62,6 +62,7 @@ class Level:
         self._root_dir = None
         self._effect_manager = None
         self._rumble = 0
+        self._initial_pos = (0, 0)
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
@@ -120,6 +121,8 @@ class Level:
         )
         self.scroll_to_player()
 
+        self._initial_pos = self.player.position
+
         self._effect_manager = EffectManager()
         self._effect_manager.setup(
             map_config,
@@ -166,6 +169,10 @@ class Level:
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
         self.scroll_to_player()
+
+        # Respawn on level start if the player falls through the map
+        if self.player.bottom < arcade.get_window().height * -1:
+            self.player.position = self._initial_pos
 
     def on_fixed_update(
             self,

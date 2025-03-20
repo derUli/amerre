@@ -8,7 +8,7 @@ DIRECTORY_GAME_NAME_LINUX = '.amerre'
 
 MAPS = [
     'map01',
-    # 'map02'
+    #'map02'
 ]
 
 LOCALE_FALLBACK = 'en'
