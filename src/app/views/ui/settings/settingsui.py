@@ -13,6 +13,8 @@ class SettingsUi(arcade.gui.UIManager):
         self._on_change = None
 
     def setup(self, on_close: callable, on_change: callable) -> None:
+        """ Setup settings UI"""
+
         self._on_close = on_close
         self._on_change = on_change
 

@@ -165,8 +165,15 @@ class VoiceOverTiggers:
             self.launching_sprite.remove_from_sprite_lists()
             self.launching_sprite = None
 
-    def check_for_collision(self, player, scene, root_dir, volumes,
-                            music) -> Sprite | None:
+    def check_for_collision(
+            self,
+            player,
+            scene,
+            root_dir,
+            volumes,
+            music
+    ) -> Sprite | None:
+        """ Check for collision with voiceover triggers"""
 
         if self.launching_sprite or self.playing:
             return None

@@ -26,7 +26,6 @@ class Vhs(Effect):
         self._enabled = False
 
     def setup(self, data: EffectData) -> None:
-
         """ Setup animation """
 
         super().setup(data)
@@ -49,6 +48,7 @@ class Vhs(Effect):
         Update it
         @param delta_time: Float
         """
+
         if not self._enabled:
             if self._spritelist.alpha >= ALPHA_MIN:
                 self._spritelist.alpha = max(
@@ -75,8 +75,12 @@ class Vhs(Effect):
 
     @property
     def enabled(self) -> bool:
-        self._enabled = True
+        """ Get enabled state """
+
+        return self._enabled
 
     @enabled.setter
-    def enabled(self, value: bool):
+    def enabled(self, value: bool) -> None:
+        """ Set enabled state"""
+
         self._enabled = value

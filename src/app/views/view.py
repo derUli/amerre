@@ -22,8 +22,9 @@ class View(arcade.View):
         self._music = None
         self._state = None
 
-    def setup(self, root_dir: str):
+    def setup(self, root_dir: str) -> None:
         """ Setup view """
+
         self._root_dir = root_dir
         self._scene = arcade.scene.Scene()
         self._state = SettingsState.load()
