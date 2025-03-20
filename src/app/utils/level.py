@@ -171,8 +171,7 @@ class Level:
         self.scroll_to_player()
 
         # Respawn on level start if the player falls through the map
-        if self._player.sprite.bottom < arcade.get_window().height * -1:
-            self._player.reset_initial_position()
+        self._player.on_update()
 
     def on_fixed_update(
             self,
