@@ -72,7 +72,7 @@ class Game(View):
         )
 
         if self._state.rumble:
-            self.rumble(self._level.rumble * int(self._state.rumble))
+            self.rumble(self._level.rumble)
 
         if self._jump:
             self._jump = False

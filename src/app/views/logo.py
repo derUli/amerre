@@ -30,6 +30,8 @@ class Logo(View):
         """ Constructor """
 
         super().__init__()
+
+        self._effects = []
         self._phase = None
 
     def setup(self, root_dir: str):

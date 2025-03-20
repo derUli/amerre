@@ -84,4 +84,6 @@ class EffectManager:
 
     @property
     def vhs(self) -> Vhs:
+
+        """ Get vhs effect """
         return self._vhs
