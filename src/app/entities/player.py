@@ -8,18 +8,18 @@ from app.entities.entity import Entity
 from app.state.settingsstate import SettingsState
 
 VOLUME_SOUND = 0.2
-LANDING_TRESHOLD = 0.05
 
 class Player(Entity):
+    """ Player entity"""
+
     def __init__(self):
+        """ Constructor """
 
         super().__init__()
 
         self._physics_engine = None
-        self._jumping = False
-        self._jumping_time = 0
+        self._can_jump_before = None
 
-    """ Player entity"""
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         super().setup(sprite, root_dir)
@@ -44,14 +44,15 @@ class Player(Entity):
     def setup_physics_engine(self, physics_engine):
         self._physics_engine = physics_engine
 
+        self._can_jump_before = self._physics_engine.can_jump()
+
     def on_update(self, delta_time: float) -> None:
         """ On update """
 
-        if self._jumping:
-            self._jumping_time += delta_time
-            if self._jumping_time > LANDING_TRESHOLD and self._physics_engine.can_jump():
-                self.landing_sound()
-                return
+        if not self._can_jump_before and self._physics_engine.can_jump():
+            self.landing_sound()
+
+        self._can_jump_before = self._physics_engine.can_jump()
 
         # Reset the player to the initial position if he falls out of the map
         if self.sprite.bottom < 0:
@@ -61,8 +62,6 @@ class Player(Entity):
     def jump_sound(self) -> None:
         """ Play jump sound """
 
-        self._jumping = True
-        self._jumping_time = 0
         sound = self._attributes['sounds']['jump']
         volume = (
                 VOLUME_SOUND *
@@ -76,7 +75,6 @@ class Player(Entity):
     def landing_sound(self) -> None:
         """ Play landing sound """
 
-        self._jumping = False
         sound = self._attributes['sounds']['landing']
         volume = (
                 VOLUME_SOUND *

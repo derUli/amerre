@@ -50,7 +50,7 @@ class Entity:
 
         self.position = self._initial_position
 
-    def on_update(self):
+    def on_update(self, delta_time: float):
         """ On update """
 
         return
