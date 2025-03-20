@@ -225,8 +225,12 @@ class VoiceOverTiggers:
 
     @property
     def missile_sound(self) -> arcade.Sound | None:
+        """ Get missile sound """
+
         return self._missile_sound
 
     @missile_sound.setter
     def missile_sound(self, value: arcade.Sound | None) -> None:
+        """ Set missile sound """
+
         self._missile_sound = value
