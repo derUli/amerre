@@ -8,19 +8,50 @@ from app.entities.entity import Entity
 from app.state.settingsstate import SettingsState
 
 VOLUME_SOUND = 0.2
-
+LANDING_TRESHOLD = 0.05
 
 class Player(Entity):
+    def __init__(self):
+
+        super().__init__()
+
+        self._physics_engine = None
+        self._jumping = False
+        self._jumping_time = 0
+
     """ Player entity"""
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         super().setup(sprite, root_dir)
 
-        self._attributes["sounds"] = {}
+        self.setup_sounds()
         self._attributes["state"] = SettingsState.load()
 
-    def on_update(self) -> None:
+    def setup_sounds(self):
+        self._attributes["sounds"] = {}
+        if 'jump' not in self._attributes['sounds']:
+            fx_dir = os.path.join(self._root_dir, 'resources', 'sounds', 'fx')
+
+            self._attributes['sounds']['jump'] = arcade.load_sound(
+                os.path.join(fx_dir, 'jump.mp3'),
+                streaming=False
+            )
+            self._attributes['sounds']['landing'] = arcade.load_sound(
+                os.path.join(fx_dir, 'landing.mp3'),
+                streaming=False
+            )
+
+    def setup_physics_engine(self, physics_engine):
+        self._physics_engine = physics_engine
+
+    def on_update(self, delta_time: float) -> None:
         """ On update """
+
+        if self._jumping:
+            self._jumping_time += delta_time
+            if self._jumping_time > LANDING_TRESHOLD and self._physics_engine.can_jump():
+                self.landing_sound()
+                return
 
         # Reset the player to the initial position if he falls out of the map
         if self.sprite.bottom < 0:
@@ -30,14 +61,23 @@ class Player(Entity):
     def jump_sound(self) -> None:
         """ Play jump sound """
 
-        if 'jump' not in self._attributes['sounds']:
-            jump_sound_file = os.path.join(
-                self._root_dir, 'resources', 'sounds', 'fx', 'jump.mp3'
-            )
-            sound = arcade.load_sound(jump_sound_file, streaming=False)
-            self._attributes['sounds']['jump'] = sound
-
+        self._jumping = True
+        self._jumping_time = 0
         sound = self._attributes['sounds']['jump']
+        volume = (
+                VOLUME_SOUND *
+                self._attributes['state']
+                .audio_volumes.volume_sound_normalized
+
+        )
+        sound.play(volume)
+
+
+    def landing_sound(self) -> None:
+        """ Play landing sound """
+
+        self._jumping = False
+        sound = self._attributes['sounds']['landing']
         volume = (
                 VOLUME_SOUND *
                 self._attributes['state']
@@ -48,3 +88,4 @@ class Player(Entity):
 
     def refresh(self):
         self._attributes['state'] = SettingsState.load()
+

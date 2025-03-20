@@ -139,6 +139,8 @@ class Level:
             gravity_constant=GRAVITY_SLOWMO
         )
 
+        self._player.setup_physics_engine(self._physics_engine)
+
     def load_tilemap(self, path):
         """ Load tilemap """
 
@@ -171,7 +173,7 @@ class Level:
         self.scroll_to_player()
 
         # Respawn on level start if the player falls through the map
-        self._player.on_update()
+        self._player.on_update(delta_time=delta_time)
 
     def on_fixed_update(
             self,
