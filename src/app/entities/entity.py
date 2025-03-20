@@ -11,12 +11,15 @@ class Entity:
 
         self._sprite = None
         self._initial_position = (0, 0)
+        self._root_dir = None
+        self._attributes = {}
 
-    def setup(self, sprite: arcade.sprite.Sprite) -> None:
+    def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         """ Entity base class """
 
         self._sprite = sprite
         self._initial_position = sprite.position
+        self._root_dir = root_dir
 
     @property
     def sprite(self) -> arcade.sprite.Sprite:
@@ -50,4 +53,9 @@ class Entity:
     def on_update(self):
         """ On update """
 
-        pass
+        return
+
+    def refresh(self):
+        """ On refresh """
+
+        return

@@ -147,7 +147,7 @@ class Level:
         self._tilemap = arcade.load_tilemap(path)
         self._scene = arcade.Scene.from_tilemap(self._tilemap)
         self._player = Player()
-        self._player.setup(self._scene[LAYER_PLAYER][0])
+        self._player.setup(self._scene[LAYER_PLAYER][0], self._root_dir)
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
@@ -282,6 +282,8 @@ class Level:
 
         speed = PLAYER_JUMP_SPEED
 
+        self._player.jump_sound()
+
         if self._voiceover_triggers.playing:
             speed *= MODIFIER_SPEECH
 
@@ -366,6 +368,7 @@ class Level:
                 sound.play()
 
         self._effect_manager.refresh()
+        self._player.refresh()
 
     def on_level_completed(self) -> None:
         """ Called when a level is completed """
