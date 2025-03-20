@@ -9,6 +9,7 @@ from app.state.settingsstate import SettingsState
 
 VOLUME_SOUND = 0.2
 
+
 class Player(Entity):
     """ Player entity"""
 
@@ -18,32 +19,38 @@ class Player(Entity):
         super().__init__()
 
         self._physics_engine = None
-        self._can_jump_before = None
+        self._state = None
+        self._sounds = {}
 
+        self._can_jump_before = None
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         super().setup(sprite, root_dir)
 
         self.setup_sounds()
-        self._attributes["state"] = SettingsState.load()
+        self._state = SettingsState.load()
 
     def setup_sounds(self):
-        self._attributes["sounds"] = {}
-        if 'jump' not in self._attributes['sounds']:
-            fx_dir = os.path.join(self._root_dir, 'resources', 'sounds', 'fx')
+        fx_dir = os.path.join(self._root_dir, 'resources', 'sounds', 'fx')
 
-            self._attributes['sounds']['jump'] = arcade.load_sound(
+        self._sounds = {
+            'jump': arcade.load_sound(
                 os.path.join(fx_dir, 'jump.mp3'),
                 streaming=False
-            )
-            self._attributes['sounds']['landing'] = arcade.load_sound(
+            ),
+            'landing': arcade.load_sound(
                 os.path.join(fx_dir, 'landing.mp3'),
                 streaming=False
             )
+        }
 
-    def setup_physics_engine(self, physics_engine):
+    def setup_physics_engine(
+            self,
+            physics_engine: arcade.physics_engines.PhysicsEnginePlatformer
+    ) -> None:
+        """ Set the vars for the physics """
+
         self._physics_engine = physics_engine
-
         self._can_jump_before = self._physics_engine.can_jump()
 
     def on_update(self, delta_time: float) -> None:
@@ -62,28 +69,28 @@ class Player(Entity):
     def jump_sound(self) -> None:
         """ Play jump sound """
 
-        sound = self._attributes['sounds']['jump']
+        sound = self._sounds['jump']
         volume = (
                 VOLUME_SOUND *
-                self._attributes['state']
+                self._state
                 .audio_volumes.volume_sound_normalized
 
         )
         sound.play(volume)
-
 
     def landing_sound(self) -> None:
         """ Play landing sound """
 
-        sound = self._attributes['sounds']['landing']
+        sound = self._sounds['landing']
         volume = (
                 VOLUME_SOUND *
-                self._attributes['state']
+                self._state
                 .audio_volumes.volume_sound_normalized
 
         )
         sound.play(volume)
 
-    def refresh(self):
-        self._attributes['state'] = SettingsState.load()
+    def refresh(self) -> None:
+        """ Refresh player """
 
+        self._state = SettingsState.load()

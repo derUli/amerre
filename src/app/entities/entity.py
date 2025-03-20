@@ -12,7 +12,6 @@ class Entity:
         self._sprite = None
         self._initial_position = (0, 0)
         self._root_dir = None
-        self._attributes = {}
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         """ Entity base class """
