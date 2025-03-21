@@ -296,7 +296,7 @@ class SettingsState:
         self._rumble = value
 
     @property
-    def base_width(self) ->int:
+    def base_width(self) -> int:
         """ Get base width """
 
         return self._base_width
@@ -308,7 +308,7 @@ class SettingsState:
         self._base_width = value
 
     @property
-    def base_height(self) ->int:
+    def base_height(self) -> int:
         """ Get base height """
 
         return self._base_height

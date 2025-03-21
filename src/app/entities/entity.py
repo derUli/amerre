@@ -1,7 +1,7 @@
 """ Entity base class """
-import logging
 
 import arcade.sprite
+
 
 class Entity:
     """ Entity base class """
@@ -71,7 +71,6 @@ class Entity:
 
         self._sprite.alpha = value
 
-
     @property
     def angle(self) -> float:
         """ Get angle """
@@ -90,7 +89,6 @@ class Entity:
         return self._sprite.change_x
 
     @change_x.setter
-
     def change_x(self, value: float) -> None:
         """ Set change_x """
 

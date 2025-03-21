@@ -9,7 +9,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH, DEFAULT_ENCODING
+from app.constants.gameinfo import DEFAULT_ENCODING
 from app.constants.layers import (
     LAYER_WALL,
     LAYER_FADEOUT, LAYER_PLAYER
