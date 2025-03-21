@@ -672,7 +672,7 @@
 </data>
  </layer>
  <objectgroup id="15" name="FirstVoiceOver">
-  <object id="3" gid="78" x="11252.2" y="2707.88" width="128" height="128"/>
+  <object id="3" gid="78" x="12016" y="2673.88" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="16" name="RandomVoiceOver">
   <object id="7" gid="78" x="7617.31" y="1596.91" width="128" height="128"/>

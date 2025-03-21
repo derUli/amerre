@@ -248,7 +248,7 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self._player.sprite.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
         self._player.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
 
         if self._player.angle <= 0:
@@ -268,7 +268,7 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self._player.sprite.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
         self._player.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
 
         if self._player.angle > 360:
@@ -280,7 +280,7 @@ class Level:
         if not self._can_walk:
             return
 
-        self._player.sprite.change_x = 0
+        self._player.change_x = 0
 
     def jump(self):
         """ Do jump """

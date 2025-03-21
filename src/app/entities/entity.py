@@ -83,3 +83,15 @@ class Entity:
         """ Set angle """
 
         self._sprite.angle = value
+
+    @property
+    def change_x(self) -> float:
+        """ Get change_x """
+        return self._sprite.change_x
+
+    @change_x.setter
+
+    def change_x(self, value: float) -> None:
+        """ Set change_x """
+
+        self._sprite.change_x = value
