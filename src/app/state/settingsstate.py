@@ -46,8 +46,6 @@ class SettingsState:
         self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
         self._particles = SETTINGS_DEFAULT_PARTICLES
         self._draw_rate = SETTINGS_DEFAULT_DRAW_RATE
-        self._base_width = BASE_WIDTH
-        self._base_height = BASE_HEIGHT
 
         # Audio
         self._audio_driver = SETTINGS_DEFAULT_AUDIO_DRIVER
@@ -66,8 +64,11 @@ class SettingsState:
         self._language = default_language()
         self._rumble = SETTINGS_DEFAULT_RUMBLE
 
-        # Other
+        # Debugging stuff
         self._debug = SETTINGS_DEFAULT_DEBUG
+        self._base_width = BASE_WIDTH
+        self._base_height = BASE_HEIGHT
+        self._skip_slowmo = False
 
     @staticmethod
     def exists() -> bool:
@@ -317,3 +318,15 @@ class SettingsState:
         """ Set base height """
 
         self._base_height = value
+
+    @property
+    def skip_slowmo(self) -> bool:
+        """ Get skip_slowmo """
+
+        return self._skip_slowmo
+
+    @skip_slowmo.setter
+    def skip_slowmo(self, value: bool) -> None:
+        """ Set skip_slowmo """
+
+        self._skip_slowmo = value

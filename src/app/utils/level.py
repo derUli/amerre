@@ -30,10 +30,10 @@ from app.utils.audiovolumes import AudioVolumes
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
-GRAVITY_SLOWMO = 0.0005
+GRAVITY_SLOWMO = 0.0003
 GRAVITY_DEFAULT = 0.8
 
-ALPHA_SPEED = 2
+ALPHA_SPEED = 1
 ALPHA_MAX = 255
 
 LIGHT_LAUNCHING_RUMBLE = 100
@@ -121,7 +121,6 @@ class Level:
             callbacks=callbacks,
             tilemap=self._tilemap
         )
-        self.scroll_to_player()
 
         self._effect_manager = EffectManager()
         self._effect_manager.setup(
@@ -134,11 +133,16 @@ class Level:
     def setup_physics_engine(self):
         """ Setup physics engine """
 
+        gravity = GRAVITY_SLOWMO
+
+        if self._state.skip_slowmo:
+            gravity = GRAVITY_DEFAULT
+
         self._physics_engine = arcade.PhysicsEnginePlatformer(
             self._player.sprite,
             ladders=None,
             walls=self._scene[LAYER_WALL],
-            gravity_constant=GRAVITY_SLOWMO
+            gravity_constant=gravity,
         )
 
         self._player.setup_physics_engine(self._physics_engine)

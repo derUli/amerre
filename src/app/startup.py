@@ -77,10 +77,10 @@ class Startup:
 
         state.base_width = BASE_WIDTH
         state.base_height = BASE_HEIGHT
+        state.skip_slowmo = args.skip_slowmo
 
         # Create settings state on first launch
-        if not state.exists():
-            state.save()
+        state.save()
 
         samples = state.antialiasing
         antialiasing = samples > 0
@@ -163,6 +163,12 @@ class Startup:
             type=int,
             default=BASE_HEIGHT,
             help='The base height'
+        )
+
+        parser.add_argument(
+            '--skip-slowmo',
+            action='store_true',
+            default=False
         )
 
         return parser.parse_args()
