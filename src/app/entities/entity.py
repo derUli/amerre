@@ -70,3 +70,16 @@ class Entity:
         """ Set alpha """
 
         self._sprite.alpha = value
+
+
+    @property
+    def angle(self) -> float:
+        """ Get angle """
+
+        return self._sprite.angle
+
+    @angle.setter
+    def angle(self, value: float) -> None:
+        """ Set angle """
+
+        self._sprite.angle = value

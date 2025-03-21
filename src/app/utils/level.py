@@ -245,10 +245,10 @@ class Level:
             modifier = MODIFIER_SPEECH
 
         self._player.sprite.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
-        self._player.sprite.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self._player.sprite.angle <= 0:
-            self._player.sprite.angle = 360 - abs(self._player.sprite.angle)
+        if self._player.angle <= 0:
+            self._player.angle = 360 - abs(self._player.angle)
 
     def move_right(self, delta_time: float, sprint: bool = False):
         """ Move right """
@@ -265,10 +265,10 @@ class Level:
             modifier = MODIFIER_SPEECH
 
         self._player.sprite.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
-        self._player.sprite.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self._player.sprite.angle > 360:
-            self._player.sprite.angle = self._player.sprite.angle - 360
+        if self._player.angle > 360:
+            self._player.angle = self._player.angle - 360
 
     def move_stop(self):
         """ Stop walking """
