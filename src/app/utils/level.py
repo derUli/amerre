@@ -153,7 +153,7 @@ class Level:
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
-        self._player.sprite.alpha = 0
+        self._player.alpha = 0
 
     def on_update(self, delta_time: float) -> None:
         """ On update"""
@@ -194,7 +194,7 @@ class Level:
         else:
             self.move_stop()
 
-        self._player.sprite.alpha = min(self._player.sprite.alpha + ALPHA_SPEED, 255)
+        self._player.alpha = min(self._player.alpha + ALPHA_SPEED, 255)
 
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_fade()
@@ -210,8 +210,11 @@ class Level:
     def scroll_to_player(self, camera_speed: float = 1.0) -> None:
         """ Scroll the window to the player. """
 
+        x, y = self._player.position
+        y = max(y, BASE_HEIGHT / 2)
+
         self._camera.position = arcade.math.lerp_2d(
-            self._camera.position, self._player.position, camera_speed
+            self._camera.position, (x, y), camera_speed
         )
 
     def draw(self) -> None:

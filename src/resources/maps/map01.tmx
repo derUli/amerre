@@ -9,7 +9,7 @@
  <tileset firstgid="3" name="Sprites" tilewidth="970" tileheight="638" tilecount="12" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../images/sprites/player.png" width="262" height="262"/>
+   <image source="../images/sprites/player.png" width="192" height="192"/>
   </tile>
   <tile id="1">
    <image source="../images/sprites/bricks.jpg" width="64" height="64"/>

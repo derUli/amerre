@@ -58,3 +58,15 @@ class Entity:
         """ On refresh """
 
         return
+
+    @property
+    def alpha(self) -> int:
+        """ Get alpha """
+
+        return self._sprite.alpha
+
+    @alpha.setter
+    def alpha(self, value: int) -> None:
+        """ Set alpha """
+
+        self._sprite.alpha = value
