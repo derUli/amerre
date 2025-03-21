@@ -63,11 +63,13 @@ class Level:
         self._effect_manager = None
         self._rumble = 0
         self._player = None
+        self._state = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
 
         self._root_dir = root_dir
+        self._state = SettingsState().load()
 
         self.load_tilemap(
             os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
@@ -75,7 +77,7 @@ class Level:
 
         h = arcade.get_window().height
 
-        zoom = h / BASE_HEIGHT
+        zoom = h / self._state.base_height
         self._camera = arcade.camera.Camera2D(zoom=zoom)
 
         self._camera_gui = arcade.camera.Camera2D()
@@ -211,7 +213,7 @@ class Level:
         """ Scroll the window to the player. """
 
         x, y = self._player.position
-        y = max(y, BASE_HEIGHT / 2)
+        y = max(y, self._state.base_height / 2)
 
         self._camera.position = arcade.math.lerp_2d(
             self._camera.position, (x, y), camera_speed
@@ -356,16 +358,16 @@ class Level:
             self._voiceover_triggers.media,
         ]
 
-        state = SettingsState.load()
+        self._state = SettingsState.load()
 
         if self._music:
-            self._music.volume = state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
+            self._music.volume = self._state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
 
         if self._atmo:
-            self._atmo.volume = state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
+            self._atmo.volume = self._state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
 
         if self._voiceover_triggers.media:
-            self._voiceover_triggers.media.volume = state.audio_volumes.volume_speech_normalized
+            self._voiceover_triggers.media.volume = self._state.audio_volumes.volume_speech_normalized
 
         # Start sound playback
         for sound in sounds:
@@ -378,10 +380,12 @@ class Level:
     def on_level_completed(self) -> None:
         """ Called when a level is completed """
 
-        w, h = BASE_WIDTH, BASE_HEIGHT
-
         # Add fade sprite to scene
-        sprite = arcade.sprite.SpriteSolidColor(width=w, height=h, color=WHITE)
+        sprite = arcade.sprite.SpriteSolidColor(
+            width=self._state.base_width,
+            height=self._state.base_height,
+            color=WHITE
+        )
 
         # It is initially hidden
         # On next update it will change to visible
@@ -419,7 +423,7 @@ class Level:
                 arcade.get_window().show_view(view)
 
     def load_config(self) -> None:
-        """ Load config """
+        """ Load map config """
 
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
         with open(path, mode='r', encoding=DEFAULT_ENCODING) as file:

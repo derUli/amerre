@@ -5,7 +5,7 @@ import os
 
 import jsonpickle
 
-from app.constants.gameinfo import DEFAULT_ENCODING
+from app.constants.gameinfo import DEFAULT_ENCODING, BASE_HEIGHT, BASE_WIDTH
 from app.constants.settings import (
     SETTINGS_DEFAULT_SHOW_FPS, \
     SETTINGS_DEFAULT_VSYNC, \
@@ -28,7 +28,7 @@ from app.helpers.localization import default_language
 from app.helpers.paths import settings_path
 from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 2
+VERSION = 3
 
 
 class SettingsState:
@@ -46,6 +46,8 @@ class SettingsState:
         self._antialiasing = SETTINGS_DEFAULT_ANTIALIASING
         self._particles = SETTINGS_DEFAULT_PARTICLES
         self._draw_rate = SETTINGS_DEFAULT_DRAW_RATE
+        self._base_width = BASE_WIDTH
+        self._base_height = BASE_HEIGHT
 
         # Audio
         self._audio_driver = SETTINGS_DEFAULT_AUDIO_DRIVER
@@ -289,4 +291,29 @@ class SettingsState:
     @rumble.setter
     def rumble(self, value: bool) -> None:
         """ Set rumble """
+
         self._rumble = value
+
+    @property
+    def base_width(self) ->int:
+        """ Get base width """
+
+        return self._base_width
+
+    @base_width.setter
+    def base_width(self, value: int) -> None:
+        """ Set base width """
+
+        self._base_width = value
+
+    @property
+    def base_height(self) ->int:
+        """ Get base height """
+
+        return self._base_height
+
+    @base_height.setter
+    def base_height(self, value: int) -> None:
+        """ Set base height """
+
+        self._base_height = value
