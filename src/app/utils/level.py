@@ -86,6 +86,7 @@ class Level:
         self.setup_physics_engine()
         self.wait_for_begin()
 
+        config = self.load_config()
         map_config = {}
 
         if map_name in config:
@@ -427,7 +428,7 @@ class Level:
 
                 arcade.get_window().show_view(view)
 
-    def load_config(self) -> None:
+    def load_config(self) -> dict:
         """ Load map config """
 
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')

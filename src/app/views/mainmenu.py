@@ -223,7 +223,13 @@ class MainMenu(View):
 
         view = Game()
         view.setup(self._root_dir)
-        view.setup_level(SavegameState().load().current_level)
+
+        save_game_state = SavegameState.load()
+
+        if not SavegameState.exists():
+            save_game_state.save()
+
+        view.setup_level(save_game_state.current_level)
 
         self.window.show_view(view)
 
