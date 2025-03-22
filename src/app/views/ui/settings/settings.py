@@ -49,7 +49,7 @@ class Settings(SettingsUi):
         ]
 
         # TODO: Only show it in main menu
-        if SavegameState.exists():
+        if not self.in_game and SavegameState.exists():
             widgets += [btn_delete_savegame]
 
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))

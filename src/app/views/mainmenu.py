@@ -368,6 +368,7 @@ class MainMenu(View):
         self._manager = Settings()
         self._manager.setup(on_close=self.on_close_settings,
                             on_change=self.on_change_settings)
+        self._manager.in_game = True
         self._manager.enable()
 
     def on_change_settings(
