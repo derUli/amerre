@@ -79,6 +79,7 @@ class Level:
 
         zoom = h / self._state.base_height
         self._camera = arcade.camera.Camera2D(zoom=zoom)
+        self.scroll_to_player()
 
         self._camera_gui = arcade.camera.Camera2D()
 

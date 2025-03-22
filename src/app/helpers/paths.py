@@ -36,6 +36,13 @@ def settings_path() -> str:
     return os.path.join(data_path(), 'settings', 'settings.json')
 
 
+def savegame_path() -> str:
+    """ Savegame path """
+
+    return os.path.join(data_path(), 'savegames', 'default.json')
+
+
+
 def log_path() -> str:
     """ Log path """
 
