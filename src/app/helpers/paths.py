@@ -41,8 +41,6 @@ def savegame_path() -> str:
 
     return os.path.join(data_path(), 'savegames', 'default.json')
 
-
-
 def log_path() -> str:
     """ Log path """
 

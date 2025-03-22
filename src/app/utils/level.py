@@ -25,6 +25,7 @@ from app.constants.player import (
 from app.containers.callbacks import Callbacks
 from app.effects.effect_manager import EffectManager
 from app.entities.player import Player
+from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.voiceovertriggers import VoiceOverTiggers
@@ -386,6 +387,10 @@ class Level:
     def on_level_completed(self) -> None:
         """ Called when a level is completed """
 
+        savegame_state = SavegameState.load()
+        savegame_state.next_level()
+        savegame_state.save()
+
         # Add fade sprite to scene
         sprite = arcade.sprite.SpriteSolidColor(
             width=self._state.base_width,
@@ -423,10 +428,18 @@ class Level:
 
             if sprite.alpha >= ALPHA_MAX:
                 self.unsetup()
-                view = ToBeContinued()
-                view.setup(self._root_dir)
 
-                arcade.get_window().show_view(view)
+                current_level = SavegameState.load().current_level
+                if current_level is not None:
+                    self.setup(
+                        root_dir=self._root_dir,
+                        map_name=current_level,
+                        audio_volumes=self._state.audio_volumes
+                    )
+                else:
+                    view = ToBeContinued()
+                    view.setup(self._root_dir)
+                    arcade.get_window().show_view(view)
 
     def load_config(self) -> dict:
         """ Load map config """

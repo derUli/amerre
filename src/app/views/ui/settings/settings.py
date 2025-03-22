@@ -48,7 +48,6 @@ class Settings(SettingsUi):
             btn_language
         ]
 
-        # TODO: Only show it in main menu
         if not self.from_main_menu and SavegameState.exists():
             widgets += [btn_delete_savegame]
 
