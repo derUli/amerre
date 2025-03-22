@@ -29,8 +29,11 @@ class SavegameState:
 
     @property
     def current_level(self):
-        return MAPS[self._current_level]
+        try:
+            return MAPS[self._current_level]
+        except IndexError:
 
+            return None
     @staticmethod
     def load():
         """ Loads the settings state """

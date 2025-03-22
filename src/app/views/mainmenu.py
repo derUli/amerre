@@ -18,6 +18,7 @@ from app.effects.menu_particles import MenuParticles
 from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.views.game import Game
+from app.views.tobecontinued import ToBeContinued
 from app.views.ui.settings.settings import Settings
 from app.views.view import View
 
@@ -221,13 +222,21 @@ class MainMenu(View):
 
         self._music.pause()
 
-        view = Game()
-        view.setup(self._root_dir)
-
         save_game_state = SavegameState.load()
 
         if not SavegameState.exists():
             save_game_state.save()
+
+        if save_game_state.current_level is None:
+
+            view = ToBeContinued()
+            view.setup(self._root_dir)
+            self.window.show_view(view)
+            return
+
+        view = Game()
+        view.setup(self._root_dir)
+
 
         view.setup_level(save_game_state.current_level)
 
@@ -341,12 +350,17 @@ class MainMenu(View):
     def on_start_game(self) -> None:
         """ On start new game """
 
+        color = BACKGROUND_COLOR
+
+        if SavegameState.load().current_level is None:
+            color =  arcade.csscolor.WHITE
+
         self.window.set_mouse_visible(False)
 
         self._fade_sprite = arcade.sprite.SpriteSolidColor(
             width=self.window.width,
             height=self.window.height,
-            color=BACKGROUND_COLOR
+            color=color
         )
         self._fade_sprite.center_x = self.window.width / 2
         self._fade_sprite.center_y = self.window.height / 2
