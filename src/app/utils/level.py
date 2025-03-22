@@ -73,7 +73,7 @@ class Level:
 
         self.load_tilemap(
             os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
-        config = self.load_config()
+        self.load_config()
 
         h = arcade.get_window().height
 
