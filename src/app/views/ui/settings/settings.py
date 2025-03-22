@@ -1,9 +1,12 @@
 """ Settings menu """
 
 from arcade.gui import UIOnClickEvent
+from arcade.gui.events import UIOnActionEvent
 
 from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
+from app.state.savegamestate import SavegameState
+from app.state.settingsstate import SettingsState
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.general import General
 from app.views.ui.settings.language import Language
@@ -34,6 +37,9 @@ class Settings(SettingsUi):
         btn_language = make_button(text=_('Language'))
         btn_language.on_click = self.on_language
 
+        btn_delete_savegame = make_button(text=_('Delete Save game'))
+        btn_delete_savegame.on_click = self.on_delete_savegame
+
         widgets = [
             btn_back,
             btn_video,
@@ -41,6 +47,10 @@ class Settings(SettingsUi):
             btn_general,
             btn_language
         ]
+
+        # TODO: Only show it in main menu
+        if SavegameState.exists():
+            widgets += [btn_delete_savegame]
 
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
         self.enable()
@@ -77,6 +87,13 @@ class Settings(SettingsUi):
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
+    def on_delete_savegame(self, event: UIOnClickEvent|UIOnActionEvent) -> None:
+        """ delete savegame """
+
+        # TODO ask for confirmation
+        SavegameState.delete()
+        self.refresh()
+
     def on_enable(self, refresh_particles: bool = False):
         """ On enable settings """
 
@@ -91,3 +108,8 @@ class Settings(SettingsUi):
 
         self.disable()
         self._on_close()
+
+    def refresh(self):
+        """ On refresh view """
+
+        self.setup(self._on_close, self._on_change)

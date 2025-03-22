@@ -83,3 +83,9 @@ class SavegameState:
         """ State version"""
 
         return self._version
+
+    @staticmethod
+    def delete():
+        """ Delete savegame """
+        if SavegameState.exists():
+            os.unlink(savegame_path())
