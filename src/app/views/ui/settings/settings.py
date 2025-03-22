@@ -1,12 +1,12 @@
 """ Settings menu """
-
+import arcade
 from arcade.gui import UIOnClickEvent
 from arcade.gui.events import UIOnActionEvent
 
+from app.constants.ui import MODAL_WIDTH, MODAL_HEIGHT
 from app.helpers.gui import make_button, make_vertical_ui_box_layout, \
     make_ui_anchor_layout
 from app.state.savegamestate import SavegameState
-from app.state.settingsstate import SettingsState
 from app.views.ui.settings.audio import Audio
 from app.views.ui.settings.general import General
 from app.views.ui.settings.language import Language
@@ -37,7 +37,7 @@ class Settings(SettingsUi):
         btn_language = make_button(text=_('Language'))
         btn_language.on_click = self.on_language
 
-        btn_delete_savegame = make_button(text=_('Delete Save game'))
+        btn_delete_savegame = make_button(text=_('Delete Savegame'))
         btn_delete_savegame.on_click = self.on_delete_savegame
 
         widgets = [
@@ -49,7 +49,7 @@ class Settings(SettingsUi):
         ]
 
         # TODO: Only show it in main menu
-        if not self.in_game and SavegameState.exists():
+        if not self.from_main_menu and SavegameState.exists():
             widgets += [btn_delete_savegame]
 
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
@@ -87,12 +87,28 @@ class Settings(SettingsUi):
         menu.setup(self.on_enable, self._on_change)
         self._on_close(menu)
 
-    def on_delete_savegame(self, event: UIOnClickEvent|UIOnActionEvent) -> None:
+    def on_delete_savegame(
+            self,
+            event: UIOnClickEvent | UIOnActionEvent
+    ) -> None:
         """ delete savegame """
 
-        # TODO ask for confirmation
-        SavegameState.delete()
-        self.refresh()
+        if isinstance(event, UIOnActionEvent):
+            if event.action != _('Yes'):
+                return
+
+            SavegameState.delete()
+            self.refresh()
+            return
+
+        message_box = arcade.gui.UIMessageBox(
+            message_text=_('Do you really want to delete the savegame?'),
+            buttons=(_('Yes'), _('No')),
+            width=MODAL_WIDTH,
+            height=MODAL_HEIGHT
+        )
+        message_box.on_action = self.on_delete_savegame
+        self.add(message_box)
 
     def on_enable(self, refresh_particles: bool = False):
         """ On enable settings """

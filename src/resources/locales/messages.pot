@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-03-18 16:56+0100\n"
+"POT-Creation-Date: 2025-03-22 16:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,27 +37,27 @@ msgstr ""
 msgid "A restart is required to apply some settings."
 msgstr ""
 
-#: app/helpers/localization.py:23
+#: app/helpers/localization.py:25
 msgid "On"
 msgstr ""
 
-#: app/helpers/localization.py:25 app/views/ui/settings/video.py:86
+#: app/helpers/localization.py:27 app/views/ui/settings/video.py:70
 msgid "Off"
 msgstr ""
 
-#: app/views/mainmenu.py:99
+#: app/views/mainmenu.py:100
 msgid "Press SPACE key to start"
 msgstr ""
 
-#: app/views/mainmenu.py:102
+#: app/views/mainmenu.py:103
 msgid "Press START button to start"
 msgstr ""
 
-#: app/views/mainmenu.py:121
+#: app/views/mainmenu.py:122
 msgid "Loading..."
 msgstr ""
 
-#: app/views/mainmenu.py:130
+#: app/views/mainmenu.py:131
 msgid "Version"
 msgstr ""
 
@@ -83,10 +83,12 @@ msgstr ""
 
 #: app/views/pausemenu.py:124 app/views/pausemenu.py:132
 #: app/views/pausemenu.py:150 app/views/pausemenu.py:158
+#: app/views/ui/settings/settings.py:97 app/views/ui/settings/settings.py:106
 msgid "Yes"
 msgstr ""
 
 #: app/views/pausemenu.py:124 app/views/pausemenu.py:150
+#: app/views/ui/settings/settings.py:106
 msgid "No"
 msgstr ""
 
@@ -98,89 +100,97 @@ msgstr ""
 msgid "To be continued"
 msgstr ""
 
-#: app/views/ui/settings/General.py:37
-msgid "Gamepad Vibration"
-msgstr ""
-
-#: app/views/ui/settings/General.py:41 app/views/ui/settings/audio.py:44
-#: app/views/ui/settings/language.py:37 app/views/ui/settings/settings.py:32
-#: app/views/ui/settings/video.py:44
+#: app/views/ui/settings/audio.py:26 app/views/ui/settings/general.py:36
+#: app/views/ui/settings/language.py:31 app/views/ui/settings/settings.py:25
+#: app/views/ui/settings/video.py:31
 msgid "Back"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:48
+#: app/views/ui/settings/audio.py:30
 msgid "Master volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:56
+#: app/views/ui/settings/audio.py:38
 msgid "Sound volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:64
+#: app/views/ui/settings/audio.py:46
 msgid "Speech volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:72
+#: app/views/ui/settings/audio.py:54
 msgid "Music volume"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:80
+#: app/views/ui/settings/audio.py:62
 msgid "Size of subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:90
+#: app/views/ui/settings/audio.py:72
 msgid "Subtitles"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:102
+#: app/views/ui/settings/audio.py:84
 msgid "Auto detect"
 msgstr ""
 
-#: app/views/ui/settings/audio.py:105
+#: app/views/ui/settings/audio.py:87
 msgid "Audio driver"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:35
+#: app/views/ui/settings/general.py:32
+msgid "Gamepad Vibration"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:28
 msgid "Video"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:38
+#: app/views/ui/settings/settings.py:31
 msgid "Audio"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:42
+#: app/views/ui/settings/settings.py:34
 msgid "Game"
 msgstr ""
 
-#: app/views/ui/settings/settings.py:45
+#: app/views/ui/settings/settings.py:37
 msgid "Language"
 msgstr ""
 
-#: app/views/ui/settings/video.py:49
+#: app/views/ui/settings/settings.py:40
+msgid "Delete Savegame"
+msgstr ""
+
+#: app/views/ui/settings/settings.py:105
+msgid "Do you really want to delete the savegame?"
+msgstr ""
+
+#: app/views/ui/settings/video.py:36
 msgid "Fullscreen"
 msgstr ""
 
-#: app/views/ui/settings/video.py:61
+#: app/views/ui/settings/video.py:45
 msgid "V-Sync"
 msgstr ""
 
-#: app/views/ui/settings/video.py:70
+#: app/views/ui/settings/video.py:54
 msgid "Unlimited"
 msgstr ""
 
-#: app/views/ui/settings/video.py:73
+#: app/views/ui/settings/video.py:57
 msgid "FPS Limit"
 msgstr ""
 
-#: app/views/ui/settings/video.py:78
+#: app/views/ui/settings/video.py:62
 msgid "Show FPS"
 msgstr ""
 
-#: app/views/ui/settings/video.py:92
+#: app/views/ui/settings/video.py:76
 msgid "Anti-aliasing"
 msgstr ""
 
-#: app/views/ui/settings/video.py:97
+#: app/views/ui/settings/video.py:81
 msgid "Particles amount"
 msgstr ""
 

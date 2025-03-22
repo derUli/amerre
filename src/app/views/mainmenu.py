@@ -7,7 +7,7 @@ import arcade
 import arcade.gui
 
 from app.constants.fonts import FONT_DEFAULT
-from app.constants.gameinfo import VERSION_STRING, MAPS
+from app.constants.gameinfo import VERSION_STRING
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
@@ -374,7 +374,7 @@ class MainMenu(View):
     def on_change_settings(
             self,
             state: SettingsState = None,
-            refresh_particles=False
+            refresh_particles: bool = False
     ) -> None:
         """ On change settings """
         if state:

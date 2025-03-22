@@ -17,7 +17,7 @@ class SettingsUi(arcade.gui.UIManager):
         self._old_state = None
         self._on_close = None
         self._on_change = None
-        self._in_game = False
+        self._from_main_menu = False
 
     def setup(self, on_close: callable, on_change: callable) -> None:
         """ Setup settings UI"""
@@ -34,9 +34,9 @@ class SettingsUi(arcade.gui.UIManager):
         self.clear()
 
     @property
-    def in_game(self) -> bool:
-        return self._in_game
+    def from_main_menu(self) -> bool:
+        return self._from_main_menu
 
-    @in_game.setter
-    def in_game(self, value: bool) -> None:
-        self._in_game = value
+    @from_main_menu.setter
+    def from_main_menu(self, value: bool) -> None:
+        self._from_main_menu = value
