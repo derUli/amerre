@@ -4,7 +4,36 @@
 
 "Welcome to Amerre" is an abstract narration based platforming game in development.
 This version features the first of four planned chapters.
-The game requires at least a GPU with OpenGL 3.2 support to run.
+
+## Languages
+
+On the first start the game sets the language based on the locale
+of the operating system.
+However, the language can be changed in the game's settings.
+The game is currently available in these languages:
+
+* English
+* German
+
+## Hardware requirements
+
+The lowest hardware I target is my laptop, which has these specs:
+
+OS: Windows 11
+CPU: Pentium Gold ...
+RAM: 8 GB
+GPU: Intel UHD Graphics
+
+This laptop can run the game in its native 900P screen resolution at 60 FPS.
+
+My main machine where I develop the game on has these specs:
+
+OS: Windows 11
+CPU: Intel Core i7-10700F
+RAM: 32 GB
+GPU: NVIDIA Quadro T400 4GB
+
+This machine can run the game in 1080P @ 120 FPS.
 
 ## Controls
 
