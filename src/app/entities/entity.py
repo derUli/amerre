@@ -1,7 +1,7 @@
 """ Entity base class """
-import logging
 
 import arcade.sprite
+
 
 class Entity:
     """ Entity base class """
@@ -58,3 +58,38 @@ class Entity:
         """ On refresh """
 
         return
+
+    @property
+    def alpha(self) -> int:
+        """ Get alpha """
+
+        return self._sprite.alpha
+
+    @alpha.setter
+    def alpha(self, value: int) -> None:
+        """ Set alpha """
+
+        self._sprite.alpha = value
+
+    @property
+    def angle(self) -> float:
+        """ Get angle """
+
+        return self._sprite.angle
+
+    @angle.setter
+    def angle(self, value: float) -> None:
+        """ Set angle """
+
+        self._sprite.angle = value
+
+    @property
+    def change_x(self) -> float:
+        """ Get change_x """
+        return self._sprite.change_x
+
+    @change_x.setter
+    def change_x(self, value: float) -> None:
+        """ Set change_x """
+
+        self._sprite.change_x = value

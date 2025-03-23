@@ -5,7 +5,7 @@ import os
 
 import jsonpickle
 
-from app.constants.gameinfo import DEFAULT_ENCODING
+from app.constants.gameinfo import DEFAULT_ENCODING, BASE_HEIGHT, BASE_WIDTH
 from app.constants.settings import (
     SETTINGS_DEFAULT_SHOW_FPS, \
     SETTINGS_DEFAULT_VSYNC, \
@@ -28,7 +28,7 @@ from app.helpers.localization import default_language
 from app.helpers.paths import settings_path
 from app.utils.audiovolumes import AudioVolumes
 
-VERSION = 2
+VERSION = 3
 
 
 class SettingsState:
@@ -64,8 +64,11 @@ class SettingsState:
         self._language = default_language()
         self._rumble = SETTINGS_DEFAULT_RUMBLE
 
-        # Other
+        # Debugging stuff
         self._debug = SETTINGS_DEFAULT_DEBUG
+        self._base_width = BASE_WIDTH
+        self._base_height = BASE_HEIGHT
+        self._skip_slowmo = False
 
     @staticmethod
     def exists() -> bool:
@@ -289,4 +292,41 @@ class SettingsState:
     @rumble.setter
     def rumble(self, value: bool) -> None:
         """ Set rumble """
+
         self._rumble = value
+
+    @property
+    def base_width(self) -> int:
+        """ Get base width """
+
+        return self._base_width
+
+    @base_width.setter
+    def base_width(self, value: int) -> None:
+        """ Set base width """
+
+        self._base_width = value
+
+    @property
+    def base_height(self) -> int:
+        """ Get base height """
+
+        return self._base_height
+
+    @base_height.setter
+    def base_height(self, value: int) -> None:
+        """ Set base height """
+
+        self._base_height = value
+
+    @property
+    def skip_slowmo(self) -> bool:
+        """ Get skip_slowmo """
+
+        return self._skip_slowmo
+
+    @skip_slowmo.setter
+    def skip_slowmo(self, value: bool) -> None:
+        """ Set skip_slowmo """
+
+        self._skip_slowmo = value

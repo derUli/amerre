@@ -9,7 +9,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import BASE_HEIGHT, BASE_WIDTH, DEFAULT_ENCODING
+from app.constants.gameinfo import DEFAULT_ENCODING
 from app.constants.layers import (
     LAYER_WALL,
     LAYER_FADEOUT, LAYER_PLAYER
@@ -25,15 +25,16 @@ from app.constants.player import (
 from app.containers.callbacks import Callbacks
 from app.effects.effect_manager import EffectManager
 from app.entities.player import Player
+from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
-GRAVITY_SLOWMO = 0.0005
+GRAVITY_SLOWMO = 0.0003
 GRAVITY_DEFAULT = 0.8
 
-ALPHA_SPEED = 2
+ALPHA_SPEED = 1
 ALPHA_MAX = 255
 
 LIGHT_LAUNCHING_RUMBLE = 100
@@ -63,26 +64,30 @@ class Level:
         self._effect_manager = None
         self._rumble = 0
         self._player = None
+        self._state = None
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
 
         self._root_dir = root_dir
+        self._state = SettingsState().load()
 
         self.load_tilemap(
             os.path.join(root_dir, 'resources', 'maps', f"{map_name}.tmx"))
-        config = self.load_config()
+        self.load_config()
 
         h = arcade.get_window().height
 
-        zoom = h / BASE_HEIGHT
+        zoom = h / self._state.base_height
         self._camera = arcade.camera.Camera2D(zoom=zoom)
+        self.scroll_to_player()
 
         self._camera_gui = arcade.camera.Camera2D()
 
         self.setup_physics_engine()
         self.wait_for_begin()
 
+        config = self.load_config()
         map_config = {}
 
         if map_name in config:
@@ -119,7 +124,6 @@ class Level:
             callbacks=callbacks,
             tilemap=self._tilemap
         )
-        self.scroll_to_player()
 
         self._effect_manager = EffectManager()
         self._effect_manager.setup(
@@ -132,11 +136,16 @@ class Level:
     def setup_physics_engine(self):
         """ Setup physics engine """
 
+        gravity = GRAVITY_SLOWMO
+
+        if self._state.skip_slowmo:
+            gravity = GRAVITY_DEFAULT
+
         self._physics_engine = arcade.PhysicsEnginePlatformer(
             self._player.sprite,
             ladders=None,
             walls=self._scene[LAYER_WALL],
-            gravity_constant=GRAVITY_SLOWMO
+            gravity_constant=gravity,
         )
 
         self._player.setup_physics_engine(self._physics_engine)
@@ -153,7 +162,7 @@ class Level:
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
-        self._player.sprite.alpha = 0
+        self._player.alpha = 0
 
     def on_update(self, delta_time: float) -> None:
         """ On update"""
@@ -194,7 +203,7 @@ class Level:
         else:
             self.move_stop()
 
-        self._player.sprite.alpha = min(self._player.sprite.alpha + ALPHA_SPEED, 255)
+        self._player.alpha = min(self._player.alpha + ALPHA_SPEED, 255)
 
         self.check_collision_lights(window.root_dir, window.audio_volumes)
         self.update_fade()
@@ -210,8 +219,11 @@ class Level:
     def scroll_to_player(self, camera_speed: float = 1.0) -> None:
         """ Scroll the window to the player. """
 
+        x, y = self._player.position
+        y = max(y, self._state.base_height / 2)
+
         self._camera.position = arcade.math.lerp_2d(
-            self._camera.position, self._player.position, camera_speed
+            self._camera.position, (x, y), camera_speed
         )
 
     def draw(self) -> None:
@@ -239,11 +251,11 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self._player.sprite.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
-        self._player.sprite.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.change_x = -PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.angle -= PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self._player.sprite.angle <= 0:
-            self._player.sprite.angle = 360 - abs(self._player.sprite.angle)
+        if self._player.angle <= 0:
+            self._player.angle = 360 - abs(self._player.angle)
 
     def move_right(self, delta_time: float, sprint: bool = False):
         """ Move right """
@@ -259,11 +271,11 @@ class Level:
         if self._voiceover_triggers.playing:
             modifier = MODIFIER_SPEECH
 
-        self._player.sprite.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
-        self._player.sprite.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
+        self._player.change_x = PLAYER_MOVE_SPEED * modifier * delta_time
+        self._player.angle += PLAYER_MOVE_ANGLE * modifier * delta_time
 
-        if self._player.sprite.angle > 360:
-            self._player.sprite.angle = self._player.sprite.angle - 360
+        if self._player.angle > 360:
+            self._player.angle = self._player.angle - 360
 
     def move_stop(self):
         """ Stop walking """
@@ -271,7 +283,7 @@ class Level:
         if not self._can_walk:
             return
 
-        self._player.sprite.change_x = 0
+        self._player.change_x = 0
 
     def jump(self):
         """ Do jump """
@@ -353,16 +365,16 @@ class Level:
             self._voiceover_triggers.media,
         ]
 
-        state = SettingsState.load()
+        self._state = SettingsState.load()
 
         if self._music:
-            self._music.volume = state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
+            self._music.volume = self._state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
 
         if self._atmo:
-            self._atmo.volume = state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
+            self._atmo.volume = self._state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
 
         if self._voiceover_triggers.media:
-            self._voiceover_triggers.media.volume = state.audio_volumes.volume_speech_normalized
+            self._voiceover_triggers.media.volume = self._state.audio_volumes.volume_speech_normalized
 
         # Start sound playback
         for sound in sounds:
@@ -375,10 +387,16 @@ class Level:
     def on_level_completed(self) -> None:
         """ Called when a level is completed """
 
-        w, h = BASE_WIDTH, BASE_HEIGHT
+        savegame_state = SavegameState.load()
+        savegame_state.next_level()
+        savegame_state.save()
 
         # Add fade sprite to scene
-        sprite = arcade.sprite.SpriteSolidColor(width=w, height=h, color=WHITE)
+        sprite = arcade.sprite.SpriteSolidColor(
+            width=self._state.base_width,
+            height=self._state.base_height,
+            color=WHITE
+        )
 
         # It is initially hidden
         # On next update it will change to visible
@@ -410,13 +428,21 @@ class Level:
 
             if sprite.alpha >= ALPHA_MAX:
                 self.unsetup()
-                view = ToBeContinued()
-                view.setup(self._root_dir)
 
-                arcade.get_window().show_view(view)
+                current_level = SavegameState.load().current_level
+                if current_level is not None:
+                    self.setup(
+                        root_dir=self._root_dir,
+                        map_name=current_level,
+                        audio_volumes=self._state.audio_volumes
+                    )
+                else:
+                    view = ToBeContinued()
+                    view.setup(self._root_dir)
+                    arcade.get_window().show_view(view)
 
-    def load_config(self) -> None:
-        """ Load config """
+    def load_config(self) -> dict:
+        """ Load map config """
 
         path = os.path.join(self._root_dir, 'resources', 'maps', 'maps.json')
         with open(path, mode='r', encoding=DEFAULT_ENCODING) as file:

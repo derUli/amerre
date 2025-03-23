@@ -7,7 +7,7 @@ import arcade
 import arcade.gui
 
 from app.constants.fonts import FONT_DEFAULT
-from app.constants.gameinfo import VERSION_STRING, MAPS
+from app.constants.gameinfo import VERSION_STRING
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
@@ -15,8 +15,10 @@ from app.constants.ui import MARGIN, FADE_SPEED, FADE_MAX
 from app.containers.effect_data import EffectData
 from app.effects.filmgrain import Filmgrain
 from app.effects.menu_particles import MenuParticles
+from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.views.game import Game
+from app.views.tobecontinued import ToBeContinued
 from app.views.ui.settings.settings import Settings
 from app.views.view import View
 
@@ -220,9 +222,23 @@ class MainMenu(View):
 
         self._music.pause()
 
+        save_game_state = SavegameState.load()
+
+        if not SavegameState.exists():
+            save_game_state.save()
+
+        if save_game_state.current_level is None:
+
+            view = ToBeContinued()
+            view.setup(self._root_dir)
+            self.window.show_view(view)
+            return
+
         view = Game()
         view.setup(self._root_dir)
-        view.setup_level(MAPS[0])
+
+
+        view.setup_level(save_game_state.current_level)
 
         self.window.show_view(view)
 
@@ -334,12 +350,17 @@ class MainMenu(View):
     def on_start_game(self) -> None:
         """ On start new game """
 
+        color = BACKGROUND_COLOR
+
+        if SavegameState.load().current_level is None:
+            color =  arcade.csscolor.WHITE
+
         self.window.set_mouse_visible(False)
 
         self._fade_sprite = arcade.sprite.SpriteSolidColor(
             width=self.window.width,
             height=self.window.height,
-            color=BACKGROUND_COLOR
+            color=color
         )
         self._fade_sprite.center_x = self.window.width / 2
         self._fade_sprite.center_y = self.window.height / 2
@@ -361,12 +382,13 @@ class MainMenu(View):
         self._manager = Settings()
         self._manager.setup(on_close=self.on_close_settings,
                             on_change=self.on_change_settings)
+        self._manager.in_game = True
         self._manager.enable()
 
     def on_change_settings(
             self,
             state: SettingsState = None,
-            refresh_particles=False
+            refresh_particles: bool = False
     ) -> None:
         """ On change settings """
         if state:

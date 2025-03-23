@@ -9,7 +9,7 @@ import sys
 import arcade
 import pyglet
 
-from app.constants.gameinfo import VERSION_STRING
+from app.constants.gameinfo import VERSION_STRING, BASE_HEIGHT, BASE_WIDTH
 from app.constants.settings import (UPDATE_RATE, FIXED_RATE)
 from app.gamewindow import GameWindow
 from app.helpers.string import label_value
@@ -75,9 +75,12 @@ class Startup:
 
         self.setup_locale(state.language)
 
+        state.base_width = BASE_WIDTH
+        state.base_height = BASE_HEIGHT
+        state.skip_slowmo = args.skip_slowmo
+
         # Create settings state on first launch
-        if not state.exists():
-            state.save()
+        state.save()
 
         samples = state.antialiasing
         antialiasing = samples > 0
@@ -144,6 +147,28 @@ class Startup:
             action='store_true',
             default=False,
             help='Don\'t show intro'
+        )
+
+        parser.add_argument(
+            '--base-width',
+            action='store',
+            type=int,
+            default=BASE_WIDTH,
+            help='The base width'
+        )
+
+        parser.add_argument(
+            '--base-height',
+            action='store',
+            type=int,
+            default=BASE_HEIGHT,
+            help='The base height'
+        )
+
+        parser.add_argument(
+            '--skip-slowmo',
+            action='store_true',
+            default=False
         )
 
         return parser.parse_args()

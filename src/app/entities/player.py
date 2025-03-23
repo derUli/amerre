@@ -25,12 +25,15 @@ class Player(Entity):
         self._can_jump_before = None
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
+        """ Set up the player entity """
+
         super().setup(sprite, root_dir)
 
         self.setup_sounds()
         self._state = SettingsState.load()
 
-    def setup_sounds(self):
+    def setup_sounds(self) -> None:
+        """ Set up the sounds"""
         fx_dir = os.path.join(self._root_dir, 'resources', 'sounds', 'fx')
 
         self._sounds = {
