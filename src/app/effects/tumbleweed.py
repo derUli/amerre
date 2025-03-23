@@ -3,7 +3,6 @@ import random
 
 from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
-from app.state.settingsstate import SettingsState
 
 MOVE_SPEED = 1000
 MOVE_ANGLE = 500
@@ -31,7 +30,7 @@ class Tumbleweed(Effect):
         if not 'initialized' in self._data.options:
             for sprite in sprites:
                 sprite.visible = False
-                self._data.options['initialized'] = False
+                self._data.options['initialized'] = True
             return
 
         for sprite in sprites:

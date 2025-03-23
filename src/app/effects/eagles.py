@@ -35,7 +35,7 @@ class Eagle:
         for animation in self.animations:
             animation.position = position
 
-            animation.scale = random.choice([0.4, 0.6, 0.8, 1.0])
+            animation.scale = 0.5
             animation.visible = False
             data.scene.add_sprite(LAYER_EAGLE, animation)
 
