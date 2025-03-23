@@ -1,6 +1,9 @@
 """ Eagles clouds """
 import os
 import random
+
+import arcade
+
 from app.constants.layers import LAYER_EAGLE
 from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
@@ -9,7 +12,7 @@ from app.helpers.sprite import load_animated_gif
 FACE_LEFT = 0
 FACE_RIGHT = 1
 
-MOVE_SPEED = 300
+MOVE_SPEED = 100
 
 class Eagle:
     def __init__(self, sprite):
@@ -31,8 +34,12 @@ class Eagle:
 
         for animation in self.animations:
             animation.position = position
+
+            animation.scale = random.choice([0.4, 0.6, 0.8, 1.0])
             animation.visible = False
             data.scene.add_sprite(LAYER_EAGLE, animation)
+
+
 
         # Remove  initial sprite
         self._sprite.remove_from_sprite_lists()
@@ -93,7 +100,13 @@ class Eagles(Effect):
                 else:
                     eagle.face = FACE_RIGHT
 
-                eagle.move_x = random.randint(300, 2000)
+                eagle.move_x = random.randint(1000, 5000)
+
+                if eagle.center_x < 0:
+                    eagle.face = FACE_RIGHT
+                if eagle.center_x > self._data.tilemap.width * self._data.tilemap.tile_width:
+                    eagle.face = FACE_LEFT
+
                 break
 
             if eagle.face == FACE_RIGHT:

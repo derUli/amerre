@@ -20,7 +20,6 @@ class Tumbleweed(Effect):
         super().setup(data)
 
         self._data.options['delta'] = 0
-        self._data.options['particles'] = SettingsState.load().particles
 
     def on_update(self, delta_time: float):
         """ Update animation"""
@@ -53,29 +52,7 @@ class Tumbleweed(Effect):
 
         self._data.options['delta'] = 0
 
-        visible = list(filter(lambda s: s.visible, sprites))
-        max_count = max(2, int(len(sprites) * self._data.options['particles']))
-
-        if len(visible) >= max_count:
-            return
-
         if random.randint(1, 10) == 1:
             sprite = random.choice(list(not_visible))
             sprite.visible = True
             sprite.left = self._data.tilemap.width * self._data.tilemap.tile_width
-
-    def refresh(self) -> None:
-        self._data.options['particles'] = SettingsState.load().particles
-
-        sprites = self._data.scene[LAYER_NAME]
-
-        visible = list(filter(lambda s: s.visible, sprites))
-        max_count = max(2, int(len(sprites) * self._data.options['particles']))
-
-        if len(visible) < max_count:
-            return
-
-        remove_count = len(visible) - max_count
-
-        for sprite in visible[remove_count:]:
-            sprite.visible = False

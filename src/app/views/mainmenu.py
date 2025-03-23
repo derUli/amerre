@@ -380,9 +380,9 @@ class MainMenu(View):
         self._scene[SCENE_LAYER_TEXT].visible = False
         self._scene[SCENE_LAYER_ICON].visible = False
         self._manager = Settings()
+        self._manager.from_main_menu = True
         self._manager.setup(on_close=self.on_close_settings,
                             on_change=self.on_change_settings)
-        self._manager.in_game = True
         self._manager.enable()
 
     def on_change_settings(

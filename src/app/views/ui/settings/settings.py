@@ -47,8 +47,7 @@ class Settings(SettingsUi):
             btn_general,
             btn_language
         ]
-
-        if not self.from_main_menu and SavegameState.exists():
+        if self.from_main_menu and SavegameState.exists():
             widgets += [btn_delete_savegame]
 
         self.add(make_ui_anchor_layout([make_vertical_ui_box_layout(widgets)]))
