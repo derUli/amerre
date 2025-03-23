@@ -29,16 +29,21 @@ class SavegameState:
 
     @property
     def current_level(self):
+        """ Get the name of the current level """
+
         try:
             return MAPS[self._current_level]
         except IndexError:
             return None
 
-    def next_level(self):
+    def next_level(self) -> bool:
+        """ Increase the level index"""
+
         if not self.current_level:
             return False
 
         self._current_level += 1
+        return True
 
     @staticmethod
     def load():
@@ -85,7 +90,6 @@ class SavegameState:
 
         with open(savegame_path(), 'w', encoding=DEFAULT_ENCODING) as f:
             f.write(jsonpickle.encode(self, unpicklable=True))
-
 
     @property
     def version(self) -> int:
