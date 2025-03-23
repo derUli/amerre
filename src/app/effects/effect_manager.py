@@ -5,6 +5,7 @@ import arcade.scene
 from app.containers.effect_data import EffectData
 from app.effects.bushes import Bushes
 from app.effects.cloudanimation import CloudAnimation
+from app.effects.eagles import Eagles
 from app.effects.filmgrain import Filmgrain
 from app.effects.particles import Particles
 from app.effects.tumbleweed import Tumbleweed
@@ -49,6 +50,7 @@ class EffectManager:
         animations += [
             CloudAnimation(),
             Bushes(),
+            Eagles(),
             self._vhs,
             Filmgrain()
         ]
