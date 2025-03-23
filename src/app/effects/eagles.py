@@ -2,8 +2,6 @@
 import os
 import random
 
-import arcade
-
 from app.constants.layers import LAYER_EAGLE
 from app.containers.effect_data import EffectData
 from app.effects.effect import Effect
@@ -14,6 +12,7 @@ FACE_RIGHT = 1
 
 MOVE_SPEED = 100
 
+
 class Eagle:
     def __init__(self, sprite):
         self._sprite = sprite
@@ -21,11 +20,19 @@ class Eagle:
         self._face = FACE_LEFT
         self.move_x = 0
 
-
     def setup(self, data: EffectData):
-        path = os.path.join(data.root_dir, 'resources', 'images', 'sprites', 'eagle', 'flying', 'animation.gif')
-        position = self._sprite.position
+        """ Set up the eagle animations """
 
+        path = os.path.join(
+            data.root_dir,
+            'resources',
+            'images',
+            'sprites',
+            'eagle',
+            'flying',
+            'animation.gif'
+        )
+        position = self._sprite.position
 
         self.animations = [
             load_animated_gif(path),
@@ -38,8 +45,6 @@ class Eagle:
             animation.scale = 0.5
             animation.visible = False
             data.scene.add_sprite(LAYER_EAGLE, animation)
-
-
 
         # Remove  initial sprite
         self._sprite.remove_from_sprite_lists()
@@ -69,6 +74,7 @@ class Eagle:
 
         self.animations[self._face].visible = True
 
+
 class Eagles(Effect):
     """ Eagles clouds """
 
@@ -82,12 +88,10 @@ class Eagles(Effect):
         except KeyError:
             eagles = []
 
-
         eagles = list(map(Eagle, eagles))
         list(map(lambda eagle: eagle.setup(data), eagles))
 
         self._data.options['eagles'] = eagles
-
 
     def on_update(self, delta_time: float):
         """ Update animation"""
@@ -118,4 +122,3 @@ class Eagles(Effect):
                 move = MOVE_SPEED * delta_time
                 eagle.move_x -= move
                 eagle.center_x -= move
-
