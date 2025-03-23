@@ -228,7 +228,6 @@ class MainMenu(View):
             save_game_state.save()
 
         if save_game_state.current_level is None:
-
             view = ToBeContinued()
             view.setup(self._root_dir)
             self.window.show_view(view)
@@ -236,7 +235,6 @@ class MainMenu(View):
 
         view = Game()
         view.setup(self._root_dir)
-
 
         view.setup_level(save_game_state.current_level)
 
@@ -353,7 +351,7 @@ class MainMenu(View):
         color = BACKGROUND_COLOR
 
         if SavegameState.load().current_level is None:
-            color =  arcade.csscolor.WHITE
+            color = arcade.csscolor.WHITE
 
         self.window.set_mouse_visible(False)
 
