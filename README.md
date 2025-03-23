@@ -39,10 +39,11 @@ This machine can run the game in 1080P @ 120 FPS.
 
 ### Keyboard
 
-Move Left: Left arrow or A
-Move Right: Left arrow or D
+Move left: Left arrow or A
+Move right: Left arrow or D
 Jump: Space
 Pause game: ESC
+Make screenshot: F12
 
 ### Controller
 
@@ -53,8 +54,8 @@ Other controllers should work but are untested because I don't own them.
 The controller support in the actual gameplay is complete,
 but you might have to use a mouse for the menus.
 
-Move Left: Left stick
-Move Right: Right stick
+Move left: Left stick
+Move right: Right stick
 Jump: A
-Pause Game: Start
+Pause game: Start
 
