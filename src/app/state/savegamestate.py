@@ -1,4 +1,5 @@
 """ Savegame state """
+
 import logging
 import os
 
@@ -11,6 +12,8 @@ VERSION = 1
 
 
 class SavegameState:
+    """ Savegame state """
+
     def __init__(self):
         self._version = VERSION
         self._current_level = 0
