@@ -1,4 +1,4 @@
-""" XBOX 360 Controller Mapping """
+""" XBOX Controller Mapping """
 
 KEY_START = 'start'
 KEY_BACK = 'back'

@@ -16,3 +16,4 @@ KEY_JUMP = [arcade.key.SPACE]
 KEY_SPRINT = [arcade.key.LSHIFT, arcade.key.RSHIFT]
 
 KEY_SKIP_LEVEL = [arcade.key.F1]
+KEY_UNLOCK_DOUBLE_JUMP = [arcade.key.F2]

@@ -16,7 +16,7 @@ from app.constants.input.keyboard import (
     KEY_JUMP,
     KEY_SPRINT,
     KEY_ESCAPE,
-    KEY_SKIP_LEVEL
+    KEY_SKIP_LEVEL, KEY_UNLOCK_DOUBLE_JUMP
 )
 from app.helpers.dev import is_frozen
 from app.state.settingsstate import SettingsState
@@ -104,6 +104,9 @@ class Game(View):
 
         if symbol in KEY_SKIP_LEVEL and not is_frozen():
             self._level.on_level_completed()
+
+        if symbol in KEY_UNLOCK_DOUBLE_JUMP and not is_frozen():
+            self._level.on_unlock_double_jump()
 
     def on_key_release(self, _symbol: int, _modifiers: int):
         """ On key release"""

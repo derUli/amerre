@@ -406,6 +406,9 @@ class Level:
         self._scene.add_sprite(LAYER_FADEOUT, sprite)
         self.update_fade()
 
+    def on_unlock_double_jump(self):
+        self._physics_engine.enable_multi_jump(allowed_jumps=2)
+
     def update_fade(self) -> None:
         """ Update fade """
 
