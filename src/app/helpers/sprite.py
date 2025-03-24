@@ -1,3 +1,5 @@
+""" Sprite utils """
+
 import PIL.Image
 from PIL import ImageOps
 from arcade import TextureAnimationSprite, TextureKeyframe, TextureAnimation
