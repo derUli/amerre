@@ -35,8 +35,12 @@ class SettingsUi(arcade.gui.UIManager):
 
     @property
     def from_main_menu(self) -> bool:
+        """ Get from_main_menu """
+
         return self._from_main_menu
 
     @from_main_menu.setter
     def from_main_menu(self, value: bool) -> None:
+        """ Set from_main_menu """
+
         self._from_main_menu = value
