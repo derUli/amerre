@@ -24,16 +24,12 @@ CPU: Pentium Gold ...
 RAM: 8 GB
 GPU: Intel UHD Graphics
 
-This laptop can run the game in its native 900P screen resolution at 60 FPS.
-
 My main machine where I develop the game on has these specs:
 
 OS: Windows 11
 CPU: Intel Core i7-10700F
 RAM: 32 GB
 GPU: NVIDIA Quadro T400 4GB
-
-This machine can run the game in 1080P @ 120 FPS.
 
 ## Controls
 

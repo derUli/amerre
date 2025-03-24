@@ -14,6 +14,8 @@ MOVE_SPEED = 100
 
 
 class Eagle:
+    """ Represents an animated eagle """
+
     def __init__(self, sprite):
         self._sprite = sprite
         self.animations = []
@@ -54,24 +56,34 @@ class Eagle:
 
     @property
     def center_x(self) -> float:
+        """ Get center_x """
+
         return self.animations[0].center_x
 
     @center_x.setter
     def center_x(self, value: float) -> None:
+        """ Set center_x """
+
         for animation in self.animations:
             animation.center_x = value
 
     @property
     def face(self) -> int:
+        """ Get face """
+
         return self._face
 
     @face.setter
     def face(self, value: int) -> None:
+        """ Set face """
+
         self._face = value
 
+        # Hide all animations
         for animation in self.animations:
             animation.visible = False
 
+        # Show the selected animation
         self.animations[self._face].visible = True
 
 
