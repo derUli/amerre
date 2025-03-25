@@ -28,6 +28,7 @@ from app.entities.player import Player
 from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
+from app.utils.camera import Camera
 from app.utils.voiceovertriggers import VoiceOverTiggers
 from app.views.tobecontinued import ToBeContinued
 
@@ -79,7 +80,7 @@ class Level:
         h = arcade.get_window().height
 
         zoom = h / self._state.base_height
-        self._camera = arcade.camera.Camera2D(zoom=zoom)
+        self._camera = Camera(zoom=zoom)
         self.scroll_to_player()
 
         self._camera_gui = arcade.camera.Camera2D()
