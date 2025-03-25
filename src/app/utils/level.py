@@ -81,7 +81,8 @@ class Level:
 
         zoom = h / self._state.base_height
         self._camera = Camera(zoom=zoom)
-        self.scroll_to_player()
+        self._camera.setup(player=self._player.sprite)
+        self._camera.center_player()
 
         self._camera_gui = arcade.camera.Camera2D()
 
@@ -180,7 +181,7 @@ class Level:
 
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
-        self.scroll_to_player()
+        self._camera.center_player()
 
         # Respawn on level start if the player falls through the map
         self._player.on_update(delta_time=delta_time)
@@ -216,16 +217,6 @@ class Level:
 
         if self._music and not self._music.playing:
             self._music.delete()
-
-    def scroll_to_player(self, camera_speed: float = 1.0) -> None:
-        """ Scroll the window to the player. """
-
-        x, y = self._player.position
-        y = max(y, self._state.base_height / 2)
-
-        self._camera.position = arcade.math.lerp_2d(
-            self._camera.position, (x, y), camera_speed
-        )
 
     def draw(self) -> None:
         """ Draw level """

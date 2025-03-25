@@ -1,8 +1,11 @@
+import arcade
 from arcade import Rect, Window
 from arcade.camera import Camera2D
 from arcade.camera.data_types import DEFAULT_NEAR_ORTHO, DEFAULT_FAR
 from arcade.gl import Framebuffer
 from arcade.types import Point2
+
+from app.state.settingsstate import SettingsState
 
 # Max offset
 MAX_OFFSET_X = 100
@@ -37,8 +40,27 @@ class Camera(Camera2D):
             window=window
         )
 
+        self._state = None
         self._offset_x = 0
         self._offset_y = 0
+        self._player = None
+        self._camera_speed = 1.0
+
+    def setup(self, player):
+        self._state = SettingsState().load()
+        self._player = player
 
     def offset_move_right(self):
         self._offset_x = min(MAX_OFFSET_X, self._offset_x)
+
+    def center_player(self) -> None:
+        x, y = self._player.position
+
+        x += self._offset_x
+        y += self._offset_y
+
+        y = max(y, self._state.base_height / 2)
+
+        self.position = arcade.math.lerp_2d(
+            self.position, (x, y), self._camera_speed
+        )
