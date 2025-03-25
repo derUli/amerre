@@ -82,7 +82,7 @@ class Level:
         zoom = h / self._state.base_height
         self._camera = Camera(zoom=zoom)
         self._camera.setup(player=self._player.sprite)
-        self._camera.center_player()
+        self._camera.on_update(0)
 
         self._camera_gui = arcade.camera.Camera2D()
 
@@ -181,7 +181,7 @@ class Level:
 
         self._scene.update(delta_time)
         self._scene.update_animation(delta_time)
-        self._camera.center_player()
+        self._camera.on_update(delta_time)
 
         # Respawn on level start if the player falls through the map
         self._player.on_update(delta_time=delta_time)
@@ -191,6 +191,7 @@ class Level:
             delta_time: float,
             window,
             move_horizontal: int = None,
+            camera_movement: tuple = (0, 0),
             jump: bool = False,
             sprint: bool = False
     ) -> None:
@@ -204,6 +205,8 @@ class Level:
             self.move_left(delta_time, sprint)
         else:
             self.move_stop()
+
+        self._camera.camera_movement = camera_movement
 
         self._player.alpha = min(self._player.alpha + ALPHA_SPEED, 255)
 

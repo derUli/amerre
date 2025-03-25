@@ -8,7 +8,7 @@ from app.constants.input.controllers import (
     AXIS_RIGHT,
     AXIS_LEFT,
     LEFT_TRIGGER,
-    KEY_START
+    KEY_START, RIGHTSTICK
 )
 from app.constants.input.keyboard import (
     KEY_LEFT,
@@ -37,6 +37,7 @@ class Game(View):
         self._jump = False
         self._sprint = False
         self._state = None
+        self._camera_movement = None
 
     def setup(self, root_dir: str):
         """ Setup game"""
@@ -47,6 +48,8 @@ class Game(View):
         self._level = Level()
         self.window.set_mouse_visible(False)
         self._state = SettingsState().load()
+
+        self._camera_movement = (0, 0)
 
     def setup_level(self, map_name: str):
         """ Setup level """
@@ -67,6 +70,7 @@ class Game(View):
             delta_time=delta_time,
             window=self.window,
             move_horizontal=self._move_horizontal,
+            camera_movement=self._camera_movement,
             jump=self._jump,
             sprint=self._sprint
         )
@@ -132,6 +136,16 @@ class Game(View):
                 self._move_horizontal = FACE_LEFT
             else:
                 self._move_horizontal = None
+
+        if self._move_horizontal:
+            self._camera_movement = (0, 0)
+            return
+
+        if stick == RIGHTSTICK:
+            x, y = value
+            x, y = round(x), round(y)
+            self._camera_movement = (x, y)
+
 
     def on_trigger_motion(self, joystick, trigger: str, value: float):
         """ On trigger motion """
