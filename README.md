@@ -50,8 +50,8 @@ Other controllers should work but are untested because I don't own them.
 The controller support in the actual gameplay is complete,
 but you might have to use a mouse for the menus.
 
-Move left: Left stick
-Move right: Right stick
+Move character: Left stick
+Move camera: Right stick
 Jump: A
 Pause game: Start
 
