@@ -1,3 +1,5 @@
+""" Player camera """
+
 import arcade
 from arcade import Rect, Window
 from arcade.camera import Camera2D
@@ -13,6 +15,8 @@ OFFSET_SPEED = 300
 
 
 class Camera(Camera2D):
+    """ Player camera """
+
     def __init__(
             self,
             viewport: Rect | None = None,
@@ -27,6 +31,8 @@ class Camera(Camera2D):
             render_target: Framebuffer | None = None,
             window: Window | None = None,
     ):
+        """ Constructor """
+
         super().__init__(
             viewport,
             position,
