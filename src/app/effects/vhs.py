@@ -1,6 +1,7 @@
 """ VHS effect """
 
 import os
+import random
 
 import arcade
 
@@ -82,5 +83,8 @@ class Vhs(Effect):
     @enabled.setter
     def enabled(self, value: bool) -> None:
         """ Set enabled state"""
+
+        if value and not self._enabled:
+            self._vhs.angle = random.choice([0, 180])
 
         self._enabled = value
