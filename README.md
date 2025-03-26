@@ -35,8 +35,8 @@ GPU: NVIDIA Quadro T400 4GB
 
 ### Keyboard
 
-Move left: Left arrow or A
-Move right: Left arrow or D
+Move left: Left arrow or A 
+Move right: Right arrow or D
 Jump: Space
 Pause game: ESC
 Make screenshot: F12
@@ -50,8 +50,8 @@ Other controllers should work but are untested because I don't own them.
 The controller support in the actual gameplay is complete,
 but you might have to use a mouse for the menus.
 
-Move character: Left stick
-Move camera: Right stick
+Move left: Left stick 
+Move right: Left stick
 Jump: A
 Pause game: Start
 
