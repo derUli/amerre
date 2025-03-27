@@ -9,7 +9,7 @@ LAYER_PARTICLES = 'Particles'
 LAYER_FIRST_VOICEOVER = 'FirstVoiceOver'
 LAYER_RANDOM_VOICEOVER = 'RandomVoiceOver'
 LAYER_FADEOUT = 'fadeout'
-
+LAYER_FADEIN = 'fadein'
 LAYER_EAGLE = 'Eagle'
 
 LAYERS_VOICEOVER = [

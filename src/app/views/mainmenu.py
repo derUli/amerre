@@ -7,7 +7,7 @@ import arcade
 import arcade.gui
 
 from app.constants.fonts import FONT_DEFAULT
-from app.constants.gameinfo import VERSION_STRING
+from app.constants.gameinfo import VERSION_STRING, MAPS
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
@@ -97,6 +97,8 @@ class MainMenu(View):
 
     def setup_text(self):
         """ Setup text """
+        if SCENE_LAYER_TEXT in self._scene:
+            self._scene[SCENE_LAYER_TEXT].clear()
 
         text = _('Press SPACE key to start')
 
@@ -119,10 +121,17 @@ class MainMenu(View):
         )
         self._scene.add_sprite(SCENE_LAYER_TEXT, self._text_title)
 
+
+        color = arcade.csscolor.BLACK
+
+        if SavegameState.load().current_level == MAPS[0]:
+            color = arcade.csscolor.WHITE
+
         self._text_load = arcade.create_text_sprite(
             text=_('Loading...'),
             font_name=FONT_DEFAULT,
-            font_size=FONT_SIZE
+            font_size=FONT_SIZE,
+            color=color
         )
 
         self._text_load.visible = False
@@ -348,10 +357,11 @@ class MainMenu(View):
     def on_start_game(self) -> None:
         """ On start new game """
 
-        color = BACKGROUND_COLOR
+        self.setup_text()
+        color = arcade.csscolor.WHITE
 
-        if SavegameState.load().current_level is None:
-            color = arcade.csscolor.WHITE
+        if SavegameState.load().current_level == MAPS[0]:
+            color = BACKGROUND_COLOR
 
         self.window.set_mouse_visible(False)
 

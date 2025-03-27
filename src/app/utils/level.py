@@ -9,10 +9,10 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import DEFAULT_ENCODING
+from app.constants.gameinfo import DEFAULT_ENCODING, MAPS
 from app.constants.layers import (
     LAYER_WALL,
-    LAYER_FADEOUT, LAYER_PLAYER
+    LAYER_FADEOUT, LAYER_PLAYER, LAYER_FADEIN
 )
 from app.constants.player import (
     PLAYER_MOVE_SPEED,
@@ -44,7 +44,7 @@ VOLUME_MUSIC_MODIFIER = 0.2
 VOLUME_ATMO_MODIFIER = 0.1
 
 WHITE = arcade.csscolor.WHITE
-
+BLUE = (58, 158, 236, 255)
 
 class Level:
     """ Level """
@@ -66,10 +66,12 @@ class Level:
         self._rumble = 0
         self._player = None
         self._state = None
+        self._first_drawed = False
 
     def setup(self, root_dir: str, map_name: str, audio_volumes: AudioVolumes):
         """ Setup level """
 
+        self._first_drawed = False
         self._root_dir = root_dir
         self._state = SettingsState().load()
 
@@ -134,6 +136,26 @@ class Level:
             self._tilemap,
             root_dir
         )
+        color = WHITE
+
+        # If the level is the first
+        if map_name == MAPS[0]:
+            color = BLUE
+
+        # Add fade sprite to scene
+        sprite = arcade.sprite.SpriteSolidColor(
+            width=self._state.base_width,
+            height=self._state.base_height,
+            color=color
+        )
+
+        camera_x, camera_y = self._camera.position
+
+        sprite.alpha = 255
+        sprite.center_x = camera_x
+        sprite.center_y = camera_y
+
+        self._scene.add_sprite(LAYER_FADEIN, sprite)
 
     def setup_physics_engine(self):
         """ Setup physics engine """
@@ -164,7 +186,6 @@ class Level:
 
         time_end = time.time() - time_start
         logging.info(f"Scene loaded in f{time_end} seconds")
-        self._player.alpha = 0
 
     def on_update(self, delta_time: float) -> None:
         """ On update"""
@@ -208,10 +229,7 @@ class Level:
 
         self._camera.camera_movement = camera_movement
 
-        self._player.alpha = min(self._player.alpha + ALPHA_SPEED, 255)
-
         self.check_collision_lights(window.root_dir, window.audio_volumes)
-        self.update_fade()
         self._effect_manager.on_fixed_update(delta_time)
 
         self._voiceover_triggers.on_update()
@@ -221,9 +239,12 @@ class Level:
         if self._music and not self._music.playing:
             self._music.delete()
 
+        self.update_fade()
+
     def draw(self) -> None:
         """ Draw level """
 
+        self._first_drawed = True
         self._camera.use()
         self._scene.draw()
 
@@ -409,6 +430,19 @@ class Level:
     def update_fade(self) -> None:
         """ Update fade """
 
+        camera_x, camera_y = self._camera.position
+
+        if LAYER_FADEIN in self._scene:
+            sprite = self._scene[LAYER_FADEIN][0]
+            sprite.center_x = camera_x
+            sprite.center_y = camera_y
+
+            sprite.alpha = max(0, sprite.alpha - ALPHA_SPEED)
+
+            if sprite.alpha <= 0:
+                self._scene.remove_sprite_list_by_name(LAYER_FADEIN)
+            return
+
         if LAYER_FADEOUT not in self._scene:
             return
 
@@ -416,8 +450,6 @@ class Level:
             return
 
         sprite = self._scene[LAYER_FADEOUT][0]
-
-        camera_x, camera_y = self._camera.position
 
         sprite.center_x = camera_x
         sprite.center_y = camera_y
