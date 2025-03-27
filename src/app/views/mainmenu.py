@@ -56,7 +56,6 @@ class MainMenu(View):
         self._last_hover = None
 
         self._sound_hover = None
-
         self._effects = []
 
     def setup(self, root_dir: str):
@@ -70,15 +69,9 @@ class MainMenu(View):
         arcade.set_background_color(BACKGROUND_COLOR)
         self.window.set_mouse_visible(not any(self.window.controllers))
 
-        # Text
-        self.setup_text()
-        self.setup_icons(root_dir)
-
         # Play music
         self.setup_music(root_dir)
         self.setup_sounds(root_dir)
-
-        self.on_update(0)
 
         self._effects = [
             MenuParticles(),
@@ -93,6 +86,11 @@ class MainMenu(View):
         for effect in self._effects:
             effect.setup(data)
 
+        # Text
+        self.setup_text()
+        self.setup_icons(root_dir)
+
+        self.on_update(0)
         return self
 
     def setup_text(self):
@@ -179,8 +177,10 @@ class MainMenu(View):
             os.path.join(root_dir, 'resources', 'music', 'DeepSpace.mp3'),
             streaming=True
         )
-        self._music = music.play(loop=True,
-                                 volume=self.window.audio_volumes.volume_music_normalized)
+        self._music = music.play(
+            loop=True,
+            volume=self.window.audio_volumes.volume_music_normalized
+        )
 
     def setup_sounds(self, root_dir: str):
         """ Setup sounds """
@@ -301,11 +301,10 @@ class MainMenu(View):
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int) -> None:
         """ Handle mouse movement """
 
-        if self._fade_sprite or self._manager:
-            self._last_hover = None
-            return
-
         self.window.set_mouse_visible(True)
+
+        if self._manager:
+            return
 
         if self._last_hover:
             if not self._last_hover.collides_with_point((x, y)):
@@ -319,11 +318,12 @@ class MainMenu(View):
             self._icon_exit,
             self._icon_settings
         ]
+
         for sprite in sprites:
             if sprite.collides_with_point((x, y)):
                 self._sound_hover.play(
-                    volume=self.window.audio_volumes.volume_sound_normalized)
-
+                    volume=self.window.audio_volumes.volume_sound_normalized
+                )
                 self._last_hover = sprite
                 self._last_hover.scale = 1.03
                 break
