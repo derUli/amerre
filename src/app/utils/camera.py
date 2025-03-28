@@ -53,7 +53,9 @@ class Camera(Camera2D):
         self._camera_speed = 1.0
         self._camera_movement = (0, 0)
 
-    def setup(self, player):
+    def setup(self, player: arcade.sprite.Sprite) -> None:
+        """ Set up the camera """
+
         self._state = SettingsState().load()
         self._player = player
 
@@ -101,14 +103,16 @@ class Camera(Camera2D):
             self._offset_y = 0
 
     def on_update(self, delta_time: float) -> None:
+        """ On update """
 
         self.change_offset(delta_time)
 
         x, y = self._player.position
-
         x += self._offset_x
         y += self._offset_y
 
+
+        x = max(x, self._state.base_width / 2)
         y = max(y, self._state.base_height / 2)
 
         self.position = arcade.math.lerp_2d(
