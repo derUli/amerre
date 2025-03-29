@@ -72,6 +72,8 @@ class Camera(Camera2D):
         self._camera_movement = value
 
     def change_offset(self, delta_time: float):
+        """ Change offset based on camera movement """
+
         x, y = self._camera_movement
 
         no_movement = x == 0 and y == 0
@@ -114,7 +116,6 @@ class Camera(Camera2D):
         x, y = self._player.position
         x += self._offset_x
         y += self._offset_y
-
 
         x = max(x, self._state.base_width / 2)
         y = max(y, self._state.base_height / 2)

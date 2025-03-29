@@ -146,7 +146,6 @@ class Game(View):
             x, y = round(x), round(y)
             self._camera_movement = (x, y)
 
-
     def on_trigger_motion(self, joystick, trigger: str, value: float):
         """ On trigger motion """
 

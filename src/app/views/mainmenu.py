@@ -119,7 +119,6 @@ class MainMenu(View):
         )
         self._scene.add_sprite(SCENE_LAYER_TEXT, self._text_title)
 
-
         color = arcade.csscolor.BLACK
 
         if SavegameState.load().current_level == MAPS_FIRST:
