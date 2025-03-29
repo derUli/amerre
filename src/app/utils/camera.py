@@ -61,10 +61,14 @@ class Camera(Camera2D):
 
     @property
     def camera_movement(self) -> tuple:
+        """ Get camera movement """
+
         return self._camera_movement
 
     @camera_movement.setter
     def camera_movement(self, value: tuple) -> None:
+        """ Set camera movement """
+
         self._camera_movement = value
 
     def change_offset(self, delta_time: float):

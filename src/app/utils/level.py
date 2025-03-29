@@ -9,7 +9,7 @@ import arcade
 import pyglet
 from arcade import FACE_RIGHT, FACE_LEFT
 
-from app.constants.gameinfo import DEFAULT_ENCODING, MAPS
+from app.constants.gameinfo import DEFAULT_ENCODING, MAPS_FIRST
 from app.constants.layers import (
     LAYER_WALL,
     LAYER_FADEOUT, LAYER_PLAYER, LAYER_FADEIN
@@ -45,6 +45,7 @@ VOLUME_ATMO_MODIFIER = 0.1
 
 WHITE = arcade.csscolor.WHITE
 BLUE = (58, 158, 236, 255)
+
 
 class Level:
     """ Level """
@@ -139,7 +140,7 @@ class Level:
         color = WHITE
 
         # If the level is the first
-        if map_name == MAPS[0]:
+        if map_name == MAPS_FIRST:
             color = BLUE
 
         # Add fade sprite to scene
@@ -384,13 +385,21 @@ class Level:
         self._state = SettingsState.load()
 
         if self._music:
-            self._music.volume = self._state.audio_volumes.volume_music_normalized * VOLUME_MUSIC_MODIFIER
+            self._music.volume = (
+                    self._state.audio_volumes.volume_music_normalized *
+                    VOLUME_MUSIC_MODIFIER
+            )
 
         if self._atmo:
-            self._atmo.volume = self._state.audio_volumes.volume_sound_normalized * VOLUME_ATMO_MODIFIER
+            self._atmo.volume = (
+                    self._state.audio_volumes.volume_sound_normalized *
+                    VOLUME_ATMO_MODIFIER
+            )
 
         if self._voiceover_triggers.media:
-            self._voiceover_triggers.media.volume = self._state.audio_volumes.volume_speech_normalized
+            self._voiceover_triggers.media.volume = (
+                self._state.audio_volumes.volume_speech_normalized
+            )
 
         # Start sound playback
         for sound in sounds:

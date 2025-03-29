@@ -7,7 +7,7 @@ import arcade
 import arcade.gui
 
 from app.constants.fonts import FONT_DEFAULT
-from app.constants.gameinfo import VERSION_STRING, MAPS
+from app.constants.gameinfo import VERSION_STRING, MAPS_FIRST
 from app.constants.input.controllers import KEY_START, KEY_BACK
 from app.constants.input.keyboard import KEY_ESCAPE, KEY_CONFIRM
 from app.constants.input.mouse import BUTTON_LEFT_CLICK
@@ -122,7 +122,7 @@ class MainMenu(View):
 
         color = arcade.csscolor.BLACK
 
-        if SavegameState.load().current_level == MAPS[0]:
+        if SavegameState.load().current_level == MAPS_FIRST:
             color = arcade.csscolor.WHITE
 
         self._text_load = arcade.create_text_sprite(
@@ -360,7 +360,7 @@ class MainMenu(View):
         self.setup_text()
         color = arcade.csscolor.WHITE
 
-        if SavegameState.load().current_level == MAPS[0]:
+        if SavegameState.load().current_level == MAPS_FIRST:
             color = BACKGROUND_COLOR
 
         self.window.set_mouse_visible(False)
