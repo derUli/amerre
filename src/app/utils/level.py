@@ -12,7 +12,7 @@ from arcade import FACE_RIGHT, FACE_LEFT
 from app.constants.gameinfo import DEFAULT_ENCODING, MAPS_FIRST
 from app.constants.layers import (
     LAYER_WALL,
-    LAYER_FADEOUT, LAYER_PLAYER, LAYER_FADEIN
+    LAYER_FADEOUT, LAYER_PLAYER, LAYER_FADEIN, LAYER_DOUBLEJUMP
 )
 from app.constants.player import (
     PLAYER_MOVE_SPEED,
@@ -29,7 +29,8 @@ from app.state.savegamestate import SavegameState
 from app.state.settingsstate import SettingsState
 from app.utils.audiovolumes import AudioVolumes
 from app.utils.camera import Camera
-from app.utils.voiceovertriggers import VoiceOverTiggers
+from app.utils.voiceovertriggers import VoiceOverTiggers, \
+    LIGHT_COLLISION_CHECK_THRESHOLD
 from app.views.tobecontinued import ToBeContinued
 
 GRAVITY_SLOWMO = 0.0003
@@ -46,6 +47,7 @@ VOLUME_ATMO_MODIFIER = 0.1
 WHITE = arcade.csscolor.WHITE
 BLUE = (58, 158, 236, 255)
 
+VOLUME_MODIFIER_ABILITY_LEARN = 0.2
 
 class Level:
     """ Level """
@@ -192,6 +194,7 @@ class Level:
         """ On update"""
 
         self._voiceover_triggers.update_collision_light(delta_time)
+        self.check_powerup()
         self._effect_manager.vhs.enabled = self._voiceover_triggers.media is not None
         self._effect_manager.on_update(delta_time)
 
@@ -241,6 +244,26 @@ class Level:
             self._music.delete()
 
         self.update_fade()
+
+    def check_powerup(self):
+
+        # TODO: Move this into a separate class
+        if not LAYER_DOUBLEJUMP in self._scene:
+            return
+
+        for sprite in self._scene[LAYER_DOUBLEJUMP]:
+            if arcade.get_distance_between_sprites(self._player.sprite, sprite) < LIGHT_COLLISION_CHECK_THRESHOLD:
+                sprite.remove_from_sprite_lists()
+                self._player.jump_count += 1
+                self._physics_engine.enable_multi_jump(self._player.jump_count)
+                file = os.path.join(self._root_dir, 'resources', 'sounds', 'fx', 'ability_learn.mp3')
+                sound = arcade.load_sound(file, streaming=True)
+                sound.play(
+                    volume=self._state.audio_volumes.volume_sound_normalized * VOLUME_MODIFIER_ABILITY_LEARN
+                )
+                return
+
+
 
     def draw(self) -> None:
         """ Draw level """

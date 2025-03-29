@@ -21,8 +21,8 @@ class Player(Entity):
         self._physics_engine = None
         self._state = None
         self._sounds = {}
-
         self._can_jump_before = None
+        self._jump_count = 1
 
     def setup(self, sprite: arcade.sprite.Sprite, root_dir) -> None:
         """ Set up the player entity """
@@ -97,3 +97,12 @@ class Player(Entity):
         """ Refresh player """
 
         self._state = SettingsState.load()
+
+    @property
+    def jump_count(self) -> int:
+        return self._jump_count
+
+    @jump_count.setter
+    def jump_count(self, value: int) -> None:
+        self._jump_count = value
+
