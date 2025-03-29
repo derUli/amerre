@@ -105,4 +105,3 @@ class Player(Entity):
     @jump_count.setter
     def jump_count(self, value: int) -> None:
         self._jump_count = value
-

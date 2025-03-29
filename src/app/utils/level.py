@@ -49,6 +49,7 @@ BLUE = (58, 158, 236, 255)
 
 VOLUME_MODIFIER_ABILITY_LEARN = 0.2
 
+
 class Level:
     """ Level """
 
@@ -194,7 +195,6 @@ class Level:
         """ On update"""
 
         self._voiceover_triggers.update_collision_light(delta_time)
-        self.check_powerup()
         self._effect_manager.vhs.enabled = self._voiceover_triggers.media is not None
         self._effect_manager.on_update(delta_time)
 
@@ -233,7 +233,9 @@ class Level:
 
         self._camera.camera_movement = camera_movement
 
-        self.check_collision_lights(window.root_dir, window.audio_volumes)
+        self.check_collisions()
+        self.check_powerup()
+
         self._effect_manager.on_fixed_update(delta_time)
 
         self._voiceover_triggers.on_update()
@@ -252,18 +254,24 @@ class Level:
             return
 
         for sprite in self._scene[LAYER_DOUBLEJUMP]:
-            if arcade.get_distance_between_sprites(self._player.sprite, sprite) < LIGHT_COLLISION_CHECK_THRESHOLD:
+            if arcade.get_distance_between_sprites(self._player.sprite,
+                                                   sprite) < LIGHT_COLLISION_CHECK_THRESHOLD:
                 sprite.remove_from_sprite_lists()
                 self._player.jump_count += 1
                 self._physics_engine.enable_multi_jump(self._player.jump_count)
-                file = os.path.join(self._root_dir, 'resources', 'sounds', 'fx', 'ability_learn.mp3')
+                file = os.path.join(
+                    self._root_dir,
+                    'resources',
+                    'sounds',
+                    'fx',
+                    'ability_learn.mp3'
+                )
+                
                 sound = arcade.load_sound(file, streaming=True)
                 sound.play(
                     volume=self._state.audio_volumes.volume_sound_normalized * VOLUME_MODIFIER_ABILITY_LEARN
                 )
                 return
-
-
 
     def draw(self) -> None:
         """ Draw level """
@@ -353,21 +361,20 @@ class Level:
 
         pyglet.clock.schedule_once(self.wait_for_begin, 1 / 4)
 
-    def check_collision_lights(self, root_dir: str, volumes: AudioVolumes):
-        """ Check for collisions with lights """
+    def check_collisions(self):
+        """ Check for collisions """
 
-        found = self._voiceover_triggers.check_for_collision(
-            self._player.sprite,
-            self._scene,
-            root_dir,
-            volumes,
-            self._music,
-        )
+        # Check for collisions with Power Ups
+        self.check_powerup()
 
-        if not found:
-            return
-
-        self._rumble = LIGHT_LAUNCHING_RUMBLE
+        if self._voiceover_triggers.check_for_collision(
+                self._player.sprite,
+                self._scene,
+                self._root_dir,
+                self._state.audio_volumes,
+                self._music,
+        ):
+            self._rumble = LIGHT_LAUNCHING_RUMBLE
 
     def unsetup(self):
         """ On exit stop and delete sounds """
