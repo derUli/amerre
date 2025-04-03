@@ -1,4 +1,4 @@
-arcade==3.0.2
+arcade
 pylint
 pyglet
 psutil
