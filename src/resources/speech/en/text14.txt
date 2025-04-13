@@ -1,0 +1,3 @@
+00.00 The jeep's engine failed!
+02.41 Damn!
+03.88 The gasoline is empty!
