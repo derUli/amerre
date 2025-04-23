@@ -7,6 +7,7 @@ userpaths
 Babel
 duty
 optimize-images
+pyogg
 cx-Freeze
 python-stopwatch
 jsonpickle
