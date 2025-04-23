@@ -52,7 +52,7 @@ class EffectManager:
             Bushes(),
             Eagles(),
             self._vhs,
-            Filmgrain()
+            # Filmgrain()
         ]
         self._animations = animations
 
